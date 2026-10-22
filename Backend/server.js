@@ -3,11 +3,12 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
-
+import AuthRouther from "./routes/Auth.js";
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/auth",AuthRouther)
 
 app.get("/", (req, res) => {
   res.json({
