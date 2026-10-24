@@ -269,37 +269,46 @@ export async function declineInvitation(req, res) {
             return res.status(404).json({ message: "invitation not found" })
         }
         const user = await User.findById(req.userId);
-        if(!user){
-            return res.status(404).json ({message: "user not found "})
+        if (!user) {
+            return res.status(404).json({ message: "user not found " })
         }
         if (user.email !== invitation.email) {
             return res.status(403).json({
                 message: "Forbidden"
             });
         }
-        if(invitation.status !== "pending"){
-            return res.status(409).json ({message:"invitation is no longer pending" })
+        if (invitation.status !== "pending") {
+            return res.status(409).json({ message: "invitation is no longer pending" })
         }
-        if(invitation.expiresAt <= new Date()){
-            return res.status(410).json ({message:"invitation expired"})
+        if (invitation.expiresAt <= new Date()) {
+            return res.status(410).json({ message: "invitation expired" })
         }
-         const updatedInvite =
-                await BandInvitation.findOneAndUpdate(
-                    {
-                        _id: invitation._id,
-                        status: "pending",
-                        expiresAt: { $gt: new Date() }
-                    },
-                    {
-                        $set: {
-                            status: "declined"
-                        }
-                    },
-                    {
-                        session,
-                        returnDocument: "after"
+        const updatedInvite =
+            await BandInvitation.findOneAndUpdate(
+                {
+                    _id: invitation._id,
+                    status: "pending",
+                    expiresAt: { $gt: new Date() }
+                },
+                {
+                    $set: {
+                        status: "declined"
                     }
-                );
+                },
+                {
+
+                    returnDocument: "after"
+                }
+            );
+        if (!updatedInvite) {
+            return res.status(409).json({
+                message: "Invitation is no longer valid"
+            });
+        }
+        return res.status(200).json({
+            message: "Invitation declined successfully",
+            invitation: updatedInvite
+        });
 
     } catch (error) {
         return res.status(500).json({

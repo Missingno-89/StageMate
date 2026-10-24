@@ -12,4 +12,5 @@ BandRouther.get("/my",authenticate,getMyBands)
 BandRouther.get("/:id",authenticate,getBandById)
 BandRouther.patch("/:id",authenticate,updateBand)
 BandRouther.post("/:id/invitations",authenticate, createInvitation)
+
 export default BandRouther
