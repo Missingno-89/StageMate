@@ -3,14 +3,16 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
-import AuthRouther from "./routes/Auth.js";
+import AuthRouther from "./routes/auth.js";
 import BandRouther from "./routes/Band.js";
+import invitationRouter from "./routes/invitations.js";
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/auth",AuthRouther)
 app.use("/bands",BandRouther)
+app.use("/invitations",invitationRouter)
 
 app.get("/", (req, res) => {
   res.json({
