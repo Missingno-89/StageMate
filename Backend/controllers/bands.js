@@ -81,21 +81,92 @@ export async function updateBand(req, res) {
         if (!band) {
             return res.status(404).json({ message: "band not found" })
         }
-        if(band.owner.toString()!==req.userId){
-              return res.status(403).json({ message: "Only the band owner can edit this band" })
+        if (band.owner.toString() !== req.userId) {
+            return res.status(403).json({ message: "Only the band owner can edit this band" })
         }
         const { description } = req.body;
-        if(typeof description !== "string" || description.length > 255){
-            return res.status(400).json ({message:"invalid description"})
+        if (typeof description !== "string" || description.length > 255) {
+            return res.status(400).json({ message: "invalid description" })
         }
         band.description = description;
         await band.save()
-        return res.status(200).json ({message:"Description updated",band});
+        return res.status(200).json({ message: "Description updated", band });
 
     } catch (error) {
-         return res.status(500).json({
+        return res.status(500).json({
             message: "Internal server error"
 
-    })
-}
+        })
+    }
+};
+
+export async function getBandMembers(req, res) {
+    try {
+        const id = req.params.id
+        if (!mongoose.Types.ObjectId.isValid(id))
+            return res.status(400).json({ message: "Invalid band id" })
+        const band = await Band.findById(id)
+        if (!band) {
+            return res.status(404).json({ message: "band not found" })
+        }
+
+        const isMember = band.members.some(
+            member => member.toString() === req.userId
+        );
+
+        if (!isMember) {
+            return res.status(403).json({ message: "forbidden" })
+        }
+        const populateBand = await Band.findById(id).populate("members", "name surname email")
+        return res.status(200).json(populateBand.members)
+
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error"
+
+        })
+    }
+};
+
+export async function removeBandMember(req, res) {
+    try {
+        const bandId = req.params.id
+        const userToDelete = req.params.userId
+        if (!mongoose.Types.ObjectId.isValid(bandId) || !mongoose.Types.ObjectId.isValid(userToDelete))
+            return res.status(400).json({ message: "Invalid id" })
+        const band = await Band.findById(bandId)
+        if (!band) {
+            return res.status(404).json({ message: "band not found" })
+        }
+        const userId = req.userId
+        const userOwner = band.owner
+        if (userId !== userOwner.toString()) {
+            return res.status(403).json({ message: "forbidden " })
+        }
+        if (userToDelete === userOwner.toString()) {
+            return res.status(400).json({ message: "a band need a owner " })
+        }
+        const isMember = band.members.some(
+            member => member.toString() === userToDelete
+        );
+
+        if (!isMember) {
+            return res.status(404).json({ message: "user not found" })
+        }
+
+        await Band.findByIdAndUpdate(bandId,
+            { 
+                $pull: {members :userToDelete
+            }}
+        )
+        return res.status(200).json({message: "member deleted"})
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Internal server error"
+
+        })
+
+    }
 }
