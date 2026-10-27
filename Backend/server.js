@@ -8,6 +8,7 @@ import BandRouther from "./routes/Band.js";
 import invitationRouter from "./routes/invitations.js";
 import eventRouter from "./routes/events.js";
 import postRouter from "./routes/post.js";
+import attendanceRouter from "./routes/attendance.js";
 const app = express();
 
 app.use(cors());
@@ -17,6 +18,7 @@ app.use("/bands",BandRouther)
 app.use("/invitations",invitationRouter)
 app.use("/",eventRouter)
 app.use("/",postRouter)
+app.use("/",attendanceRouter)
 app.get("/", (req, res) => {
   res.json({
     message: "Benvenuto nelle API di StageMate!"
