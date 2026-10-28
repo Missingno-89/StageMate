@@ -4,6 +4,7 @@ import Band from "../models/Band.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
 import Notification from "../models/Notification.js";
+import { sendEmail } from "../services/emailService.js";
 
 // CREA UN INVITO
 export async function createInvitation(req, res) {
@@ -93,6 +94,19 @@ export async function createInvitation(req, res) {
                 message: `Hai ricevuto un invito a entrare nella band ${band.name}`
             });
         }
+        const subject = `Invito a entrare nella band ${band.name}`;
+
+        const html = `
+    <h1>Hai ricevuto un invito su StageMate!</h1>
+    <p>Sei stato invitato a entrare nella band ${band.name}.</p>
+    <p>Accedi a StageMate per accettare o rifiutare l'invito.</p>
+`;
+        try {
+            await sendEmail(normalizedEmail, subject, html);
+        } catch (emailError) {
+            console.error("Errore invio email:", emailError.message);
+        }
+
 
         return res.status(201).json({
             message: "Invitation created successfully",

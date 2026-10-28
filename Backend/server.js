@@ -10,22 +10,25 @@ import eventRouter from "./routes/events.js";
 import postRouter from "./routes/post.js";
 import attendanceRouter from "./routes/attendance.js";
 import notificationsRouter from "./routes/notifications.js";
+
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/auth",AuthRouther)
-app.use("/bands",BandRouther)
-app.use("/invitations",invitationRouter)
-app.use("/",eventRouter)
-app.use("/",postRouter)
-app.use("/",attendanceRouter)
-app.use("/notifications",notificationsRouter)
+app.use("/auth", AuthRouther)
+app.use("/bands", BandRouther)
+app.use("/invitations", invitationRouter)
+app.use("/", eventRouter)
+app.use("/", postRouter)
+app.use("/", attendanceRouter)
+app.use("/notifications", notificationsRouter)
 app.get("/", (req, res) => {
   res.json({
     message: "Benvenuto nelle API di StageMate!"
   });
 });
+
 
 const PORT = process.env.PORT || 9097;
 

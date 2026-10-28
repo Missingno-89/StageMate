@@ -40,6 +40,15 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     },
+    resetPasswordToken:{
+      type: String,
+      select: false
+
+    },
+    resetPasswordExpires:{
+   type: Date,
+      select: false
+    },
     
 },
  {
