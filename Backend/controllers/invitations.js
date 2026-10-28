@@ -3,6 +3,7 @@ import BandInvitation from "../models/BandInvitation.js";
 import Band from "../models/Band.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
+import Notification from "../models/Notification.js";
 
 // CREA UN INVITO
 export async function createInvitation(req, res) {
@@ -83,6 +84,15 @@ export async function createInvitation(req, res) {
             invitedBy: req.userId,
             expiresAt
         });
+        if (invitedUser) {
+            await Notification.create({
+                userId: invitedUser._id,
+                bandId: band._id,
+                type: "band_invitation",
+                referenceId: newInvitation._id,
+                message: `Hai ricevuto un invito a entrare nella band ${band.name}`
+            });
+        }
 
         return res.status(201).json({
             message: "Invitation created successfully",
@@ -241,7 +251,20 @@ export async function acceptInvitation(req, res) {
                 error.statusCode = 404;
                 throw error;
             }
+            await Notification.create(
+                [
+                    {
+                        userId: band.owner,
+                        bandId: band._id,
+                        type: "invitation_accepted",
+                        referenceId: invitation._id,
+                        message: `${user.name} ha accettato l'invito a entrare nella band ${band.name}`
+                    }
+                ],
+                { session }
+            );
         });
+
 
         // Risposta solo dopo il completamento della transazione
         return res.status(200).json({
@@ -258,33 +281,63 @@ export async function acceptInvitation(req, res) {
 
 export async function declineInvitation(req, res) {
     try {
-        const id = req.params.id
+        const id = req.params.id;
+
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({
                 message: "Invalid invitation id"
             });
         }
+
         const invitation = await BandInvitation.findById(id);
+
         if (!invitation) {
-            return res.status(404).json({ message: "invitation not found" })
+            return res.status(404).json({
+                message: "Invitation not found"
+            });
         }
+
+        const band = await Band.findById(invitation.band);
+
+        if (!band) {
+            return res.status(404).json({
+                message: "Band not found"
+            });
+        }
+
         const user = await User.findById(req.userId);
+
         if (!user) {
-            return res.status(404).json({ message: "user not found " })
+            return res.status(404).json({
+                message: "User not found"
+            });
         }
+
         if (user.email !== invitation.email) {
             return res.status(403).json({
                 message: "Forbidden"
             });
         }
+
         if (invitation.status !== "pending") {
-            return res.status(409).json({ message: "invitation is no longer pending" })
+            return res.status(409).json({
+                message: "Invitation is no longer pending"
+            });
         }
+
         if (invitation.expiresAt <= new Date()) {
-            return res.status(410).json({ message: "invitation expired" })
+            return res.status(410).json({
+                message: "Invitation expired"
+            });
         }
-        const updatedInvite =
-            await BandInvitation.findOneAndUpdate(
+
+        let updatedInvite;
+
+        // TRANSAZIONE MONGODB
+        await mongoose.connection.transaction(async (session) => {
+
+            // 1. Aggiorna lo stato dell'invito
+            updatedInvite = await BandInvitation.findOneAndUpdate(
                 {
                     _id: invitation._id,
                     status: "pending",
@@ -296,22 +349,44 @@ export async function declineInvitation(req, res) {
                     }
                 },
                 {
-
+                    session,
                     returnDocument: "after"
                 }
             );
-        if (!updatedInvite) {
-            return res.status(409).json({
-                message: "Invitation is no longer valid"
-            });
-        }
+
+            // 2. Verifica che l'aggiornamento sia riuscito
+            if (!updatedInvite) {
+                const error = new Error(
+                    "Invitation is no longer valid"
+                );
+                error.statusCode = 409;
+                throw error;
+            }
+
+            // 3. Crea la notifica per il proprietario della band
+            await Notification.create(
+                [
+                    {
+                        userId: band.owner,
+                        bandId: band._id,
+                        type: "invitation_declined",
+                        referenceId: invitation._id,
+                        message: `${user.name} ha rifiutato l'invito a entrare nella band ${band.name}`
+                    }
+                ],
+                { session }
+            );
+
+        });
+
+        // Risposta solo dopo il completamento della transazione
         return res.status(200).json({
             message: "Invitation declined successfully",
             invitation: updatedInvite
         });
 
     } catch (error) {
-        return res.status(500).json({
+        return res.status(error.statusCode || 500).json({
             message: error.message
         });
     }
