@@ -10,9 +10,8 @@ const userSchema = new mongoose.Schema({
   },
   surname: {
     type: String,
-    required: true,
-    minlength: 1,
-    maxlength: 255
+    maxlength: 255,
+    default: ""
   },
   email: {
     type: String,
@@ -22,7 +21,7 @@ const userSchema = new mongoose.Schema({
     maxlength: 255,
     lowercase: true,
     trim: true
-    
+
   },
   password: {
     type: String,
@@ -39,25 +38,25 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    },
-    resetPasswordToken:{
-      type: String,
-      select: false
+  },
+  resetPasswordToken: {
+    type: String,
+    select: false
 
-    },
-    resetPasswordExpires:{
-   type: Date,
-      select: false
-    },
-    
+  },
+  resetPasswordExpires: {
+    type: Date,
+    select: false
+  },
+
 },
- {
+  {
     timestamps: {
-      createdAt: 'created_at', 
-      updatedAt: 'updated_at'  
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
     }
   }
-); 
+);
 
 const User = mongoose.model("User", userSchema);
 
