@@ -344,15 +344,24 @@ export async function updateEvent(req, res) {
 
 export async function deleteEvent(req, res) {
     try {
-        const bandId = req.params.bandId;
+        const { bandId, eventId } = req.params;
+        const authenticatedMember = req.userId;
 
+        // Verifica validità ID band
         if (!mongoose.Types.ObjectId.isValid(bandId)) {
             return res.status(400).json({
                 message: "Invalid band id"
             });
         }
 
+        // Verifica validità ID evento
+        if (!mongoose.Types.ObjectId.isValid(eventId)) {
+            return res.status(400).json({
+                message: "Invalid event id"
+            });
+        }
 
+        // Cerca la band
         const band = await Band.findById(bandId);
 
         if (!band) {
@@ -361,51 +370,42 @@ export async function deleteEvent(req, res) {
             });
         }
 
-
-        const authenticatedMember = req.userId;
+        // Verifica che l'utente sia owner oppure membro
+        const isOwner =
+            band.owner.toString() === authenticatedMember.toString();
 
         const isMember = band.members.some(
-            member => member.toString() === authenticatedMember
+            member => member.toString() === authenticatedMember.toString()
         );
 
-        if (!isMember) {
+        if (!isOwner && !isMember) {
             return res.status(403).json({
                 message: "Forbidden"
             });
         }
 
-
-        const eventId = req.params.eventId;
-
-        if (!mongoose.Types.ObjectId.isValid(eventId)) {
-            return res.status(400).json({
-                message: "Invalid event id"
-            });
-        }
-
-
-        const event = await Event.findOne({
+        // Cerca ed elimina l'evento appartenente alla band
+        const deletedEvent = await Event.findOneAndDelete({
             _id: eventId,
             bandId: bandId
         });
 
-        if (!event) {
+        if (!deletedEvent) {
             return res.status(404).json({
                 message: "Event not found"
             });
         }
 
-        const updatedEvent = await Event.findOneAndDelete(
-            {
-                _id: eventId,
-                bandId: bandId
-            })
+        // Risposta positiva
         return res.status(200).json({
             message: "Event deleted successfully"
         });
+
     } catch (error) {
+        console.error("Delete event error:", error);
+
         return res.status(500).json({
             message: "Internal server error"
-        })
+        });
     }
 }

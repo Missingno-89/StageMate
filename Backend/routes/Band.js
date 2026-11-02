@@ -4,6 +4,10 @@ import { createBand,getBandById,getBandMembers,getMyBands, removeBandMember, upd
 import { createInvitation } from "../controllers/invitations.js";
 import { createTransaction, getBalance, getTransactions } from "../controllers/transactionController.js";
 
+import { deleteBandFile, getBandFiles, uploadBandFile } from "../controllers/bandFileController.js";
+import { handleUpload } from "../middlewares/handleUpload.js";
+import { requireBandMembers } from "../middlewares/requireBandMember.js";
+
 
 
 
@@ -19,4 +23,8 @@ BandRouther.delete("/:id/members/:userId",authenticate,removeBandMember)
 BandRouther.post("/:id/transactions",authenticate, createTransaction)
 BandRouther.get("/:id/transactions",authenticate, getTransactions)
 BandRouther.get("/:id/transactions/balance", authenticate, getBalance);
+BandRouther.post("/:id/files" ,authenticate,requireBandMembers,handleUpload, uploadBandFile)
+BandRouther.get("/:id/files" ,authenticate,requireBandMembers, getBandFiles)
+BandRouther.delete("/:id/files/:fileId" ,authenticate,requireBandMembers, deleteBandFile)
+
 export default BandRouther
