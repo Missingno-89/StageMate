@@ -1,0 +1,99 @@
+.create-band-container {
+    width: 100%;
+    max-width: 480px;
+    padding: 35px;
+    border-radius: 24px;
+    background: rgba(28, 15, 45, 0.7);
+    border: 1px solid rgba(176, 38, 255, 0.3);
+    backdrop-filter: blur(16px);
+}
+
+.create-band-container h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.create-band-container textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.create-band-submit {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #8e24aa, #b026ff);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.create-band-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(176, 38, 255, 0.3);
+}
+
+.create-band-back {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    text-align: center;
+}
+.create-band-error {
+    color: #ff8a9b;
+    text-align: center;
+    font-size: 14px;
+}
+
+.create-band-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.create-band-avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.create-band-avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px dashed rgba(176, 38, 255, 0.6);
+    background: rgba(176, 38, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.create-band-avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.create-band-avatar-preview span {
+    color: #b026ff;
+    font-size: 48px;
+}
+
+.create-band-avatar-label {
+    color: #c9b8d8;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.create-band-avatar-label:hover {
+    color: #d49aff;
+}
+
+.create-band-avatar-input {
+    display: none;
+}

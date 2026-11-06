@@ -1,0 +1,28 @@
+.stagemate-button {
+    width: 100%;
+    padding: 14px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    background: linear-gradient(135deg, #c026ff, #7600c8);
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    box-shadow: 0 6px 24px rgba(176, 38, 255, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stagemate-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(176, 38, 255, 0.5);
+}
+
+.stagemate-button:active {
+    transform: translateY(0);
+}
+
+.stagemate-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 3px;
+}

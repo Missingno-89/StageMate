@@ -19,6 +19,7 @@ passport.use(
         async (req, accessToken, refreshToken, params, profile, done) => {
             try {
                 const idToken = params.id_token;
+                console.log("Google ID token presente:", Boolean(idToken));
 
                 if (!idToken) {
                     return done(null, false);
@@ -64,6 +65,7 @@ passport.use(
                 const existingUser = await User.findOne({
                     email
                 });
+                console.log("Email già registrata:", Boolean(existingUser));
 
                 if (existingUser) {
                     return done(null, false);
@@ -81,8 +83,11 @@ passport.use(
                 return done(null, newUser);
 
             } catch (error) {
+           
+                console.error("Errore GoogleStrategy:", error.message);
                 return done(error, false);
             }
         }
+        
     )
 );

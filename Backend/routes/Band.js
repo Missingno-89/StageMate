@@ -7,7 +7,8 @@ import { createTransaction, getBalance, getTransactions } from "../controllers/t
 import { deleteBandFile, getBandFiles, uploadBandFile } from "../controllers/bandFileController.js";
 import { handleUpload } from "../middlewares/handleUpload.js";
 import { requireBandMembers } from "../middlewares/requireBandMember.js";
-
+import { handleBandAvatarUpload } from "../middlewares/uploadBandAvatar.js";
+import { updateBandAvatar } from "../controllers/bands.js";
 
 
 
@@ -26,5 +27,6 @@ BandRouther.get("/:id/transactions/balance", authenticate, getBalance);
 BandRouther.post("/:id/files" ,authenticate,requireBandMembers,handleUpload, uploadBandFile)
 BandRouther.get("/:id/files" ,authenticate,requireBandMembers, getBandFiles)
 BandRouther.delete("/:id/files/:fileId" ,authenticate,requireBandMembers, deleteBandFile)
+BandRouther.patch("/:id/avatar",authenticate,handleBandAvatarUpload,updateBandAvatar);
 
 export default BandRouther

@@ -1,0 +1,146 @@
+
+/* ========================================
+   STAGEMATE - SFONDO PALCO
+======================================== */
+
+.stage-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ========================================
+   FASCI DI LUCE
+======================================== */
+
+.stage-light {
+    position: absolute;
+    top: -5%;
+    width: 38%;
+    height: 90%;
+
+    /* Luce bianca fredda */
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.32) 0%,
+        rgba(235, 242, 255, 0.18) 30%,
+        rgba(215, 230, 255, 0.07) 65%,
+        transparent 100%
+    );
+
+    /* Forma conica del fascio */
+    clip-path: polygon(
+        49% 0%,
+        51% 0%,
+        100% 100%,
+        0% 100%
+    );
+
+    /* Bordi più morbidi */
+    filter: blur(18px);
+
+    opacity: 0.65;
+    transform-origin: 50% 0%;
+
+    animation: lightMove 12s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+}
+
+/* ========================================
+   FARO SINISTRO
+======================================== */
+
+.light-left {
+    left: 5%;
+    --light-angle: -12deg;
+    animation-delay: -3s;
+}
+
+/* ========================================
+   FARO DESTRO
+======================================== */
+
+.light-right {
+    right: 5%;
+    --light-angle: 12deg;
+    animation-delay: -7s;
+}
+
+/* ========================================
+   SORGENTE LUMINOSA
+======================================== */
+
+.stage-light::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 30px;
+    height: 30px;
+
+    transform: translateX(-50%);
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 20px 8px rgba(255, 255, 255, 0.7),
+        0 0 60px 25px rgba(220, 230, 255, 0.35);
+}
+
+/* ========================================
+   ANIMAZIONE DEI FARI
+======================================== */
+
+@keyframes lightMove {
+    0% {
+        transform: rotate(calc(var(--light-angle) - 3deg));
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: rotate(calc(var(--light-angle) + 3deg));
+        opacity: 0.8;
+    }
+}
+
+/* ========================================
+   SFUMATURA VERSO IL BASSO
+======================================== */
+
+.stage-light {
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 45%,
+        rgba(0, 0, 0, 0.3) 75%,
+        transparent 100%
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 45%,
+        rgba(0, 0, 0, 0.3) 75%,
+        transparent 100%
+    );
+}
+
+/* ========================================
+   ACCESSIBILITÀ
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .stage-light {
+        animation: none;
+        transform: rotate(var(--light-angle));
+        opacity: 0.6;
+    }
+}

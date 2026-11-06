@@ -5,6 +5,7 @@ const bandSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        trim: true,
         minlength: 1,
         maxlength: 255
     },
@@ -33,6 +34,13 @@ const bandSchema = new mongoose.Schema({
             createdAt: 'created_at',
             updatedAt: 'updated_at'
         }
+    }
+);
+bandSchema.index(
+    { owner: 1, name: 1 },
+    {
+        unique: true,
+        collation: { locale: "en", strength: 2 }
     }
 );
 

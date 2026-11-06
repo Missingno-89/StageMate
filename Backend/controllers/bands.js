@@ -1,5 +1,7 @@
-import Band from "../models/Band.js"
-import mongoose from "mongoose"
+import Band from "../models/Band.js";
+import cloudinary from "../config/cloudinary.js";
+import { Readable } from "node:stream";
+import mongoose from "mongoose";
 
 export async function createBand(req, res) {
     try {
@@ -27,25 +29,88 @@ export async function createBand(req, res) {
         return res.status(201).json({ newBand })
 
     } catch (error) {
+    if (error.code === 11000) {
+        return res.status(409).json({
+            message: "Hai già creato una band con questo nome"
+        });
+    }
+    console.error("Errore creazione band:", error);
+    return res.status(500).json({
+        message: "Internal server error"
+    });
+}
+};
+
+export async function updateBandAvatar(req, res) {
+    try {
+        const { id } = req.params;
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({
+                message: "Invalid band ID"
+            });
+        }
+        const band = await Band.findById(id);
+        if (!band) {
+            return res.status(404).json({
+                message: "Band not found"
+            });
+        }
+        if (band.owner.toString() !== req.userId.toString()) {
+            return res.status(403).json({
+                message: "Only the owner can update the band avatar"
+            });
+        }
+        if (!req.file) {
+            return res.status(400).json({
+                message: "Avatar image is required"
+            });
+        }
+        const uploadResult = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                {
+                    folder: "stagemate/band-avatars",
+                    resource_type: "image"
+                },
+                (error, result) => {
+                    if (error) return reject(error);
+                    resolve(result);
+                }
+            );
+            Readable.from(req.file.buffer).pipe(uploadStream);
+        });
+        band.avatar = uploadResult.secure_url;
+        await band.save();
+        return res.status(200).json({
+            message: "Band avatar updated successfully",
+            band
+        });
+    } catch (error) {
+        console.error("Error updating band avatar:", error);
         return res.status(500).json({
             message: "Internal server error"
-        })
+        });
     }
+}
 
 
-
-};
 
 export async function getMyBands(req, res) {
     try {
-        const bands = await Band.find({ members: req.userId })
-        return res.status(200).json({ bands })
+        const bands = await Band.find({
+            $or: [
+                { owner: req.userId },
+                { members: req.userId }
+            ]
+        });
+        return res.status(200).json({ bands });
     } catch (error) {
+        console.error("Errore recupero band:", error.message);
         return res.status(500).json({
             message: "Internal server error"
-        })
+        });
     }
-};
+}
+
 
 export async function getBandById(req, res) {
     try {
@@ -156,17 +221,20 @@ export async function removeBandMember(req, res) {
         }
 
         await Band.findByIdAndUpdate(bandId,
-            { 
-                $pull: {members :userToDelete
-            }}
+            {
+                $pull: {
+                    members: userToDelete
+                }
+            }
         )
-        return res.status(200).json({message: "member deleted"})
+        return res.status(200).json({ message: "member deleted" })
 
     } catch (error) {
         return res.status(500).json({
             message: "Internal server error"
 
-      ,dasdgasdgasid  })
+            , dasdgasdgasid
+        })
 
     };
 }

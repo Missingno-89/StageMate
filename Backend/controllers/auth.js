@@ -1,13 +1,18 @@
+
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 import crypto from "node:crypto";
 import { sendEmail } from "../services/emailService.js";
 
-export async function register(req, res) {
+// ==========================================
+// REGISTRAZIONE
+// ==========================================
 
+export async function register(req, res) {
     try {
-        const { name, surname, email, password } = req.body;
+        const { name, surname, email, password } = req.body ?? {};
+
         if (
             typeof name !== "string" ||
             typeof surname !== "string" ||
@@ -19,112 +24,146 @@ export async function register(req, res) {
             password.length < 8
         ) {
             return res.status(400).json({
-                message:
-                    "All field are required"
+                message: "All fields are required and password must contain at least 8 characters"
             });
         }
+
+        const normalizedEmail = email.trim().toLowerCase();
+
         const existingUser = await User.findOne({
-            email: email.trim().toLowerCase()
+            email: normalizedEmail
         });
 
         if (existingUser) {
             return res.status(409).json({
-                message: "User already exist"
-            })
+                message: "User already exists"
+            });
+        }
 
-        };
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const newUser = await User.create({
-            name: name,
-            surname: surname,
-            email: email.trim().toLowerCase(),
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await User.create({
+            name: name.trim(),
+            surname: surname.trim(),
+            email: normalizedEmail,
             password: hashedPassword
         });
+
         return res.status(201).json({
             message: "User created"
         });
+
     } catch (error) {
+        if (error.code === 11000) {
+            return res.status(409).json({
+                message: "User already exists"
+            });
+        }
+
+        console.error("Register error:", error.message);
+
         return res.status(500).json({
             message: "Internal server error"
         });
-
     }
+}
 
-};
+// ==========================================
+// LOGIN
+// ==========================================
 
 export async function login(req, res) {
     try {
-        const { email, password } = req.body;
-        if (
+        const { email, password } = req.body ?? {};
 
+        if (
             typeof email !== "string" ||
             typeof password !== "string" ||
             !email.trim() ||
             !password.trim()
         ) {
             return res.status(400).json({
-                message:
-                    "All field are required"
+                message: "All fields are required"
             });
         }
+
         const existingUser = await User.findOne({
-            email: email.trim().toLowerCase(),
-        }).select("+password")
-        if (!existingUser.password) {
+            email: email.trim().toLowerCase()
+        }).select("+password");
+
+        // Utente inesistente oppure senza password locale
+        if (!existingUser || !existingUser.password) {
             return res.status(401).json({
                 message: "Invalid credentials"
             });
         }
-
 
         const isPasswordValid = await bcrypt.compare(
             password,
             existingUser.password
         );
+
         if (!isPasswordValid) {
             return res.status(401).json({
                 message: "Invalid credentials"
             });
-
         }
-        const token = jwt.sign({
-            id: existingUser._id,
-        },
 
+        const token = jwt.sign(
+            {
+                id: existingUser._id
+            },
             process.env.JWT_SECRET,
-
             {
                 expiresIn: process.env.JWT_EXPIRES_IN
             }
+        );
 
-
-
-
-        )
-        return res.status(200).json({ token });
+        return res.status(200).json({
+            token
+        });
 
     } catch (error) {
-        return res.status(500).json({
-            message: "internal server error"
-        })
+        console.error("Login error:", error.message);
 
+        return res.status(500).json({
+            message: "Internal server error"
+        });
     }
-};
+}
+
+// ==========================================
+// UTENTE AUTENTICATO
+// ==========================================
 
 export async function getMe(req, res) {
     try {
         const user = await User.findById(req.userId)
-        if (!user) {
-            return res.status(404).json({ message: "user not available" })
-        }
-        return res.status(200).json({ user })
-    } catch (error) {
-        return res.status(500).json({
-            message: "internal server error"
-        })
+            .select("-password -resetPasswordToken -resetPasswordExpires");
 
+        if (!user) {
+            return res.status(404).json({
+                message: "User not available"
+            });
+        }
+
+        return res.status(200).json({
+            user
+        });
+
+    } catch (error) {
+        console.error("GetMe error:", error.message);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
     }
-};
+}
+
+// ==========================================
+// PASSWORD DIMENTICATA
+// ==========================================
+
 export async function forgotPassword(req, res) {
     const genericMessage =
         "Se l'indirizzo è registrato, riceverai un'email con le istruzioni.";
@@ -133,7 +172,10 @@ export async function forgotPassword(req, res) {
         const { email } = req.body ?? {};
 
         // 1. Validazione email
-        if (typeof email !== "string" || !email.trim()) {
+        if (
+            typeof email !== "string" ||
+            !email.trim()
+        ) {
             return res.status(400).json({
                 message: "Valid email required"
             });
@@ -155,7 +197,9 @@ export async function forgotPassword(req, res) {
         }
 
         // 4. Generazione token casuale
-        const resetToken = crypto.randomBytes(32).toString("hex");
+        const resetToken = crypto
+            .randomBytes(32)
+            .toString("hex");
 
         // 5. Hash del token
         const hashedToken = crypto
@@ -164,9 +208,11 @@ export async function forgotPassword(req, res) {
             .digest("hex");
 
         // 6. Scadenza dopo 15 minuti
-        const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+        const expiresAt = new Date(
+            Date.now() + 15 * 60 * 1000
+        );
 
-        // 7. Salvataggio del token nel database
+        // 7. Salvataggio nel database
         user.resetPasswordToken = hashedToken;
         user.resetPasswordExpires = expiresAt;
 
@@ -219,8 +265,8 @@ export async function forgotPassword(req, res) {
                 emailError.message
             );
 
-            // Eliminiamo il token soltanto se è ancora
-            // quello generato da questa richiesta
+            // Rimuoviamo soltanto il token
+            // generato da questa richiesta
             try {
                 await User.updateOne(
                     {
@@ -234,6 +280,7 @@ export async function forgotPassword(req, res) {
                         }
                     }
                 );
+
             } catch (cleanupError) {
                 console.error(
                     "Errore pulizia token:",
@@ -248,16 +295,24 @@ export async function forgotPassword(req, res) {
         });
 
     } catch (error) {
-        console.error("Errore forgotPassword:", error.message);
+        console.error(
+            "ForgotPassword error:",
+            error.message
+        );
 
         return res.status(500).json({
             message: "Internal server error"
         });
     }
 }
+
+// ==========================================
+// REIMPOSTAZIONE PASSWORD
+// ==========================================
+
 export async function resetPassword(req, res) {
     try {
-        // 1. Recupero dati dal body
+        // 1. Recupero dati
         const { token, newPassword } = req.body ?? {};
 
         // 2. Validazione token
@@ -287,7 +342,10 @@ export async function resetPassword(req, res) {
             .digest("hex");
 
         // 5. Hash della nuova password
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        const hashedPassword = await bcrypt.hash(
+            newPassword,
+            10
+        );
 
         // 6. Ricerca e aggiornamento atomico
         const updatedUser = await User.findOneAndUpdate(
@@ -319,13 +377,16 @@ export async function resetPassword(req, res) {
             });
         }
 
-        // 8. Password modificata correttamente
+        // 8. Password aggiornata correttamente
         return res.status(200).json({
             message: "Password updated successfully"
         });
 
     } catch (error) {
-        console.error("Errore resetPassword:", error.message);
+        console.error(
+            "ResetPassword error:",
+            error.message
+        );
 
         return res.status(500).json({
             message: "Internal server error"
