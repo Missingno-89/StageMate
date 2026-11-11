@@ -1,0 +1,135 @@
+
+/* ========================================
+   LAYOUT PRINCIPALE DASHBOARD
+======================================== */
+
+.band-layout {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    color: #ffffff;
+
+    /* Sfondo nero antracite uniforme */
+    background: #080a0d;
+}
+
+/* ========================================
+   SIDEBAR GLASS
+======================================== */
+
+.band-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    padding: 28px 20px;
+
+    /* Vetro scuro trasparente */
+    background: rgba(255, 255, 255, 0.035);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border-right: 1px solid rgba(210, 225, 235, 0.12);
+
+    box-shadow:
+        4px 0 24px rgba(0, 0, 0, 0.18),
+        inset -1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ========================================
+   AREA PRINCIPALE
+======================================== */
+
+.band-main {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   TOPBAR GLASS
+======================================== */
+
+.band-topbar {
+    padding: 24px 32px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border-bottom: 1px solid rgba(210, 225, 235, 0.12);
+
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.12),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+}
+
+/* ========================================
+   CONTENUTO DASHBOARD
+======================================== */
+
+.band-main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 32px;
+
+    background: transparent;
+}
+
+/* ========================================
+   WIDGET GLASS RIUTILIZZABILI
+======================================== */
+
+.dashboard-glass {
+    /* Superficie leggermente più chiara */
+    background: rgba(255, 255, 255, 0.045);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(210, 225, 235, 0.14);
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Leggero riflesso ciano al passaggio del mouse */
+.dashboard-glass:hover {
+    background: rgba(255, 255, 255, 0.06);
+
+    border-color: rgba(56, 217, 230, 0.25);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        0 0 20px rgba(56, 217, 230, 0.035),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ========================================
+   RESPONSIVE MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+    .band-sidebar {
+        display: none;
+    }
+
+    .band-topbar {
+        padding: 18px;
+    }
+
+    .band-main-content {
+        padding: 16px;
+        padding-bottom: 90px;
+    }
+}

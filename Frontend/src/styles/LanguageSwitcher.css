@@ -1,0 +1,48 @@
+
+.language-switcher {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+
+    border: 1px solid rgba(210, 225, 235, 0.22);
+    border-radius: 12px;
+
+    background: rgba(12, 17, 23, 0.25);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.language-switcher button {
+    padding: 7px 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #a7b0bc;
+
+    font-family: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.language-switcher button.active {
+    background: #38d9e6;
+    color: #080a0d;
+}
+
+.language-switcher button:hover:not(.active) {
+    background: rgba(56, 217, 230, 0.12);
+    color: #a5f3fc;
+}
+
+.language-switcher button:focus-visible {
+    outline: 2px solid #a5f3fc;
+    outline-offset: 2px;
+}

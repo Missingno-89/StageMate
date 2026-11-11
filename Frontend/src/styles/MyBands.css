@@ -1,4 +1,8 @@
 
+/* ========================================
+   CONTENUTO PAGINA BAND
+======================================== */
+
 .bands-content {
     max-width: 700px;
 }
@@ -10,38 +14,16 @@
     justify-content: center;
     gap: 24px;
 }
+
+/* ========================================
+   CARD BAND
+======================================== */
+
 .band-card {
     width: 240px;
-}
-
-.bands-create-section {
-    text-align: center;
-    color: #b9a9c7;
-    font-size: 0.9rem;
-}
-
-.bands-create-section p {
-    margin: 0;
-}
-
-.bands-create-link {
-    padding: 0;
-    background: transparent;
-    border: none;
-    color: #d28aff;
-    font: inherit;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.bands-create-link:hover {
-    color: white;
-    text-decoration: underline;
-}
-
-.band-card {
     min-height: 240px;
     padding: 28px 18px;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
@@ -49,34 +31,62 @@
     justify-content: center;
     gap: 24px;
 
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    /* Vetro quasi completamente trasparente */
+    background: rgba(12, 17, 23, 0.08);
 
-    border: 1px solid rgba(176, 38, 255, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    border: 1px solid rgba(210, 225, 235, 0.22);
     border-radius: 28px;
 
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 35px rgba(176, 38, 255, 0.12);
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
-    color: white;
+    color: #ffffff;
     font-family: "Outfit", sans-serif;
+
     cursor: pointer;
 
     transition:
         transform 0.25s ease,
+        background 0.25s ease,
         border-color 0.25s ease,
         box-shadow 0.25s ease;
 }
 
 .band-card:hover {
     transform: translateY(-6px);
-    border-color: #b026ff;
+
+    background: rgba(56, 217, 230, 0.06);
+    border-color: rgba(56, 217, 230, 0.65);
+
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 40px rgba(176, 38, 255, 0.3);
+        0 0 30px rgba(56, 217, 230, 0.12);
 }
+
+.band-card:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 4px;
+}
+
+.band-card h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Card per creare una nuova band */
+.band-card-create {
+    border-style: dashed;
+}
+
+/* ========================================
+   AVATAR BAND
+======================================== */
 
 .band-avatar {
     width: 100px;
@@ -88,10 +98,10 @@
     justify-content: center;
     overflow: hidden;
 
-    background: rgba(176, 38, 255, 0.15);
-    border: 2px solid rgba(176, 38, 255, 0.5);
+    background: rgba(56, 217, 230, 0.10);
+    border: 2px solid rgba(56, 217, 230, 0.45);
 
-    color: #d28aff;
+    color: #38d9e6;
     font-size: 3.5rem;
     font-weight: 700;
 }
@@ -102,17 +112,45 @@
     object-fit: cover;
 }
 
-.band-card h2 {
-    margin: 0;
-    font-size: 1.3rem;
-    font-weight: 700;
+/* ========================================
+   SEZIONE CREA BAND
+======================================== */
+
+.bands-create-section {
     text-align: center;
+    color: #a7b0bc;
+    font-size: 0.9rem;
 }
 
-.band-card-create {
-    border-style: dashed;
+.bands-create-section p {
+    margin: 0;
 }
 
+.bands-create-link {
+    padding: 0;
+    background: transparent;
+    border: none;
+
+    color: #38d9e6;
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.bands-create-link:hover {
+    color: #a5f3fc;
+    text-decoration: underline;
+}
+
+.bands-create-link:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 4px;
+}
+
+/* ========================================
+   PULSANTE LOGOUT
+======================================== */
 
 .bands-logout {
     display: inline-flex;
@@ -122,11 +160,12 @@
 
     padding: 12px 32px;
 
-    background: rgba(176, 38, 255, 0.12);
-    border: 1px solid rgba(176, 38, 255, 0.55);
+    background: rgba(56, 217, 230, 0.08);
+    border: 1px solid rgba(56, 217, 230, 0.45);
     border-radius: 14px;
 
-    color: #e6c7ff;
+    color: #a5f3fc;
+
     font-family: "Outfit", sans-serif;
     font-size: 0.95rem;
     font-weight: 600;
@@ -141,41 +180,80 @@
 }
 
 .bands-logout:hover {
-    background: rgba(176, 38, 255, 0.25);
-    border-color: #b026ff;
-    color: white;
+    background: rgba(56, 217, 230, 0.18);
+    border-color: #38d9e6;
+    color: #ffffff;
 
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(176, 38, 255, 0.2);
+
+    box-shadow: 0 0 20px rgba(56, 217, 230, 0.15);
 }
+
 .bands-logout:focus-visible {
-    outline: 2px solid #d28aff;
+    outline: 2px solid #38d9e6;
     outline-offset: 4px;
 }
+
 .logout-icon {
     font-size: 1.3rem;
     line-height: 1;
 }
 
-@media (max-width: 520px) {
-    .bands-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .band-card {
-        min-height: 200px;
-    }
-}
+/* ========================================
+   TESTI E TRANSIZIONI
+======================================== */
 
 .bands-subtitle {
-    color: #c9b8d8;
+    color: #a7b0bc;
     text-align: center;
     margin: 0;
 }
+
 .stage-page-transition {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
+}
+
+.bands-empty-message {
+    color: #ffffff;
+    text-align: center;
+    margin-top: 24px;
+    font-size: 1rem;
+}
+
+/* ========================================
+   SELETTORE LINGUA IT / EN
+======================================== */
+
+.bands-language {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 100;
+}
+
+/* ========================================
+   RESPONSIVE SMARTPHONE
+======================================== */
+
+@media (max-width: 576px) {
+    .bands-language {
+        top: 16px;
+        right: 16px;
+    }
+}
+
+@media (max-width: 520px) {
+    .bands-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .band-card {
+        width: min(100%, 320px);
+        min-height: 200px;
+    }
 }

@@ -77,17 +77,18 @@ passport.use(
                     name,
                     surname,
                     email,
-                    avatar
+                    avatar,
+                    emailVerified: true
                 });
 
                 return done(null, newUser);
 
             } catch (error) {
-           
+
                 console.error("Errore GoogleStrategy:", error.message);
                 return done(error, false);
             }
         }
-        
+
     )
 );

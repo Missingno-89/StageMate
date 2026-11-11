@@ -1,19 +1,13 @@
 import express from "express";
-import {
-    forgotPassword,
-    getMe,
-    login,
-    register,
-    resetPassword
-} from "../controllers/auth.js";
-
+import { forgotPassword, getMe, login, register, resetPassword, verifyEmail, resendVerificationEmail } from "../controllers/auth.js";
 import { authenticate } from "../middlewares/authenticate.js";
 import passport from "passport";
 import "../strategies/google.js";
-
 import jwt from "jsonwebtoken";
 import { randomBytes, timingSafeEqual, createHash } from "node:crypto";
 import OAuthCode from "../models/OAuthCode.js";
+
+
 
 const AuthRouther = express.Router();
 
@@ -26,6 +20,8 @@ AuthRouther.post("/login", login);
 AuthRouther.get("/me", authenticate, getMe);
 AuthRouther.post("/forgot-password", forgotPassword);
 AuthRouther.post("/reset-password", resetPassword);
+AuthRouther.post("/verify-email", verifyEmail);
+AuthRouther.post("/resend-verification", resendVerificationEmail);
 
 // ==========================================
 // GOOGLE OAUTH - AVVIO AUTENTICAZIONE
@@ -215,4 +211,4 @@ AuthRouther.post("/google/exchange", async (req, res) => {
     }
 });
 
-export default AuthRouther;
+export default AuthRouther

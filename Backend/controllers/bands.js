@@ -29,16 +29,16 @@ export async function createBand(req, res) {
         return res.status(201).json({ newBand })
 
     } catch (error) {
-    if (error.code === 11000) {
-        return res.status(409).json({
-            message: "Hai già creato una band con questo nome"
+        if (error.code === 11000) {
+            return res.status(409).json({
+                message: "Hai già creato una band con questo nome"
+            });
+        }
+        console.error("Errore creazione band:", error);
+        return res.status(500).json({
+            message: "Internal server error"
         });
     }
-    console.error("Errore creazione band:", error);
-    return res.status(500).json({
-        message: "Internal server error"
-    });
-}
 };
 
 export async function updateBandAvatar(req, res) {
@@ -121,13 +121,20 @@ export async function getBandById(req, res) {
         if (!band) {
             return res.status(404).json({ message: "band not found" })
         }
-        const isMember = band.members.some(
-            member => member.toString() === req.userId
-        );
-        if (!isMember) {
-            return res.status(403).json({ message: "access denied" })
 
+        const isOwner =
+            band.owner.toString() === req.userId.toString();
+
+        const isMember = band.members.some(
+            member => member.toString() === req.userId.toString()
+        );
+
+        if (!isOwner && !isMember) {
+            return res.status(403).json({
+                message: "Access denied"
+            });
         }
+
         await band.populate("members", "name surname");
         return res.status(200).json({ band })
     } catch (error) {
@@ -237,4 +244,79 @@ export async function removeBandMember(req, res) {
         })
 
     };
+}
+
+
+export async function updateBandCover(req, res) {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({
+                message: "Invalid band ID"
+            });
+        }
+
+        const band = await Band.findById(id);
+
+        if (!band) {
+            return res.status(404).json({
+                message: "Band not found"
+            });
+        }
+
+        // Verifica che l'utente sia owner oppure membro
+        const isOwner =
+            band.owner.toString() === req.userId.toString();
+
+        const isMember = band.members.some(
+            (memberId) =>
+                memberId.toString() === req.userId.toString()
+        );
+
+        if (!isOwner && !isMember) {
+            return res.status(403).json({
+                message: "Only band members can update the cover"
+            });
+        }
+
+        if (!req.file) {
+            return res.status(400).json({
+                message: "Cover image is required"
+            });
+        }
+
+        // Upload su Cloudinary
+        const uploadResult = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                {
+                    folder: "stagemate/band-covers",
+                    resource_type: "image"
+                },
+                (error, result) => {
+                    if (error) return reject(error);
+                    resolve(result);
+                }
+            );
+
+            Readable.from(req.file.buffer).pipe(uploadStream);
+        });
+
+        // Salva l'URL della copertina
+        band.cover = uploadResult.secure_url;
+
+        await band.save();
+
+        return res.status(200).json({
+            message: "Band cover updated successfully",
+            band
+        });
+
+    } catch (error) {
+        console.error("Error updating band cover:", error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
 }

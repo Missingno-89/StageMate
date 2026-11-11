@@ -1,25 +1,24 @@
+/* ========================================
+   PAGINA LOGIN
+======================================== */
 .login-page {
     min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 24px;
     box-sizing: border-box;
-
-    background: radial-gradient(ellipse at center,
-            #421064 0%,
-            #1B0B2E 40%,
-            #08050F 85%);
+    background: radial-gradient(ellipse at center, #18212a 0%, #10151b 40%, #080a0d 85%);
     position: relative;
     overflow: hidden;
     isolation: isolate;
 }
 
-
-
+/* ========================================
+   CONTENUTO PRINCIPALE
+======================================== */
 .login-content {
     width: 100%;
     max-width: 540px;
@@ -31,9 +30,20 @@
     z-index: 1;
 }
 
+/* ========================================
+   HEADER, LOGO E TITOLO
+======================================== */
 .login-header {
     text-align: center;
-    color: white;
+    color: #ffffff;
+}
+
+.login-logo-icon {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 0 auto -20px;
+    object-fit: contain;
 }
 
 .login-title {
@@ -42,49 +52,51 @@
     align-items: center;
     gap: 0;
     margin: 0;
-
     font-family: 'Outfit', sans-serif;
     font-size: clamp(2.8rem, 5vw, 4rem);
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -1.5px;
-    color: white;
+    color: #ffffff;
 }
 
-.login-title span {
+.login-title .login-brand {
     display: inline-block;
-
-    font-size: clamp(3.2rem, 6vw, 4.7rem);
-    font-weight: 900;
-    line-height: 1.2;
+    font-size: clamp(2.5rem, 4vw, 3.4rem);
+    font-weight: 800;
     letter-spacing: -1px;
-
-    padding: 0.08em 0.12em;
-
-    background: linear-gradient(90deg, #ffffff 20%, #b026ff 85%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+    background: none;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    padding: 0;
 }
 
 .login-header p {
-    color: #c9b8d8;
-    margin-top: 12px;
+    color: #a7b0bc;
+    margin-top: 10px;
 }
 
+/* ========================================
+   CONTENITORE GLASS
+======================================== */
 .login-container {
     width: 100%;
     padding: 40px;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(176, 38, 255, 0.4);
+    background: rgba(12, 17, 23, 0.08);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(210, 225, 235, 0.22);
     border-radius: 28px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
-        0 0 35px rgba(176, 38, 255, 0.12);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+/* ========================================
+   FORM E CAMPI
+======================================== */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -98,37 +110,38 @@
 }
 
 .login-label {
-    color: #f3eafa;
+    color: #f1f5f9;
     font-size: 0.95rem;
     font-weight: 600;
 }
 
 .login-input {
+    display: block;
     width: 100%;
     padding: 14px 16px;
+    box-sizing: border-box;
     border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.06);
-    color: white;
+    color: #ffffff;
     font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
-    display: block;
-    font-size: 1rem;
 }
 
 .login-input::placeholder {
-    color: #a99ab8;
+    color: #a7b0bc;
 }
 
 .login-input:focus {
-    border-color: #b026ff;
-    box-shadow: 0 0 0 3px rgba(176, 38, 255, 0.15);
+    border-color: #38d9e6;
+    box-shadow: 0 0 0 3px rgba(56, 217, 230, 0.15);
 }
 
-/* ACCESSO ALTERNATIVO */
-
+/* ========================================
+   ACCESSO ALTERNATIVO E SEPARATORE
+======================================== */
 .login-alternative {
     display: flex;
     flex-direction: column;
@@ -136,44 +149,39 @@
     margin-top: 26px;
 }
 
-/* SEPARATORE */
-
 .login-divider {
     display: flex;
     align-items: center;
     gap: 15px;
-    color: #a99ab8;
+    color: #a7b0bc;
     font-size: 0.85rem;
 }
 
 .login-divider::before,
 .login-divider::after {
-    content: "";
+    content: '';
     flex: 1;
     height: 1px;
     background: rgba(255, 255, 255, 0.15);
 }
 
-/* PULSANTE GOOGLE */
-
+/* ========================================
+   PULSANTE GOOGLE
+======================================== */
 .google-button {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-
     padding: 14px 20px;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-
     background: rgba(255, 255, 255, 0.08);
-    color: white;
-
+    color: #ffffff;
     font-family: 'Outfit', sans-serif;
     font-size: 1rem;
     font-weight: 600;
-
     cursor: pointer;
     transition: background 0.2s, transform 0.2s;
 }
@@ -188,22 +196,246 @@
     height: 22px;
 }
 
-/* REGISTRAZIONE */
-
+/* ========================================
+   REGISTRAZIONE E LINK
+======================================== */
 .register-text {
     text-align: center;
-    color: #b9a9c7;
+    color: #a7b0bc;
     font-size: 0.9rem;
     margin: 0;
 }
 
 .register-text a {
-    color: #d28aff;
+    color: #38d9e6;
     font-weight: 700;
     text-decoration: none;
 }
 
 .register-text a:hover {
-    color: white;
+    color: #a5f3fc;
     text-decoration: underline;
+}
+
+.register-link {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-left: 6px;
+    color: #38d9e6;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.register-link:hover {
+    color: #a5f3fc;
+    text-decoration: underline;
+}
+
+.register-link:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 4px;
+    border-radius: 3px;
+}
+
+/* ========================================
+   REGISTRAZIONE COMPLETATA
+======================================== */
+.registration-success {
+    color: #e5e7eb;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.registration-success strong {
+    display: block;
+    color: #86efac;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.registration-success p {
+    color: #e5e7eb;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ========================================
+   ERRORI LOGIN / REGISTRAZIONE
+======================================== */
+.register-error {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* ========================================
+   SELETTORE LINGUA
+======================================== */
+.login-language {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1000;
+}
+/* ========================================
+   RECUPERO PASSWORD
+======================================== */
+.forgot-password-container {
+    text-align: right;
+    margin-top: -8px;
+}
+
+.forgot-password-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #38d9e6;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.forgot-password-link:hover {
+    color: #a5f3fc;
+    text-decoration: underline;
+}
+
+.forgot-password-link:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 4px;
+    border-radius: 3px;
+}
+
+.forgot-password-description {
+    color: #a7b0bc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+}
+
+.forgot-password-back {
+    align-self: center;
+    background: transparent;
+    border: none;
+    padding: 6px 10px;
+    color: #38d9e6;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.forgot-password-back:hover {
+    color: #a5f3fc;
+    text-decoration: underline;
+}
+
+.forgot-password-back:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* ========================================
+   VERIFICA EMAIL
+======================================== */
+.check-email-form {
+    text-align: center;
+    align-items: center;
+}
+
+.check-email-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(56, 217, 230, 0.12);
+    color: #38d9e6;
+    font-size: 2rem;
+}
+
+.check-email-form h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.check-email-form p {
+    color: #a7b0bc;
+    line-height: 1.6;
+}
+
+.check-email-form .check-email-address {
+    color: #ffffff;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.check-email-resend {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #38d9e6;
+    border-radius: 10px;
+    background: rgba(56, 217, 230, 0.15);
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.check-email-resend:hover:not(:disabled) {
+    background: rgba(56, 217, 230, 0.3);
+}
+
+.check-email-resend:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   RESPONSIVE SMARTPHONE
+======================================== */
+@media (max-width: 576px) {
+    .login-page {
+        padding: 80px 16px 24px;
+    }
+
+    .login-content {
+        gap: 26px;
+    }
+
+    .login-container {
+        padding: 24px;
+        border-radius: 22px;
+    }
+
+    .login-language {
+        top: 16px;
+        right: 16px;
+    }
+
+    .login-form {
+        gap: 18px;
+    }
+
+    .login-alternative {
+        gap: 18px;
+    }
 }

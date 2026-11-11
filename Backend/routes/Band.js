@@ -1,6 +1,6 @@
 import express from "express";
 import { authenticate } from "../middlewares/authenticate.js";
-import { createBand,getBandById,getBandMembers,getMyBands, removeBandMember, updateBand } from "../controllers/bands.js";
+import { createBand,getBandById,getBandMembers,getMyBands, removeBandMember, updateBand,updateBandAvatar,  updateBandCover } from "../controllers/bands.js";
 import { createInvitation } from "../controllers/invitations.js";
 import { createTransaction, getBalance, getTransactions } from "../controllers/transactionController.js";
 
@@ -8,7 +8,7 @@ import { deleteBandFile, getBandFiles, uploadBandFile } from "../controllers/ban
 import { handleUpload } from "../middlewares/handleUpload.js";
 import { requireBandMembers } from "../middlewares/requireBandMember.js";
 import { handleBandAvatarUpload } from "../middlewares/uploadBandAvatar.js";
-import { updateBandAvatar } from "../controllers/bands.js";
+import { handleBandCoverUpload } from "../middlewares/uploadBandCover.js";
 
 
 
@@ -28,5 +28,6 @@ BandRouther.post("/:id/files" ,authenticate,requireBandMembers,handleUpload, upl
 BandRouther.get("/:id/files" ,authenticate,requireBandMembers, getBandFiles)
 BandRouther.delete("/:id/files/:fileId" ,authenticate,requireBandMembers, deleteBandFile)
 BandRouther.patch("/:id/avatar",authenticate,handleBandAvatarUpload,updateBandAvatar);
+BandRouther.patch("/:id/cover", authenticate,handleBandCoverUpload,updateBandCover);
 
 export default BandRouther

@@ -42,12 +42,65 @@ export async function register(req, res) {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        await User.create({
+
+        const verificationToken = crypto.randomBytes(32).toString("hex");
+
+
+        const hashedVerificationToken = crypto
+            .createHash("sha256")
+            .update(verificationToken)
+            .digest("hex");
+
+
+        const verificationExpires = new Date(
+            Date.now() + 24 * 60 * 60 * 1000
+        );
+
+
+        const newUser = await User.create({
             name: name.trim(),
             surname: surname.trim(),
             email: normalizedEmail,
-            password: hashedPassword
+            password: hashedPassword,
+            emailVerified: false,
+            emailVerificationToken: hashedVerificationToken,
+            emailVerificationExpires: verificationExpires
         });
+
+
+        const frontendUrl =
+            process.env.FRONTEND_URL || "http://localhost:5173";
+
+        const verificationUrl = new URL("/verify-email", frontendUrl);
+        verificationUrl.searchParams.set("token", verificationToken);
+
+        const subject = "Verifica il tuo account StageMate";
+
+        const html = `
+    <h1>Benvenuto su StageMate!</h1>
+    <p>Conferma il tuo indirizzo email per attivare il tuo account.</p>
+    <p>
+        <a href="${verificationUrl.toString()}">
+            Verifica la mia email
+        </a>
+    </p>
+    <p>Il link scadrà tra 24 ore.</p>
+    <p>Se non hai creato questo account, puoi ignorare questa email.</p>
+`;
+
+
+        try {
+            await sendEmail(newUser.email, subject, html);
+        } catch (emailError) {
+            console.error(
+                "Errore invio email di verifica:",
+                emailError.message
+            );
+
+            return res.status(503).json({
+                message: "Account creato, ma invio email non riuscito"
+            });
+        }
 
         return res.status(201).json({
             message: "User created"
@@ -106,6 +159,13 @@ export async function login(req, res) {
         if (!isPasswordValid) {
             return res.status(401).json({
                 message: "Invalid credentials"
+            });
+        }
+
+        if (existingUser.emailVerified === false) {
+            return res.status(403).json({
+                code: "EMAIL_NOT_VERIFIED",
+                message: "Please verify your email before logging in"
             });
         }
 
@@ -393,3 +453,186 @@ export async function resetPassword(req, res) {
         });
     }
 }
+
+// ==========================================
+// VERIFIA MAIL
+// ==========================================
+
+
+export async function verifyEmail(req, res) {
+    try {
+        const { token } = req.body ?? {};
+
+        // Verifichiamo il formato del token
+        if (
+            typeof token !== "string" ||
+            !/^[a-f0-9]{64}$/i.test(token)
+        ) {
+            return res.status(400).json({
+                message: "Invalid verification token"
+            });
+        }
+
+        // Calcoliamo l'hash del token ricevuto
+        const hashedToken = crypto
+            .createHash("sha256")
+            .update(token)
+            .digest("hex");
+
+        // Cerchiamo il token valido e attiviamo l'account
+        const verifiedUser = await User.findOneAndUpdate(
+            {
+                emailVerificationToken: hashedToken,
+                emailVerificationExpires: {
+                    $gt: new Date()
+                },
+                emailVerified: false
+            },
+            {
+                $set: {
+                    emailVerified: true
+                },
+                $unset: {
+                    emailVerificationToken: "",
+                    emailVerificationExpires: ""
+                }
+            },
+            {
+                new: true
+            }
+        );
+
+        if (!verifiedUser) {
+            return res.status(400).json({
+                message: "Invalid or expired verification token"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Email verified successfully"
+        });
+
+    } catch (error) {
+        console.error("VerifyEmail error:", error.message);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+}
+
+// ==========================================
+// RISPEDISCE MAIL DI VERIFICA
+// ==========================================
+
+
+
+export async function resendVerificationEmail(req, res) {
+    const genericMessage =
+        "Se l'account richiede una verifica, riceverai una nuova email.";
+
+    try {
+        const { email } = req.body ?? {};
+
+        if (
+            typeof email !== "string" ||
+            !email.trim()
+        ) {
+            return res.status(400).json({
+                message: "Valid email required"
+            });
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+
+        const user = await User.findOne({
+            email: normalizedEmail
+        });
+
+        // Non riveliamo se l'account esiste o è già verificato.
+        if (!user || user.emailVerified !== false) {
+            return res.status(200).json({
+                message: genericMessage
+            });
+        }
+
+        // Generiamo un nuovo token
+        const verificationToken = crypto
+            .randomBytes(32)
+            .toString("hex");
+
+        const hashedToken = crypto
+            .createHash("sha256")
+            .update(verificationToken)
+            .digest("hex");
+
+        const expiresAt = new Date(
+            Date.now() + 24 * 60 * 60 * 1000
+        );
+
+        // Il nuovo token sostituisce quello precedente.
+        await User.updateOne(
+            {
+                _id: user._id,
+                emailVerified: false
+            },
+            {
+                $set: {
+                    emailVerificationToken: hashedToken,
+                    emailVerificationExpires: expiresAt
+                }
+            }
+        );
+
+        const frontendUrl =
+            process.env.FRONTEND_URL || "http://localhost:5173";
+
+        const verificationUrl = new URL(
+            "/verify-email",
+            frontendUrl
+        );
+
+        verificationUrl.searchParams.set(
+            "token",
+            verificationToken
+        );
+
+        const subject = "Verifica il tuo account StageMate";
+
+        const html = `
+            <h1>Verifica il tuo account StageMate</h1>
+            <p>Hai richiesto un nuovo link di verifica.</p>
+            <p>
+                <a href="${verificationUrl.toString()}">
+                    Verifica la mia email
+                </a>
+            </p>
+            <p>Il link scadrà tra 24 ore.</p>
+            <p>Se non hai richiesto questa email, puoi ignorarla.</p>
+        `;
+
+        try {
+            await sendEmail(user.email, subject, html);
+        } catch (emailError) {
+            console.error(
+                "Errore reinvio email:",
+                emailError.message
+            );
+        }
+
+        return res.status(200).json({
+            message: genericMessage
+        });
+
+    } catch (error) {
+        console.error(
+            "ResendVerificationEmail error:",
+            error.message
+        );
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+}
+

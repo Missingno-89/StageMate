@@ -1,11 +1,12 @@
 
 import "../styles/Login.css";
 import "../styles/MyBands.css";
-import StageBackground from "../components/StageBackground.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const MyBands = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
     const [bands, setBands] = useState([]);
@@ -18,6 +19,7 @@ const MyBands = () => {
         const fetchBands = async () => {
             try {
                 const token = sessionStorage.getItem("token");
+
                 const response = await fetch(
                     "http://localhost:9097/bands/my",
                     {
@@ -27,9 +29,11 @@ const MyBands = () => {
                         signal: controller.signal
                     }
                 );
+
                 if (!response.ok) {
                     throw new Error("Impossibile recuperare le band");
                 }
+
                 const data = await response.json();
                 setBands(data.bands);
 
@@ -43,7 +47,8 @@ const MyBands = () => {
                     setLoading(false);
                 }
             }
-        }
+        };
+
         fetchBands();
 
         return () => controller.abort();
@@ -54,18 +59,23 @@ const MyBands = () => {
         navigate("/", { replace: true });
     };
 
-    return (
-    <>
-        <p className="bands-subtitle">Seleziona la tua band</p>
 
-        {loading && <p>Caricamento delle tue band...</p>}
+return (
+    <>
+        <p className="bands-subtitle">
+            {t("selectBand")}
+        </p>
+
+        {loading && <p>{t("loadingBands")}</p>}
 
         {error && <p role="alert">{error}</p>}
 
         {!loading && !error && (
             <>
                 {bands.length === 0 && (
-                    <p>Non fai ancora parte di nessuna band.</p>
+                    <p className="bands-empty-message">
+                        {t("noBands")}
+                    </p>
                 )}
 
                 <div className="bands-grid">
@@ -74,13 +84,16 @@ const MyBands = () => {
                             key={band._id}
                             type="button"
                             className="band-card"
-                            onClick={() => {
-                                console.log("Band selezionata:", band._id);
-                            }}
+                            onClick={() =>
+                                navigate(`/bands/${band._id}/dashboard`)
+                            }
                         >
                             <div className="band-avatar">
                                 {band.avatar ? (
-                                    <img src={band.avatar} alt={band.name} />
+                                    <img
+                                        src={band.avatar}
+                                        alt={band.name}
+                                    />
                                 ) : (
                                     <span>♪</span>
                                 )}
@@ -95,13 +108,13 @@ const MyBands = () => {
 
         <div className="bands-create-section">
             <p>
-                Vuoi creare un nuovo progetto?{" "}
+                {t("createBandQuestion")}{" "}
                 <button
                     type="button"
                     className="bands-create-link"
                     onClick={() => navigate("/bands/new")}
                 >
-                    Crea una nuova band
+                    {t("createBand")}
                 </button>
             </p>
         </div>
@@ -112,11 +125,11 @@ const MyBands = () => {
             onClick={handleLogout}
         >
             <span className="logout-icon">↪</span>
-            Esci
+            {t("logout")}
         </button>
     </>
 );
-};
 
+};
 
 export default MyBands;

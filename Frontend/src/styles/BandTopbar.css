@@ -1,0 +1,111 @@
+
+/* ========================================
+   TOPBAR GLASS TRASPARENTE
+======================================== */
+
+.band-topbar {
+    min-height: 82px;
+    padding: 18px 32px;
+    box-sizing: border-box;
+
+    /* Vetro quasi completamente trasparente */
+    background: rgba(12, 17, 23, 0.08);
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    /* Bordo grigio acciaio */
+    border-bottom: 1px solid rgba(210, 225, 235, 0.15);
+
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* ========================================
+   TITOLO TOPBAR
+======================================== */
+
+.band-topbar-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.band-topbar-label {
+    color: #a7b0bc;
+    font-size: 0.75rem;
+}
+
+.band-topbar-title h1 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* ========================================
+   AZIONI TOPBAR
+======================================== */
+
+.band-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* ========================================
+   ICONE TOPBAR
+======================================== */
+
+.band-topbar-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    /* Icone ciano ghiaccio */
+    color: #38d9e6;
+
+    /* Vetro trasparente */
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(210, 225, 235, 0.15);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.band-topbar-icon:hover {
+    background: rgba(56, 217, 230, 0.10);
+    border-color: rgba(56, 217, 230, 0.35);
+    color: #a5f3fc;
+}
+
+/* ========================================
+   RESPONSIVE MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+    .band-topbar {
+        min-height: 70px;
+        padding: 14px 18px;
+    }
+
+    .band-topbar-title h1 {
+        font-size: 1.2rem;
+    }
+}

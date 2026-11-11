@@ -1,19 +1,16 @@
 
-/* ========================================
-   STAGEMATE - SFONDO PALCO
-======================================== */
 
 .stage-background {
-    position: absolute;
+    position: fixed;
     inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     pointer-events: none;
     z-index: 0;
 }
 
-/* ========================================
-   FASCI DI LUCE
-======================================== */
 
 .stage-light {
     position: absolute;
@@ -21,7 +18,7 @@
     width: 38%;
     height: 90%;
 
-    /* Luce bianca fredda */
+   
     background: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0.32) 0%,
@@ -30,7 +27,7 @@
         transparent 100%
     );
 
-    /* Forma conica del fascio */
+    
     clip-path: polygon(
         49% 0%,
         51% 0%,
@@ -38,7 +35,7 @@
         0% 100%
     );
 
-    /* Bordi più morbidi */
+    
     filter: blur(18px);
 
     opacity: 0.65;
@@ -48,9 +45,6 @@
     will-change: transform, opacity;
 }
 
-/* ========================================
-   FARO SINISTRO
-======================================== */
 
 .light-left {
     left: 5%;
@@ -58,9 +52,7 @@
     animation-delay: -3s;
 }
 
-/* ========================================
-   FARO DESTRO
-======================================== */
+
 
 .light-right {
     right: 5%;
@@ -68,9 +60,7 @@
     animation-delay: -7s;
 }
 
-/* ========================================
-   SORGENTE LUMINOSA
-======================================== */
+
 
 .stage-light::before {
     content: "";
@@ -91,9 +81,7 @@
         0 0 60px 25px rgba(220, 230, 255, 0.35);
 }
 
-/* ========================================
-   ANIMAZIONE DEI FARI
-======================================== */
+
 
 @keyframes lightMove {
     0% {
@@ -111,9 +99,7 @@
     }
 }
 
-/* ========================================
-   SFUMATURA VERSO IL BASSO
-======================================== */
+
 
 .stage-light {
     -webkit-mask-image: linear-gradient(
@@ -133,9 +119,7 @@
     );
 }
 
-/* ========================================
-   ACCESSIBILITÀ
-======================================== */
+
 
 @media (prefers-reduced-motion: reduce) {
     .stage-light {
@@ -143,4 +127,53 @@
         transform: rotate(var(--light-angle));
         opacity: 0.6;
     }
+}
+
+
+
+/* Immagine del palco */
+.stage-scene {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background-image: url("/images/stage-login.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: 0.9;
+}
+
+/* Luci sopra il palco */
+.stage-light {
+    z-index: 1;
+}
+
+/* Nebbia sopra le luci */
+.stage-smoke {
+    z-index: 2;
+}
+
+/* Vignettatura cinematografica */
+.stage-vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse 65% 75% at 50% 43%,
+            transparent 25%,
+            rgba(0, 0, 0, 0.3) 65%,
+            rgba(0, 0, 0, 0.88) 100%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.2),
+            transparent 35%,
+            transparent 65%,
+            rgba(0, 0, 0, 0.65)
+        );
 }

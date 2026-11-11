@@ -27,6 +27,10 @@ const bandSchema = new mongoose.Schema({
     avatar: {
         type: String,
     },
+    cover: {
+    type: String,
+    default: null
+},
 
 },
     {

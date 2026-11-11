@@ -1,4 +1,20 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    /* Colori principali */
+    --stage-bg: #080a0d;
+    --stage-surface: #171c23;
+    --stage-accent: #38d9e6;
+
+    /* Testi */
+    --stage-text: #ffffff;
+    --stage-muted: #a7b0bc;
+
+    /* Effetto glass */
+    --stage-glass: rgba(18, 23, 30, 0.55);
+    --stage-border: rgba(210, 225, 235, 0.14);
+}
 
 html,
 body,
@@ -9,13 +25,19 @@ body,
     min-height: 100%;
 }
 
+html {
+    background-color: var(--stage-bg);
+}
+
 body {
-    background-color: #08060e;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--stage-bg);
+    color: var(--stage-text);
     font-family: 'Outfit', sans-serif;
 }
 
-* {
-    box-sizing: border-box;
+#root {
+    min-height: 100vh;
+    min-height: 100dvh;
 }
-
-
