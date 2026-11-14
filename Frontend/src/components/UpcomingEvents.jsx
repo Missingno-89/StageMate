@@ -1,13 +1,10 @@
-
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
     CalendarDays,
     ChevronLeft,
     ChevronRight,
-    ArrowUpRight,
-    Clock3,
-    MapPin
+    ArrowUpRight
 } from "lucide-react";
 
 import "../styles/UpcomingEvents.css";
@@ -149,7 +146,7 @@ const UpcomingEvents = ({ bandId }) => {
         return grouped;
     }, [events]);
 
-    const nextEvent = useMemo(() => {
+    /* const nextEvent = useMemo(() => {
         const now = new Date();
 
         return [...events]
@@ -162,7 +159,7 @@ const UpcomingEvents = ({ bandId }) => {
                 (a, b) =>
                     new Date(a.startDate) - new Date(b.startDate)
             )[0] || null;
-    }, [events]);
+    }, [events]); */
 
     const monthLabel = new Intl.DateTimeFormat("it-IT", {
         month: "long",
@@ -266,11 +263,8 @@ return (
                             const key = dateKey(date);
                             const dayEvents = eventsByDay[key] || [];
 
-                            const uniqueTypes = [
-                                ...new Set(
-                                    dayEvents.map((event) => event.type)
-                                )
-                            ];
+                            const primaryType = dayEvents[0]?.type;
+                            const eventColor = EVENT_TYPES[primaryType]?.color || EVENT_TYPES.other.color;
 
                             return (
                                 <div
@@ -286,21 +280,12 @@ return (
                                             : undefined
                                     }
                                 >
-                                    <span>{day}</span>
-
-                                    <div className="upcoming-events-indicators">
-                                        {uniqueTypes.map((type) => (
-                                            <span
-                                                key={type}
-                                                className="upcoming-events-indicator"
-                                                style={{
-                                                    backgroundColor:
-                                                        EVENT_TYPES[type]?.color ||
-                                                        EVENT_TYPES.other.color
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
+                                    <span
+                                        className={`upcoming-events-day-number ${dayEvents.length ? "has-event" : ""}`}
+                                        style={dayEvents.length ? { backgroundColor: eventColor } : undefined}
+                                    >
+                                        {day}
+                                    </span>
                                 </div>
                             );
                         })}

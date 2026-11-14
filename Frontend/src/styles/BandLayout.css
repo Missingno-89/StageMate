@@ -258,22 +258,22 @@
 
 @media screen and (max-width: 768px) {
 
-    /* Nascondi completamente la topbar desktop */
+  
     .band-layout .band-main > .band-topbar {
         display: none !important;
     }
 
-    /* Nascondi la sidebar desktop */
+    
     .band-layout > .band-sidebar {
         display: none !important;
     }
 
-    /* Mostra il nuovo header mobile */
+   
     .band-layout .band-main > .band-mobile-header {
         display: flex !important;
     }
 
-    /* Mostra la barra inferiore */
+   
     .band-layout > .band-mobile-nav {
         display: flex !important;
     }

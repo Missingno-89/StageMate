@@ -1,0 +1,10 @@
+.next-band-events { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; min-width: 0; }
+.next-band-events-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.next-band-events-type { display: inline-flex; align-items: center; gap: 6px; border: 1px solid; border-radius: 999px; padding: 5px 10px; font-size: .75rem; font-weight: 700; }
+.next-band-events-open { background: transparent; border: 0; color: #a7b0bc; cursor: pointer; padding: 5px; }
+.next-band-events-open:hover { color: #38d9e6; }
+.next-band-events h3 { color: #fff; margin: 4px 0; font-size: 1.12rem; overflow-wrap: anywhere; }
+.next-band-events-detail { display: flex; align-items: center; gap: 8px; color: #a7b0bc; font-size: .86rem; margin: 0; }
+.next-band-events-detail svg { flex-shrink: 0; color: #38d9e6; }
+.next-band-events-message { color: #a7b0bc; font-size: .9rem; }
+.next-band-events-error { color: #ff8a9b; font-size: .9rem; }

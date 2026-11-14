@@ -357,3 +357,26 @@
         margin-top: 18px;
     }
 }
+
+.upcoming-events-day {
+     gap: 0; 
+    }
+.upcoming-events-day-number { 
+    width: 34px; 
+    height: 34px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    transition: background .2s ease; }
+.upcoming-events-day-number.has-event { 
+    color: #101719; 
+    font-weight: 800; 
+    box-shadow: 0 0 0 3px rgba(255,255,255,.06); }
+.upcoming-events-day.today .upcoming-events-day-number.has-event {
+     outline: 2px solid #fff; 
+     outline-offset: 2px; }
+@media (max-width: 576px) { 
+    .upcoming-events-day-number { 
+        width: 30px; 
+        height: 30px; } }
