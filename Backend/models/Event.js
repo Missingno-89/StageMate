@@ -8,43 +8,46 @@ const eventSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 255
     },
+
     description: {
         type: String,
         required: false,
-        minlength: 1,
-        maxlength: 255
+        trim: true,
+        maxlength: 255,
+        default: ""
     },
+
     type: {
-          type: String,
-       enum: ["rehearsal","live","recording","deadline","other"],
-       required: true
+        type: String,
+        enum: ["rehearsal", "live", "recording", "deadline", "other"],
+        required: true
     },
     startDate: {
-          type: Date,
+        type: Date,
         required: true,
-        
+
     },
-      endDate: {
-          type: Date,
+    endDate: {
+        type: Date,
         required: false,
-        
+
     },
-    
+
     location: {
         type: String,
-        required: false,
+        required: true,
         minlength: 1,
         maxlength: 255
     },
-     bandId: {
-       type: mongoose.Schema.Types.ObjectId,
-               ref: "Band",
-               required: true
+    bandId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Band",
+        required: true
     },
-     createdBy: {
-       type: mongoose.Schema.Types.ObjectId,
-               ref: "User",
-               required: true
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
 
 },

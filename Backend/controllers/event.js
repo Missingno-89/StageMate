@@ -41,7 +41,9 @@ export async function createEvent(req, res) {
         const event = await Event.create(
             {
                 "title": req.body.title,
-                "description": req.body.description,
+                "description": typeof description === "string"
+                    ? description.trim()
+                    : "",
                 "type": req.body.type,
                 "startDate": start,
                 "endDate": end,
@@ -55,6 +57,7 @@ export async function createEvent(req, res) {
 
 
     } catch (error) {
+         console.error("Create event error:", error);
         return res.status(500).json({
             message: "Internal server error"
         })

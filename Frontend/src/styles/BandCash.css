@@ -1,0 +1,206 @@
+
+/* ========================================
+   STAGEMATE - FONDO CASSA
+======================================== */
+
+.band-dashboard-cash {
+    position: relative;
+}
+
+.band-cash {
+    position: static;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    padding: 12px 0 8px;
+}
+
+/* ========================================
+   FRECCIA APERTURA
+======================================== */
+
+.band-cash-open {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+    padding: 0;
+
+    background: rgba(56, 217, 230, 0.08);
+    border: 1px solid rgba(56, 217, 230, 0.2);
+    border-radius: 9px;
+
+    color: #38d9e6;
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.band-cash-open:hover {
+    background: rgba(56, 217, 230, 0.18);
+    border-color: #38d9e6;
+    transform: translateY(-2px);
+}
+
+.band-cash-open:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 2px;
+}
+
+.band-cash-open svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ========================================
+   SALDO CENTRALE
+======================================== */
+
+.band-cash-balance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    text-align: center;
+
+    gap: 8px;
+    margin: 0 0 26px;
+}
+
+.band-cash-balance span {
+    color: #a7b0bc;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.band-cash-balance h3 {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   RIEPILOGO ENTRATE E USCITE
+======================================== */
+
+.band-cash-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    width: min(100%, 340px);
+    gap: 32px;
+
+    margin: 0 auto;
+}
+
+/* ========================================
+   COLONNE ENTRATE E USCITE
+======================================== */
+
+.band-cash-income,
+.band-cash-expense {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    gap: 7px;
+
+    text-align: center;
+}
+
+/* ========================================
+   ENTRATE - VERDE
+======================================== */
+
+.band-cash-income svg {
+    color: #4ade80;
+}
+
+.band-cash-income strong {
+    color: #4ade80;
+
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   USCITE - ROSSO
+======================================== */
+
+.band-cash-expense svg {
+    color: #fb7185;
+}
+
+.band-cash-expense strong {
+    color: #fb7185;
+
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   ETICHETTE ENTRATE E USCITE
+======================================== */
+
+.band-cash-income span,
+.band-cash-expense span {
+    color: #a7b0bc;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+======================================== */
+
+@media (max-width: 576px) {
+
+    .band-cash {
+        padding-top: 8px;
+    }
+
+    .band-cash-balance {
+        margin-bottom: 22px;
+    }
+
+    .band-cash-balance h3 {
+        font-size: 1.75rem;
+    }
+
+    .band-cash-summary {
+        width: min(100%, 280px);
+        gap: 16px;
+    }
+
+    .band-cash-income strong,
+    .band-cash-expense strong {
+        font-size: 1rem;
+    }
+}

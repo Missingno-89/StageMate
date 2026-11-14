@@ -13,6 +13,7 @@ import StageMateLayout from "./components/StageMateLayout.jsx";
 import BandLayout from "./components/BandLayout.jsx";
 import BandDashboard from "./pages/BandDashboard.jsx";
 import BandCalendar from "./components/BandCalendar.jsx";
+import BandCashManager from "./components/BandCashManager.jsx";
 
 function App() {
     return (
@@ -72,6 +73,10 @@ function App() {
                     <Route
                         path="calendar"
                         element={<BandCalendar />}
+                    />
+                    <Route
+                        path="/bands/:bandId/cash"
+                        element={<BandCashManager />}
                     />
 
                 </Route>

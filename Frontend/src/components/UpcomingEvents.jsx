@@ -146,20 +146,6 @@ const UpcomingEvents = ({ bandId }) => {
         return grouped;
     }, [events]);
 
-    /* const nextEvent = useMemo(() => {
-        const now = new Date();
-
-        return [...events]
-            .filter((event) => {
-                const date = new Date(event.startDate);
-
-                return !Number.isNaN(date.getTime()) && date >= now;
-            })
-            .sort(
-                (a, b) =>
-                    new Date(a.startDate) - new Date(b.startDate)
-            )[0] || null;
-    }, [events]); */
 
     const monthLabel = new Intl.DateTimeFormat("it-IT", {
         month: "long",

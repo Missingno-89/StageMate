@@ -1,0 +1,565 @@
+
+.cash-manager {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  color: #fff;
+}
+
+.cash-manager-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding: 8px 0;
+  border: none;
+  background: transparent;
+  color: #a9b8c5;
+  cursor: pointer;
+}
+
+.cash-manager-back:hover {
+  color: #38d9e6;
+}
+
+.cash-manager-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.cash-manager-header svg {
+  color: #38d9e6;
+}
+
+.cash-manager-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.cash-manager-balance,
+.cash-manager-history {
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.cash-manager-balance {
+  text-align: center;
+}
+
+.cash-manager-balance > span {
+  color: #9caab8;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cash-manager-balance h2 {
+  margin: 18px 0 30px;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+}
+
+.cash-manager-totals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.cash-manager-income,
+.cash-manager-expense {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.cash-manager-income {
+  background: rgba(74, 222, 128, 0.08);
+  color: #4ade80;
+}
+
+.cash-manager-expense {
+  background: rgba(251, 113, 133, 0.08);
+  color: #fb7185;
+}
+
+.cash-manager-actions {
+  display: flex;
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.cash-manager-actions button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.cash-manager-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cash-manager-history h2 {
+  margin: 0 0 22px;
+  font-size: 1.2rem;
+}
+
+.cash-manager-empty {
+  padding: 30px 0;
+  color: #9caab8;
+  text-align: center;
+}
+
+.cash-manager-transaction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cash-manager-transaction:last-child {
+  border-bottom: none;
+}
+
+.cash-manager-transaction-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cash-manager-transaction-info strong {
+  overflow-wrap: anywhere;
+}
+
+.cash-manager-transaction-info span {
+  color: #9caab8;
+  font-size: 0.8rem;
+}
+
+.cash-manager-positive {
+  color: #4ade80;
+}
+
+.cash-manager-negative {
+  color: #fb7185;
+}
+
+.cash-manager-transaction > strong {
+  white-space: nowrap;
+}
+
+.cash-manager-status {
+  padding: 50px 24px;
+  color: #a9b8c5;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .cash-manager {
+    padding: 20px 14px 50px;
+  }
+
+  .cash-manager-balance,
+  .cash-manager-history {
+    padding: 20px 16px;
+  }
+
+  .cash-manager-totals {
+    gap: 10px;
+  }
+
+  .cash-manager-income,
+  .cash-manager-expense {
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 8px;
+  }
+
+  .cash-manager-actions {
+    flex-direction: column;
+  }
+}
+
+
+/* ========================================
+   RIQUADRI ESPANDIBILI
+======================================== */
+
+.cash-manager-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+}
+
+.cash-manager-action-card {
+    min-width: 0;
+    border-radius: 14px;
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(210, 225, 235, 0.16);
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.cash-manager-action-card.income.expanded {
+    border-color: rgba(74, 222, 128, 0.4);
+}
+
+.cash-manager-action-card.expense.expanded {
+    border-color: rgba(251, 113, 133, 0.4);
+}
+
+.cash-manager-action-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+
+    background: transparent;
+    border: none;
+
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.cash-manager-action-card.income
+.cash-manager-action-toggle:hover {
+    background: rgba(74, 222, 128, 0.08);
+}
+
+.cash-manager-action-card.expense
+.cash-manager-action-toggle:hover {
+    background: rgba(251, 113, 133, 0.08);
+}
+
+.cash-manager-action-card.income
+.cash-manager-action-toggle svg {
+    color: #4ade80;
+}
+
+.cash-manager-action-card.expense
+.cash-manager-action-toggle svg {
+    color: #fb7185;
+}
+
+/* ========================================
+   FORM INTERNO
+======================================== */
+
+.cash-manager-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding: 20px;
+    border-top: 1px solid rgba(210, 225, 235, 0.12);
+}
+
+.cash-manager-form h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.cash-manager-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cash-manager-form-field label {
+    color: #a7b0bc;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.cash-manager-form-field input,
+.cash-manager-form-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(210, 225, 235, 0.2);
+    border-radius: 9px;
+
+    color: #ffffff;
+    font: inherit;
+
+    outline: none;
+    resize: vertical;
+
+    transition: border-color 0.2s ease;
+}
+
+.cash-manager-form-field input:focus,
+.cash-manager-form-field textarea:focus {
+    border-color: #38d9e6;
+}
+
+.cash-manager-form-field input::placeholder,
+.cash-manager-form-field textarea::placeholder {
+    color: #747e89;
+}
+
+.cash-manager-form-error {
+    margin: 0;
+    color: #fb7185;
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   PULSANTI FORM
+======================================== */
+
+.cash-manager-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cash-manager-form-actions button {
+    padding: 10px 14px;
+    border-radius: 9px;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cash-manager-cancel {
+    background: transparent;
+    border: 1px solid rgba(210, 225, 235, 0.2);
+    color: #a7b0bc;
+}
+
+.cash-manager-save-income {
+    background: rgba(74, 222, 128, 0.14);
+    border: 1px solid rgba(74, 222, 128, 0.4);
+    color: #4ade80;
+}
+
+.cash-manager-save-expense {
+    background: rgba(251, 113, 133, 0.14);
+    border: 1px solid rgba(251, 113, 133, 0.4);
+    color: #fb7185;
+}
+
+.cash-manager-form-actions button:disabled,
+.cash-manager-action-toggle:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 650px) {
+    .cash-manager-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   AUTORE MOVIMENTO
+======================================== */
+
+.cash-manager-transaction-author {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #a7b0bc;
+    font-size: 0.8rem;
+}
+
+.cash-manager-transaction-author svg {
+    color: #38d9e6;
+    flex-shrink: 0;
+}
+
+
+/* ========================================
+   STORICO - MODIFICA ED ELIMINAZIONE
+======================================== */
+
+.cash-manager-transaction {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.cash-manager-transaction-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+
+.cash-manager-transaction-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.cash-manager-transaction-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cash-manager-edit-button,
+.cash-manager-delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    border-radius: 8px;
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.cash-manager-edit-button {
+    background: rgba(56, 217, 230, 0.08);
+    border: 1px solid rgba(56, 217, 230, 0.2);
+    color: #38d9e6;
+}
+
+.cash-manager-edit-button:hover {
+    background: rgba(56, 217, 230, 0.18);
+    border-color: #38d9e6;
+}
+
+.cash-manager-delete-button {
+    background: rgba(251, 113, 133, 0.08);
+    border: 1px solid rgba(251, 113, 133, 0.2);
+    color: #fb7185;
+}
+
+.cash-manager-delete-button:hover {
+    background: rgba(251, 113, 133, 0.18);
+    border-color: #fb7185;
+}
+
+/* ========================================
+   FORM MODIFICA INLINE
+======================================== */
+
+.cash-manager-inline-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    margin-top: 18px;
+    padding: 20px;
+
+    background: rgba(56, 217, 230, 0.035);
+    border: 1px solid rgba(56, 217, 230, 0.18);
+    border-radius: 12px;
+}
+
+.cash-manager-inline-form h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.cash-manager-save-edit {
+    background: rgba(56, 217, 230, 0.12);
+    border: 1px solid rgba(56, 217, 230, 0.35);
+    color: #38d9e6;
+}
+
+/* ========================================
+   CONFERMA ELIMINAZIONE
+======================================== */
+
+.cash-manager-delete-confirm {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-top: 18px;
+    padding: 20px;
+
+    background: rgba(251, 113, 133, 0.04);
+    border: 1px solid rgba(251, 113, 133, 0.25);
+    border-radius: 12px;
+}
+
+.cash-manager-delete-confirm p {
+    margin: 0;
+    color: #e4e7eb;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.cash-manager-confirm-delete {
+    background: rgba(251, 113, 133, 0.14);
+    border: 1px solid rgba(251, 113, 133, 0.4);
+    color: #fb7185;
+}
+
+.cash-manager-confirm-delete:hover {
+    background: rgba(251, 113, 133, 0.22);
+}
+
+.cash-manager-transaction-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 576px) {
+    .cash-manager-transaction-main {
+        align-items: flex-start;
+    }
+
+    .cash-manager-inline-form,
+    .cash-manager-delete-confirm {
+        padding: 14px;
+    }
+}

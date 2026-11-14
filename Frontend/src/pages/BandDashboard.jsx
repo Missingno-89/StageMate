@@ -6,6 +6,7 @@ import NextBandEvents from "../components/NextBandEvents.jsx";
 import "../styles/BandDashboard.css";
 import { Wallet, MessagesSquare } from "lucide-react";
 import { CalendarClock } from "lucide-react";
+import BandCash from "../components/BandCash.jsx";
 
 const BandDashboard = () => {
     const { bandId } = useParams();
@@ -67,8 +68,7 @@ const BandDashboard = () => {
                             <Wallet size={21} />
                             <h2>Fondo cassa</h2>
                         </div>
-
-                        <p>Saldo e ultimi movimenti della band.</p>
+                        <BandCash bandId={bandId} />
                     </section>
                 </div>
             </div>
