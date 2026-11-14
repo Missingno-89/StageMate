@@ -5,8 +5,7 @@ const BandTopbar = () => {
     return (
         <header className="band-topbar">
             <div className="band-topbar-title">
-                <span className="band-topbar-label">StageMate</span>
-                <h1>Dashboard</h1>
+              
             </div>
 
             <div className="band-topbar-actions">

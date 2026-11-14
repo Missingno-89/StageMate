@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import BandCover from "../components/BandCover.jsx";
+import UpcomingEvents from "../components/UpcomingEvents.jsx";
+import "../styles/BandDashboard.css";
 
 const BandDashboard = () => {
     const { bandId } = useParams();
@@ -76,13 +78,47 @@ const BandDashboard = () => {
         return <p>Band non trovata.</p>;
     }
 
-  return (
+
+
+return (
     <div className="band-dashboard">
-        <BandCover band={band}
-           onCoverUpdated={setBand}
+
+        <BandCover
+            band={band}
+            onCoverUpdated={setBand}
         />
+
+        <div className="band-dashboard-widgets">
+
+            <div className="band-dashboard-calendar">
+                <UpcomingEvents bandId={bandId} />
+            </div>
+
+            <div className="band-dashboard-right">
+
+                <section className="band-dashboard-events dashboard-glass">
+                    <h2>Prossimi eventi</h2>
+                    <p>Qui mostreremo i prossimi appuntamenti.</p>
+                </section>
+
+                <section className="band-dashboard-cash dashboard-glass">
+                    <h2>Fondo cassa</h2>
+                    <p>Saldo e ultimi movimenti della band.</p>
+                </section>
+
+            </div>
+
+        </div>
+
+        <section className="band-dashboard-board dashboard-glass">
+            <h2>Bacheca</h2>
+            <p>Comunicazioni e aggiornamenti della band.</p>
+        </section>
+
     </div>
 );
+
+
 };
 
 export default BandDashboard;

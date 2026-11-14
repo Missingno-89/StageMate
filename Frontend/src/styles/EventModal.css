@@ -1,0 +1,436 @@
+
+/* ========================================
+   OVERLAY
+======================================== */
+
+.event-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* ========================================
+   FINESTRA MODALE
+======================================== */
+
+.event-modal {
+    width: 100%;
+    max-width: 540px;
+    max-height: 90dvh;
+
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    padding: 28px;
+
+    background: #141619;
+    border: 1px solid rgba(210, 225, 235, 0.13);
+    border-radius: 18px;
+
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.event-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 26px;
+}
+
+.event-modal-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #38d9e6;
+}
+
+.event-modal-heading h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.event-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+
+    color: #a7b0bc;
+    cursor: pointer;
+}
+
+.event-modal-close:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+}
+
+/* ========================================
+   FORM
+======================================== */
+
+.event-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ========================================
+   CONTENITORI DEI CAMPI
+======================================== */
+
+.event-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.event-modal-field label {
+    color: #d5dce4;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* ========================================
+   INPUT E SELECT UNIFORMI
+======================================== */
+
+.event-modal-field input,
+.event-modal-field select {
+    display: block;
+
+    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    padding: 0 14px;
+    margin: 0;
+
+    background-color: #0b0d10;
+    border: 1px solid rgba(210, 225, 235, 0.15);
+    border-radius: 10px;
+
+    color: #ffffff;
+    color-scheme: dark;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: normal;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+/* ========================================
+   SELECT - MENU A TENDINA
+======================================== */
+
+.event-modal-field select {
+    appearance: none;
+    -webkit-appearance: none;
+
+    padding-right: 40px;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a7b0bc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+
+    cursor: pointer;
+}
+
+.event-modal-field select option {
+    background: #141619;
+    color: #ffffff;
+}
+
+/* ========================================
+   INPUT DATA - FIX SAFARI
+======================================== */
+
+.event-modal-field input[type="date"] {
+    display: block;
+
+    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    min-width: 0;
+
+    box-sizing: border-box;
+    padding: 0 14px;
+    margin: 0;
+
+
+    appearance: auto;
+    -webkit-appearance: auto;
+
+    background-color: #0b0d10;
+    border: 1px solid rgba(210, 225, 235, 0.15);
+    border-radius: 10px;
+
+    color: #ffffff;
+    color-scheme: dark;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: normal;
+
+    cursor: pointer;
+}
+
+/* Contenitore interno della data su Safari */
+
+.event-modal-field input[type="date"]::-webkit-date-and-time-value {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 100%;
+
+    text-align: left;
+}
+
+/* Allineamento dei numeri della data */
+
+.event-modal-field input[type="date"]::-webkit-datetime-edit {
+    display: flex;
+    align-items: center;
+
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+/* Icona del calendario */
+
+.event-modal-field input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.85;
+    margin: 0;
+}
+
+/* ========================================
+   TEXTAREA
+======================================== */
+
+.event-modal-field textarea {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 100px;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+    margin: 0;
+
+    background: #0b0d10;
+    border: 1px solid rgba(210, 225, 235, 0.15);
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.5;
+
+    outline: none;
+    resize: vertical;
+}
+
+/* ========================================
+   FOCUS
+======================================== */
+
+.event-modal-field input:focus,
+.event-modal-field select:focus,
+.event-modal-field textarea:focus {
+    border-color: #38d9e6;
+}
+
+.event-modal-field input:focus-visible,
+.event-modal-field select:focus-visible,
+.event-modal-field textarea:focus-visible {
+    box-shadow: 0 0 0 2px rgba(56, 217, 230, 0.12);
+}
+
+/* ========================================
+   PLACEHOLDER
+======================================== */
+
+.event-modal-field input::placeholder,
+.event-modal-field textarea::placeholder {
+    color: #747e8b;
+}
+
+/* ========================================
+   GRIGLIA DATA E ORA
+======================================== */
+
+.event-modal-date-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+/* ========================================
+   ERRORI
+======================================== */
+
+.event-modal-error {
+    margin: 0;
+    padding: 12px;
+
+    background: rgba(255, 100, 120, 0.08);
+    border: 1px solid rgba(255, 100, 120, 0.25);
+    border-radius: 8px;
+
+    color: #ff6478;
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   PULSANTI
+======================================== */
+
+.event-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+.event-modal-actions button {
+    min-height: 44px;
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* ANNULLA */
+
+.event-modal-cancel {
+    background: transparent;
+    border: 1px solid rgba(210, 225, 235, 0.15);
+
+    color: #a7b0bc;
+}
+
+.event-modal-cancel:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+}
+
+/* CREA EVENTO */
+
+.event-modal-save {
+    background: #38d9e6;
+    border: 1px solid #38d9e6;
+
+    color: #080808;
+}
+
+.event-modal-save:hover:not(:disabled) {
+    background: #6ee7f0;
+}
+
+/* PULSANTI DISABILITATI */
+
+.event-modal-actions button:disabled,
+.event-modal-close:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET E MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+
+    .event-modal-overlay {
+        padding: 12px;
+    }
+
+    .event-modal {
+        padding: 20px;
+        max-height: 92dvh;
+        border-radius: 14px;
+    }
+
+    .event-modal-header {
+        margin-bottom: 22px;
+    }
+
+    .event-modal-heading h2 {
+        font-size: 1.2rem;
+    }
+
+    .event-modal-date-row {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .event-modal-actions {
+        gap: 8px;
+    }
+
+    .event-modal-actions button {
+        flex: 1;
+        padding: 12px 10px;
+    }
+}

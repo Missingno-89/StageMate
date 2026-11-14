@@ -1,0 +1,131 @@
+/* ========================================
+   STAGEMATE - MOBILE BOTTOM NAVIGATION
+======================================== */
+
+.band-mobile-nav {
+    display: none;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+
+    .band-mobile-nav {
+        display: flex;
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        z-index: 200;
+
+        width: 100%;
+        min-height: 68px;
+        box-sizing: border-box;
+
+        align-items: center;
+        justify-content: space-around;
+
+        padding:
+            8px 12px calc(8px + env(safe-area-inset-bottom));
+
+        background: #080808;
+
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+
+        border-top: 1px solid rgba(210, 225, 235, 0.10);
+
+        box-shadow: none;
+    }
+
+    /* SINGOLA ICONA */
+
+    .band-mobile-nav-link {
+        flex: 1;
+        min-width: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 46px;
+        max-width: 70px;
+
+        border-radius: 12px;
+
+        color: #a7b0bc;
+        text-decoration: none;
+
+        transition:
+            color 0.2s ease,
+            background 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    /* HOVER */
+
+    .band-mobile-nav-link:hover {
+        color: #38d9e6;
+        background: rgba(56, 217, 230, 0.06);
+    }
+
+    /* SEZIONE ATTIVA */
+
+    .band-mobile-nav-link.active {
+        color: #38d9e6;
+        background: rgba(56, 217, 230, 0.12);
+    }
+
+    .band-mobile-nav-link.active svg {
+        stroke-width: 2.4;
+    }
+
+    /* ACCESSIBILITÀ */
+
+    .band-mobile-nav-link:focus-visible {
+        outline: 2px solid #38d9e6;
+        outline-offset: 2px;
+    }
+
+    /* ETICHETTE NASCOSTE VISIVAMENTE */
+
+    .band-mobile-nav-label {
+        position: absolute;
+
+        width: 1px;
+        height: 1px;
+
+        padding: 0;
+        margin: -1px;
+
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+}
+
+/* ========================================
+   SMARTPHONE PICCOLI
+======================================== */
+
+@media (max-width: 380px) {
+
+    .band-mobile-nav {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .band-mobile-nav-link {
+        height: 42px;
+    }
+
+    .band-mobile-nav-link svg {
+        width: 21px;
+        height: 21px;
+    }
+}

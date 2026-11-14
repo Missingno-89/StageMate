@@ -1,29 +1,30 @@
 
 /* ========================================
-   LAYOUT PRINCIPALE DASHBOARD
+   STAGEMATE - BAND LAYOUT
 ======================================== */
 
 .band-layout {
     display: flex;
+
+    width: 100%;
     min-height: 100vh;
     min-height: 100dvh;
 
     color: #ffffff;
-
-    /* Sfondo nero antracite uniforme */
-    background: #080a0d;
+    background: #080808;
 }
 
 /* ========================================
-   SIDEBAR GLASS
+   SIDEBAR DESKTOP - GLASS
 ======================================== */
 
 .band-sidebar {
     width: 250px;
     flex-shrink: 0;
-    padding: 28px 20px;
 
-    /* Vetro scuro trasparente */
+    padding: 28px 20px;
+    box-sizing: border-box;
+
     background: rgba(255, 255, 255, 0.035);
 
     backdrop-filter: blur(20px);
@@ -49,7 +50,7 @@
 }
 
 /* ========================================
-   TOPBAR GLASS
+   TOPBAR DESKTOP - GLASS
 ======================================== */
 
 .band-topbar {
@@ -74,7 +75,9 @@
 .band-main-content {
     flex: 1;
     min-width: 0;
+
     padding: 32px;
+    box-sizing: border-box;
 
     background: transparent;
 }
@@ -84,7 +87,6 @@
 ======================================== */
 
 .dashboard-glass {
-    /* Superficie leggermente più chiara */
     background: rgba(255, 255, 255, 0.045);
 
     backdrop-filter: blur(16px);
@@ -103,7 +105,6 @@
         box-shadow 0.25s ease;
 }
 
-/* Leggero riflesso ciano al passaggio del mouse */
 .dashboard-glass:hover {
     background: rgba(255, 255, 255, 0.06);
 
@@ -116,20 +117,164 @@
 }
 
 /* ========================================
-   RESPONSIVE MOBILE
+   COMPONENTI MOBILE
+   NASCOSTI SU DESKTOP
+======================================== */
+
+.band-mobile-header,
+.band-mobile-nav {
+    display: none;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET E MOBILE
 ======================================== */
 
 @media (max-width: 768px) {
-    .band-sidebar {
+
+    /* SIDEBAR E TOPBAR DESKTOP NASCOSTE */
+
+    .band-sidebar,
+    .band-topbar {
         display: none;
     }
 
-    .band-topbar {
-        padding: 18px;
+    /* LAYOUT MOBILE */
+
+    .band-layout {
+        width: 100%;
+        min-height: 100dvh;
+    }
+
+    .band-main {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* HEADER MOBILE */
+
+    .band-mobile-header {
+        display: flex;
+
+        position: sticky;
+        top: 0;
+        z-index: 100;
+
+        width: 100%;
+        min-height: 64px;
+        box-sizing: border-box;
+
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 12px 18px;
+
+        background: rgba(8, 8, 8, 0.65);
+
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+
+        border-bottom: 1px solid rgba(210, 225, 235, 0.12);
+    }
+
+    /* CONTENUTO PRINCIPALE */
+
+    .band-main-content {
+        width: 100%;
+
+        padding: 16px;
+
+        /* Spazio per la navigazione inferiore */
+        padding-bottom: calc(100px + env(safe-area-inset-bottom));
+
+        box-sizing: border-box;
+    }
+
+    /* NAVIGAZIONE INFERIORE */
+
+    .band-mobile-nav {
+        display: flex;
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        z-index: 200;
+
+        width: 100%;
+        min-height: 68px;
+        box-sizing: border-box;
+
+        align-items: center;
+        justify-content: space-around;
+
+        padding:
+            8px
+            12px
+            calc(8px + env(safe-area-inset-bottom));
+
+        background: rgba(8, 8, 8, 0.78);
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        border-top: 1px solid rgba(210, 225, 235, 0.15);
+
+        box-shadow:
+            0 -4px 24px rgba(0, 0, 0, 0.18);
+    }
+}
+
+/* ========================================
+   RESPONSIVE - SMARTPHONE PICCOLI
+======================================== */
+
+@media (max-width: 480px) {
+
+    .band-mobile-header {
+        min-height: 60px;
+        padding: 10px 16px;
     }
 
     .band-main-content {
-        padding: 16px;
-        padding-bottom: 90px;
+        padding: 14px;
+
+        padding-bottom: calc(
+            96px + env(safe-area-inset-bottom)
+        );
+    }
+
+    .band-mobile-nav {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+
+/* ========================================
+   FIX NAVIGAZIONE MOBILE
+======================================== */
+
+@media screen and (max-width: 768px) {
+
+    /* Nascondi completamente la topbar desktop */
+    .band-layout .band-main > .band-topbar {
+        display: none !important;
+    }
+
+    /* Nascondi la sidebar desktop */
+    .band-layout > .band-sidebar {
+        display: none !important;
+    }
+
+    /* Mostra il nuovo header mobile */
+    .band-layout .band-main > .band-mobile-header {
+        display: flex !important;
+    }
+
+    /* Mostra la barra inferiore */
+    .band-layout > .band-mobile-nav {
+        display: flex !important;
     }
 }

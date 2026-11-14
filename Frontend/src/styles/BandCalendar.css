@@ -1,0 +1,429 @@
+
+/* ========================================
+   STAGEMATE - CALENDARIO COMPLETO
+======================================== */
+
+.band-calendar {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+/* HEADER */
+
+.band-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+.band-calendar-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    color: #38d9e6;
+}
+
+.band-calendar-heading h1 {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.band-calendar-heading p {
+    margin: 6px 0 0;
+
+    color: #a7b0bc;
+    font-size: 0.9rem;
+}
+
+/* PULSANTE NUOVO EVENTO */
+
+.band-calendar-create {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+    padding: 12px 18px;
+
+    background: #38d9e6;
+    border: none;
+    border-radius: 12px;
+
+    color: #080808;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.band-calendar-create:hover {
+    background: #6ee7f0;
+}
+
+.band-calendar-create:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+}
+
+/* CONTENITORE CALENDARIO */
+
+.band-calendar-content {
+    width: 100%;
+    min-width: 0;
+    min-height: 550px;
+
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.band-calendar-content p {
+    margin: 0;
+
+    color: #a7b0bc;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .band-calendar {
+        gap: 20px;
+    }
+
+    .band-calendar-header {
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .band-calendar-heading h1 {
+        font-size: 1.4rem;
+    }
+
+    .band-calendar-heading p {
+        font-size: 0.8rem;
+    }
+
+    .band-calendar-create {
+        padding: 11px 14px;
+        font-size: 0.85rem;
+    }
+
+    .band-calendar-content {
+        padding: 16px;
+        min-height: 450px;
+    }
+}
+
+
+/* ========================================
+   CALENDARIO - MESE E NAVIGAZIONE
+======================================== */
+
+.band-calendar-month-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.band-calendar-month-header h2 {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.band-calendar-navigation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.band-calendar-navigation button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(210, 225, 235, 0.12);
+    border-radius: 10px;
+
+    color: #a7b0bc;
+    cursor: pointer;
+}
+
+.band-calendar-navigation button:hover {
+    background: rgba(56, 217, 230, 0.1);
+    color: #38d9e6;
+}
+
+/* ========================================
+   GRIGLIA MENSILE
+======================================== */
+
+.band-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
+    gap: 6px;
+    width: 100%;
+}
+
+.band-calendar-weekday {
+    padding: 12px 4px;
+
+    color: #38d9e6;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.band-calendar-day {
+    min-width: 0;
+    min-height: 100px;
+
+    padding: 12px;
+    box-sizing: border-box;
+
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(210, 225, 235, 0.09);
+    border-radius: 10px;
+
+    color: #ffffff;
+}
+
+.band-calendar-day.empty {
+    background: transparent;
+    border-color: transparent;
+}
+
+.band-calendar-day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.band-calendar-day.today .band-calendar-day-number {
+    background: rgba(56, 217, 230, 0.18);
+    color: #38d9e6;
+    font-weight: 800;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+
+    .band-calendar-month-header {
+        margin-bottom: 16px;
+    }
+
+    .band-calendar-month-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .band-calendar-grid {
+        gap: 3px;
+    }
+
+    .band-calendar-weekday {
+        padding: 8px 0;
+        font-size: 0.7rem;
+    }
+
+    .band-calendar-day {
+        min-height: 65px;
+        padding: 4px;
+
+        border-radius: 7px;
+    }
+
+    .band-calendar-day-number {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .band-calendar-day {
+        min-height: 52px;
+        padding: 3px;
+    }
+
+    .band-calendar-day-number {
+        width: 23px;
+        height: 23px;
+        font-size: 0.75rem;
+    }
+}
+
+
+/* ========================================
+   EVENTI NEL CALENDARIO
+======================================== */
+
+.band-calendar-day-events {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.band-calendar-event {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 6px 8px;
+    box-sizing: border-box;
+
+    border-radius: 6px;
+
+    font-size: 0.72rem;
+    font-weight: 600;
+
+    overflow: hidden;
+}
+
+.band-calendar-event-time {
+    font-size: 0.65rem;
+    opacity: 0.8;
+}
+
+.band-calendar-event-title {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* PROVE */
+
+.band-calendar-event.rehearsal {
+    background: rgba(56, 217, 230, 0.16);
+    color: #38d9e6;
+}
+
+/* LIVE */
+
+.band-calendar-event.live {
+    background: rgba(255, 170, 60, 0.16);
+    color: #ffb454;
+}
+
+/* REGISTRAZIONI */
+
+.band-calendar-event.recording {
+    background: rgba(185, 140, 255, 0.16);
+    color: #c4a7ff;
+}
+
+/* SCADENZE */
+
+.band-calendar-event.deadline {
+    background: rgba(255, 100, 120, 0.16);
+    color: #ff6478;
+}
+
+/* ALTRI EVENTI */
+
+.band-calendar-event.other {
+    background: rgba(167, 176, 188, 0.16);
+    color: #cbd5e1;
+}
+
+/* MESSAGGI */
+
+.band-calendar-message {
+    color: #a7b0bc;
+    margin-bottom: 16px;
+}
+
+.band-calendar-error {
+    color: #ff6478;
+    margin-bottom: 16px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .band-calendar-day-events {
+        gap: 3px;
+        margin-top: 4px;
+    }
+
+    .band-calendar-event {
+        padding: 4px;
+        font-size: 0.6rem;
+    }
+
+    .band-calendar-event-time {
+        font-size: 0.55rem;
+    }
+}
+
+
+/* ========================================
+   EVENTI CLICCABILI
+======================================== */
+
+button.band-calendar-event {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+button.band-calendar-event:hover {
+    filter: brightness(1.2);
+}
+
+button.band-calendar-event:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 2px;
+}

@@ -1,0 +1,155 @@
+
+/* ========================================
+   STAGEMATE - BAND DASHBOARD
+======================================== */
+
+.band-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+/* ========================================
+   CALENDARIO + COLONNA DESTRA
+======================================== */
+
+.band-dashboard-widgets {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 24px;
+    align-items: stretch;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.band-dashboard-calendar {
+    min-width: 0;
+    display: flex;
+}
+
+.band-dashboard-calendar > * {
+    width: 100%;
+}
+
+/* ========================================
+   PROSSIMI EVENTI + FONDO CASSA
+======================================== */
+
+.band-dashboard-right {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 24px;
+    min-width: 0;
+}
+
+.band-dashboard-events,
+.band-dashboard-cash {
+    min-width: 0;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.band-dashboard-events h2,
+.band-dashboard-cash h2 {
+    margin: 0 0 16px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.band-dashboard-events p,
+.band-dashboard-cash p {
+    margin: 0;
+    color: #a7b0bc;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   BACHECA A TUTTA LARGHEZZA
+======================================== */
+
+.band-dashboard-board {
+    width: 100%;
+    min-width: 0;
+    min-height: 280px;
+
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.band-dashboard-board h2 {
+    margin: 0 0 16px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.band-dashboard-board p {
+    margin: 0;
+    color: #a7b0bc;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   GLASSMORPHISM
+======================================== */
+
+.band-dashboard .dashboard-glass {
+    background: rgba(255, 255, 255, 0.015);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(210, 225, 235, 0.16);
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+    .band-dashboard-widgets {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    .band-dashboard-right {
+        grid-template-rows: auto;
+        gap: 20px;
+    }
+
+    .band-dashboard-events,
+    .band-dashboard-cash {
+        min-height: 160px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .band-dashboard {
+        gap: 20px;
+    }
+
+    .band-dashboard-events,
+    .band-dashboard-cash,
+    .band-dashboard-board {
+        padding: 18px;
+    }
+
+    .band-dashboard-board {
+        min-height: 220px;
+    }
+}

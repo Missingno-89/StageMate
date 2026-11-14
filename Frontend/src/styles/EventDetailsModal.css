@@ -1,0 +1,244 @@
+
+/* ========================================
+   OVERLAY
+======================================== */
+
+.event-details-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2100;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* ========================================
+   MODALE
+======================================== */
+
+.event-details-modal {
+    width: 100%;
+    max-width: 500px;
+    max-height: 90dvh;
+    overflow-y: auto;
+
+    box-sizing: border-box;
+    padding: 28px;
+
+    background: #141619;
+    border: 1px solid rgba(210, 225, 235, 0.13);
+    border-radius: 18px;
+
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.event-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+}
+
+.event-details-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #38d9e6;
+}
+
+.event-details-heading h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.3rem;
+}
+
+.event-details-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+
+    color: #a7b0bc;
+    cursor: pointer;
+}
+
+.event-details-close:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+}
+
+/* ========================================
+   TIPOLOGIA
+======================================== */
+
+.event-details-type {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    background: rgba(56, 217, 230, 0.12);
+    color: #38d9e6;
+}
+
+.event-details-type--live {
+    background: rgba(255, 160, 80, 0.12);
+    color: #ffa050;
+}
+
+.event-details-type--recording {
+    background: rgba(170, 120, 255, 0.12);
+    color: #aa78ff;
+}
+
+.event-details-type--deadline {
+    background: rgba(255, 100, 120, 0.12);
+    color: #ff6478;
+}
+
+.event-details-type--other {
+    background: rgba(170, 180, 190, 0.12);
+    color: #aab4be;
+}
+
+/* ========================================
+   TITOLO
+======================================== */
+
+.event-details-name {
+    margin: 16px 0 26px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   INFORMAZIONI
+======================================== */
+
+.event-details-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    margin-bottom: 22px;
+}
+
+.event-details-info > svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: #38d9e6;
+}
+
+.event-details-info > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.event-details-info strong {
+    color: #a7b0bc;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.event-details-info span {
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+/* ========================================
+   PULSANTI
+======================================== */
+
+.event-details-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    margin-top: 30px;
+    padding-top: 22px;
+
+    border-top: 1px solid rgba(210, 225, 235, 0.12);
+}
+
+.event-details-actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 44px;
+    padding: 10px 16px;
+
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.event-details-delete {
+    background: transparent;
+    border: 1px solid rgba(255, 100, 120, 0.35);
+    color: #ff6478;
+}
+
+.event-details-delete:hover {
+    background: rgba(255, 100, 120, 0.1);
+}
+
+.event-details-edit {
+    background: #38d9e6;
+    border: 1px solid #38d9e6;
+    color: #080808;
+}
+
+.event-details-edit:hover {
+    background: #6ee7f0;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+    .event-details-overlay {
+        padding: 12px;
+    }
+
+    .event-details-modal {
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .event-details-actions button {
+        flex: 1;
+    }
+}

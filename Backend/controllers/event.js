@@ -13,11 +13,16 @@ export async function createEvent(req, res) {
         if (!band) {
             return res.status(404).json({ message: "band not found" })
         }
-        const authenticateMember = req.userId
+        const authenticatedMember = String(req.userId);
+        const isOwner =
+            String(band.owner) === authenticatedMember;
         const isMember = band.members.some(
-            member => member.toString() === authenticateMember)
-        if (!isMember) {
-            return res.status(403).json({ message: "forbidden" })
+            member => String(member) === authenticatedMember
+        );
+        if (!isOwner && !isMember) {
+            return res.status(403).json({
+                message: "Forbidden"
+            });
         }
         if (!title || !type || !startDate) {
             return res.status(400).json({ message: "Missing required field" })
@@ -67,8 +72,10 @@ export async function getEvents(req, res) {
             return res.status(404).json({ message: "band not found" })
         }
         const authenticateMember = req.userId
+
         const isMember = band.members.some(
-            member => member.toString() === authenticateMember)
+            member => member.toString() === String(req.userId)
+        );
         if (!isMember) {
             return res.status(403).json({ message: "forbidden" })
         }
@@ -103,20 +110,18 @@ export async function updateEvent(req, res) {
             });
         }
 
+        const authenticatedMember = String(req.userId);
 
-        const authenticatedMember = req.userId;
-
+        const isOwner =
+            String(band.owner) === authenticatedMember;
         const isMember = band.members.some(
-            member => member.toString() === authenticatedMember
+            member => String(member) === authenticatedMember
         );
-
-        if (!isMember) {
+        if (!isOwner && !isMember) {
             return res.status(403).json({
                 message: "Forbidden"
             });
         }
-
-
         const eventId = req.params.eventId;
 
         if (!mongoose.Types.ObjectId.isValid(eventId)) {
@@ -302,7 +307,6 @@ export async function updateEvent(req, res) {
             });
         }
 
-
         const updatedEvent = await Event.findOneAndUpdate(
             {
                 _id: eventId,
@@ -310,7 +314,7 @@ export async function updateEvent(req, res) {
             },
             updates,
             {
-                new: true,
+                returnDocument: "after",
                 runValidators: true
             }
         );
@@ -347,21 +351,18 @@ export async function deleteEvent(req, res) {
         const { bandId, eventId } = req.params;
         const authenticatedMember = req.userId;
 
-        // Verifica validità ID band
         if (!mongoose.Types.ObjectId.isValid(bandId)) {
             return res.status(400).json({
                 message: "Invalid band id"
             });
         }
 
-        // Verifica validità ID evento
         if (!mongoose.Types.ObjectId.isValid(eventId)) {
             return res.status(400).json({
                 message: "Invalid event id"
             });
         }
 
-        // Cerca la band
         const band = await Band.findById(bandId);
 
         if (!band) {
@@ -370,7 +371,7 @@ export async function deleteEvent(req, res) {
             });
         }
 
-        // Verifica che l'utente sia owner oppure membro
+
         const isOwner =
             band.owner.toString() === authenticatedMember.toString();
 
@@ -384,7 +385,7 @@ export async function deleteEvent(req, res) {
             });
         }
 
-        // Cerca ed elimina l'evento appartenente alla band
+
         const deletedEvent = await Event.findOneAndDelete({
             _id: eventId,
             bandId: bandId
@@ -396,7 +397,7 @@ export async function deleteEvent(req, res) {
             });
         }
 
-        // Risposta positiva
+
         return res.status(200).json({
             message: "Event deleted successfully"
         });

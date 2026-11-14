@@ -1,0 +1,359 @@
+
+/* ========================================
+   STAGEMATE - CALENDARIO DASHBOARD
+======================================== */
+
+.upcoming-events {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
+
+    padding: 24px 28px;
+    color: #ffffff;
+
+    /* GLASSMORPHISM */
+    background: rgba(255, 255, 255, 0.015);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(210, 225, 235, 0.16);
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.upcoming-events-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.upcoming-events-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #38d9e6;
+}
+
+.upcoming-events-heading h2 {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* ========================================
+   PULSANTI
+======================================== */
+
+.upcoming-events-open,
+.upcoming-events-navigation button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+
+    color: #a7b0bc;
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.upcoming-events-open:hover,
+.upcoming-events-navigation button:hover {
+    background: rgba(56, 217, 230, 0.1);
+    color: #38d9e6;
+}
+
+.upcoming-events-open:focus-visible,
+.upcoming-events-navigation button:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 2px;
+}
+
+/* ========================================
+   LAYOUT CALENDARIO A TUTTA LARGHEZZA
+======================================== */
+
+.upcoming-events-body {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+
+    flex: 1;
+}
+
+.upcoming-events-calendar {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+}
+
+/* ========================================
+   MESE E NAVIGAZIONE
+======================================== */
+
+.upcoming-events-month {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.upcoming-events-month h3 {
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+
+    text-transform: capitalize;
+}
+
+.upcoming-events-navigation {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ========================================
+   GRIGLIA CALENDARIO ESTESA
+======================================== */
+
+.upcoming-events-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
+    column-gap: 8px;
+    row-gap: 6px;
+
+    width: 100%;
+    max-width: none;
+
+    margin: 12px 0 0;
+}
+
+/* ========================================
+   GIORNI DELLA SETTIMANA - CELESTE
+======================================== */
+
+.upcoming-events-weekday {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 30px;
+    padding: 0;
+
+    color: #38d9e6;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* ========================================
+   NUMERI DEL CALENDARIO - BIANCHI
+======================================== */
+
+.upcoming-events-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 44px;
+    min-height: 0;
+
+    gap: 3px;
+    border-radius: 9px;
+
+    color: #ffffff;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+/* GIORNO CORRENTE */
+
+.upcoming-events-day.today {
+    background: rgba(56, 217, 230, 0.14);
+
+    color: #a5f3fc;
+    font-weight: 800;
+}
+
+/* ========================================
+   INDICATORI EVENTI
+======================================== */
+
+.upcoming-events-indicators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+
+    height: 3px;
+    min-height: 3px;
+}
+
+.upcoming-events-indicator {
+    width: 11px;
+    height: 3px;
+
+    border-radius: 3px;
+}
+
+/* ========================================
+   LEGENDA EVENTI
+======================================== */
+
+.upcoming-events-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px 16px;
+    margin-top: 24px;
+}
+
+.upcoming-events-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #a7b0bc;
+    font-size: 0.72rem;
+}
+
+.upcoming-events-legend-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   MESSAGGI ED ERRORI
+======================================== */
+
+.upcoming-events-message {
+    margin: 4px 0;
+
+    color: #a7b0bc;
+    font-size: 0.85rem;
+}
+
+.upcoming-events-error {
+    color: #ff8a9b;
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   RESPONSIVE - TABLET
+======================================== */
+
+@media (max-width: 900px) {
+
+    .upcoming-events {
+        padding: 22px;
+    }
+
+    .upcoming-events-grid {
+        width: 100%;
+        max-width: none;
+
+        margin-left: 0;
+        margin-right: 0;
+
+        column-gap: 6px;
+        row-gap: 4px;
+    }
+
+    .upcoming-events-legend {
+        justify-content: center;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MOBILE
+======================================== */
+
+@media (max-width: 576px) {
+
+    .upcoming-events {
+        padding: 18px;
+    }
+
+    .upcoming-events-header {
+        margin-bottom: 16px;
+    }
+
+    .upcoming-events-month {
+        margin-bottom: 12px;
+    }
+
+    .upcoming-events-grid {
+        width: 100%;
+        max-width: none;
+
+        column-gap: 2px;
+        row-gap: 3px;
+    }
+
+    .upcoming-events-day {
+        height: 38px;
+        font-size: 0.9rem;
+    }
+
+    .upcoming-events-weekday {
+        height: 26px;
+        font-size: 0.75rem;
+    }
+
+    .upcoming-events-indicator {
+        width: 9px;
+    }
+
+    .upcoming-events-legend {
+        gap: 8px 12px;
+        margin-top: 18px;
+    }
+}

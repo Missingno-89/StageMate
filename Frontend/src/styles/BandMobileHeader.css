@@ -1,0 +1,170 @@
+
+/* ========================================
+   STAGEMATE - MOBILE HEADER
+======================================== */
+
+.band-mobile-header {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .band-mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        color: #ffffff;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    .band-mobile-brand img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+    }
+
+    .band-mobile-menu-container {
+        position: relative;
+    }
+
+    .band-mobile-menu-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 42px;
+        height: 42px;
+
+        border: 1px solid rgba(210, 225, 235, 0.16);
+        border-radius: 12px;
+
+        background: rgba(255, 255, 255, 0.04);
+        color: #38d9e6;
+
+        cursor: pointer;
+    }
+
+    .band-mobile-menu-button:focus-visible {
+        outline: 2px solid #38d9e6;
+        outline-offset: 2px;
+    }
+
+    .band-mobile-dropdown {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 0;
+
+        z-index: 300;
+
+        width: 220px;
+        max-width: calc(100vw - 32px);
+        padding: 8px;
+
+        background: rgba(20, 20, 20, 0.97);
+
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(210, 225, 235, 0.16);
+        border-radius: 14px;
+
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .band-mobile-dropdown a,
+    .band-mobile-dropdown-placeholder {
+        display: block;
+        padding: 12px;
+
+        color: #ffffff;
+        font-size: 0.9rem;
+        text-decoration: none;
+
+        border-radius: 8px;
+    }
+
+    .band-mobile-dropdown a:hover {
+        background: rgba(56, 217, 230, 0.1);
+        color: #38d9e6;
+    }
+
+    .band-mobile-dropdown-placeholder {
+        color: #a7b0bc;
+    }
+}
+
+
+/* ========================================
+   MENU HAMBURGER - ELEMENTI
+======================================== */
+
+@media (max-width: 768px) {
+
+    .band-mobile-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        width: 100%;
+        padding: 13px 12px;
+
+        box-sizing: border-box;
+
+        background: transparent;
+        border: none;
+        border-radius: 9px;
+
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-align: left;
+        text-decoration: none;
+
+        cursor: pointer;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .band-mobile-dropdown-item svg {
+        flex-shrink: 0;
+        color: #a7b0bc;
+    }
+
+    .band-mobile-dropdown-item:hover {
+        background: rgba(56, 217, 230, 0.1);
+        color: #38d9e6;
+    }
+
+    .band-mobile-dropdown-item:hover svg {
+        color: #38d9e6;
+    }
+
+    .band-mobile-dropdown-item:focus-visible {
+        outline: 2px solid #38d9e6;
+        outline-offset: 2px;
+    }
+
+    .band-mobile-dropdown-divider {
+        height: 1px;
+        margin: 6px 8px;
+
+        background: rgba(210, 225, 235, 0.12);
+    }
+      .band-mobile-dropdown .band-mobile-back {
+        display: flex;
+        align-items: center;
+    }
+
+    .band-mobile-dropdown .band-mobile-back svg {
+        flex-shrink: 0;
+        margin-right: 0,5px;
+    }
+
+
+}
+

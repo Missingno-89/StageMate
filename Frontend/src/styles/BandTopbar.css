@@ -8,18 +8,16 @@
     padding: 18px 32px;
     box-sizing: border-box;
 
-    /* Vetro quasi completamente trasparente */
+   
     background: rgba(12, 17, 23, 0.08);
 
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 
-    /* Bordo grigio acciaio */
+   
     border-bottom: 1px solid rgba(210, 225, 235, 0.15);
 
-    box-shadow:
-        0 4px 24px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 
     display: flex;
     align-items: center;
