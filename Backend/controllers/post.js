@@ -1,6 +1,29 @@
 import Band from "../models/Band.js";
 import Post from "../models/Post.js";
 import mongoose from "mongoose";
+import { notifyBandMembers } from "../utils/notifyBandMembers.js";
+import cloudinary from "../config/cloudinary.js";
+
+
+function uploadImageToCloudinary(fileBuffer) {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "stagemate/posts",
+                resource_type: "image"
+            },
+            (error, result) => {
+                if (error) {
+                    return reject(error);
+                }
+
+                resolve(result.secure_url);
+            }
+        );
+
+        stream.end(fileBuffer);
+    });
+}
 
 
 export async function createPost(req, res) {
@@ -30,38 +53,59 @@ export async function createPost(req, res) {
                 message: "Forbidden"
             });
         }
-        const { title, content } = req.body
+
+        const { title, content, image } = req.body;
+
         if (
-            typeof title !== "string" ||
-            title.trim().length === 0 ||
-            title.trim().length > 255
+            (title !== undefined && typeof title !== "string") ||
+            (content !== undefined && typeof content !== "string") ||
+            (image != null && typeof image !== "string")
         ) {
             return res.status(400).json({
-                message: "Invalid title"
+                message: "Invalid post data"
             });
         }
-        if (
-            typeof content !== "string" ||
-            content.trim().length === 0 ||
-            content.trim().length > 5000
-        ) {
+
+        const cleanTitle = title?.trim() || "";
+        const cleanContent = content?.trim() || "";
+        let cleanImage = null;
+
+        if (req.file) {
+            cleanImage = await uploadImageToCloudinary(req.file.buffer);
+        }
+
+        if (cleanTitle.length > 255 || cleanContent.length > 5000) {
             return res.status(400).json({
-                message: "Invalid content"
+                message: "Post content exceeds maximum length"
             });
         }
+
+        if (!cleanTitle && !cleanContent && !cleanImage) {
+            return res.status(400).json({
+                message: "Il post deve contenere testo o un'immagine"
+            });
+        }
+
         const newPost = await Post.create({
-            title: title.trim(),
-            content: content.trim(),
-            bandId: bandId,
+            title: cleanTitle,
+            content: cleanContent,
+            image: cleanImage,
+            bandId,
             createdBy: req.userId
         });
+        await newPost.populate(
+            "createdBy",
+            "name surname avatar"
+        );
+
+
         try {
             await notifyBandMembers({
                 band,
                 actorId: req.userId,
                 type: "post_created",
                 referenceId: newPost._id,
-                message: `Nuovo post in bacheca: ${newPost.title}`
+                message: `Nuovo post in bacheca${newPost.title ? `: ${newPost.title}` : ""}`
             });
         } catch (notificationError) {
             console.error(
@@ -137,26 +181,33 @@ export async function getPosts(req, res) {
     }
 };
 
+
 export async function updatePosts(req, res) {
     try {
-        const bandId = req.params.bandId;
-        if (!mongoose.Types.ObjectId.isValid(bandId)) {
+        const { bandId, postId } = req.params;
+
+        if (
+            !mongoose.Types.ObjectId.isValid(bandId) ||
+            !mongoose.Types.ObjectId.isValid(postId)
+        ) {
             return res.status(400).json({
-                message: "Invalid band id"
+                message: "Invalid band or post id"
             });
         }
+
         const band = await Band.findById(bandId);
+
         if (!band) {
             return res.status(404).json({
                 message: "Band not found"
             });
         }
-        const authenticatedMember = req.userId.toString();
 
-        const isOwner = band.owner.toString() === authenticatedMember;
+        const userId = req.userId.toString();
 
+        const isOwner = band.owner.toString() === userId;
         const isMember = band.members.some(
-            member => member.toString() === authenticatedMember
+            (member) => member.toString() === userId
         );
 
         if (!isOwner && !isMember) {
@@ -164,57 +215,86 @@ export async function updatePosts(req, res) {
                 message: "Forbidden"
             });
         }
-        const postId = req.params.postId;
-        if (!mongoose.Types.ObjectId.isValid(postId)) {
-            return res.status(400).json({
-                message: "Invalid post id"
-            });
-        }
+
         const post = await Post.findOne({
             _id: postId,
-            bandId: req.params.bandId
-        })
+            bandId
+        });
+
         if (!post) {
-            return res.status(404).json({ message: "post not found" })
-        }
-        if (post.createdBy.toString() !== req.userId.toString()) {
-            return res.status(403).json({ message: "Forbidden" })
-        }
-        const { title, content } = req.body;
-        if (
-            typeof title !== "string" ||
-            title.trim().length === 0 ||
-            title.trim().length > 255
-        ) {
-            return res.status(400).json({
-                message: "Invalid title"
+            return res.status(404).json({
+                message: "Post not found"
             });
         }
-        if (
-            typeof content !== "string" ||
-            content.trim().length === 0 ||
-            content.trim().length > 5000
-        ) {
-            return res.status(400).json({
-                message: "Invalid content"
+
+        if (post.createdBy.toString() !== userId) {
+            return res.status(403).json({
+                message: "Only the author can edit this post"
             });
         }
-        post.title = title.trim();
-        post.content = content.trim();
+
+        const { title, content } = req.body ?? {};
+
+        if (
+            (title !== undefined && typeof title !== "string") ||
+            (content !== undefined && typeof content !== "string")
+        ) {
+            return res.status(400).json({
+                message: "Invalid post data"
+            });
+        }
+
+        const cleanTitle =
+            title === undefined ? post.title : title.trim();
+
+        const cleanContent =
+            content === undefined ? post.content : content.trim();
+
+        if (
+            cleanTitle.length > 255 ||
+            cleanContent.length > 5000
+        ) {
+            return res.status(400).json({
+                message: "Post content exceeds maximum length"
+            });
+        }
+
+        if (!cleanTitle && !cleanContent && !post.image) {
+            return res.status(400).json({
+                message: "Il post deve contenere testo o un'immagine"
+            });
+        }
+
+        post.title = cleanTitle;
+        post.content = cleanContent;
 
         await post.save();
+
+        await post.populate(
+            "createdBy",
+            "name surname avatar"
+        );
+
         return res.status(200).json({
             message: "Post updated successfully",
             post
         });
+
     } catch (error) {
         console.error("Update post error:", error);
+
+        if (error.name === "ValidationError") {
+            return res.status(400).json({
+                message: error.message
+            });
+        }
 
         return res.status(500).json({
             message: "Internal server error"
         });
     }
-};
+}
+
 export async function deletePost(req, res) {
     try {
         const bandId = req.params.bandId;
@@ -257,13 +337,16 @@ export async function deletePost(req, res) {
         if (!post) {
             return res.status(404).json({ message: "post not found" })
         }
-        const isAuthor = post.createdBy.toString() !== req.userId.toString()
+
+        const isAuthor =
+            post.createdBy.toString() === req.userId.toString();
 
         if (!isAuthor && !isOwner) {
             return res.status(403).json({
                 message: "Forbidden"
             });
         }
+
         await post.deleteOne();
         return res.status(200).json({
             message: "Post deleted successfully",

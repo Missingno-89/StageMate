@@ -253,8 +253,6 @@ const BandNotifications = () => {
                     </div>
                 )}
 
-
-
                 {error && (
                     <p className="band-notifications-page-error" role="alert">
                         {error}

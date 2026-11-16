@@ -26,4 +26,30 @@ const upload = multer({
     }
 });
 
+
+export const uploadPostImage = multer({
+    storage: multer.memoryStorage(),
+
+    fileFilter: (req, file, cb) => {
+        const allowedImages = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if (allowedImages.includes(file.mimetype)) {
+            return cb(null, true);
+        }
+
+        return cb(
+            new Error("Sono consentite solo immagini JPG, PNG e WEBP")
+        );
+    },
+
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    }
+});
+
+
 export default upload;

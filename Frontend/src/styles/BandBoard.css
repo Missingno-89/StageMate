@@ -1,0 +1,1012 @@
+/* =========================================
+
+   STAGEMATE - BAND BOARD
+
+   GLASSMORPHISM STYLE
+
+========================================= */
+
+.band-board {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 22px;
+
+    width: 100%;
+
+}
+
+/* =========================================
+
+   FORM CREAZIONE POST
+
+========================================= */
+
+.band-post-form {
+
+    padding: 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    backdrop-filter: blur(14px);
+
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+
+    transition:
+
+        border-color 0.25s ease,
+
+background 0.25s ease;
+
+}
+
+.band-post-form:focus-within {
+
+    border-color: rgba(56, 217, 230, 0.25);
+
+}
+
+/* =========================================
+
+   AREA DI TESTO
+
+========================================= */
+
+.band-post-form textarea {
+
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    min-height: 110px;
+
+    padding: 16px;
+
+    resize: vertical;
+
+    background: rgba(0, 0, 0, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 12px;
+
+    color: #e9edf0;
+
+    font: inherit;
+
+    line-height: 1.6;
+
+    outline: none;
+
+    transition:
+
+background 0.25s ease,
+
+        border-color 0.25s ease,
+
+        box-shadow 0.25s ease;
+
+}
+
+.band-post-form textarea::placeholder {
+
+    color: #89939d;
+
+    opacity: 1;
+
+}
+
+.band-post-form textarea:focus {
+
+    background: rgba(0, 0, 0, 0.18);
+
+    border-color: rgba(56, 217, 230, 0.45);
+
+    box-shadow: 0 0 0 3px rgba(56, 217, 230, 0.05);
+
+}
+
+.band-post-form textarea:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+
+}
+
+/* =========================================
+
+   AZIONI DEL FORM
+
+========================================= */
+
+.band-post-form-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 14px;
+
+    margin-top: 18px;
+
+}
+
+/* =========================================
+
+   PULSANTE AGGIUNGI FOTO
+
+========================================= */
+
+.band-post-image-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 10px 14px;
+
+    border: 1px solid transparent;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #38d9e6;
+
+    font: inherit;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+
+background 0.2s ease,
+
+        border-color 0.2s ease,
+
+        color 0.2s ease;
+
+}
+
+.band-post-image-button:hover {
+
+    background: rgba(56, 217, 230, 0.07);
+
+    border-color: rgba(56, 217, 230, 0.15);
+
+}
+
+.band-post-image-button:focus-within {
+
+    border-color: rgba(56, 217, 230, 0.45);
+
+}
+
+.band-post-image-button:has(input:disabled) {
+
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+}
+
+/* =========================================
+
+   PULSANTE PUBBLICA
+
+========================================= */
+
+.band-post-form-actions button[type="submit"] {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 11px 20px;
+
+    border: 1px solid rgba(56, 217, 230, 0.35);
+
+    border-radius: 10px;
+
+    background: rgba(56, 217, 230, 0.12);
+
+    color: #38d9e6;
+
+    font: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+
+background 0.2s ease,
+
+        border-color 0.2s ease,
+
+        box-shadow 0.2s ease,
+
+        transform 0.2s ease;
+
+}
+
+.band-post-form-actions button[type="submit"]:hover:not(:disabled) {
+
+    background: rgba(56, 217, 230, 0.22);
+
+    border-color: rgba(56, 217, 230, 0.55);
+
+    box-shadow: 0 0 18px rgba(56, 217, 230, 0.08);
+
+    transform: translateY(-1px);
+
+}
+
+.band-post-form-actions button[type="submit"]:active:not(:disabled) {
+
+    transform: translateY(0);
+
+}
+
+.band-post-form-actions button[type="submit"]:disabled {
+
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+}
+
+/* =========================================
+
+   ANTEPRIMA FOTOGRAFIA
+
+========================================= */
+
+.band-post-preview {
+
+    position: relative;
+
+    display: inline-block;
+
+    max-width: 100%;
+
+    margin-top: 16px;
+
+}
+
+.band-post-preview img {
+
+    display: block;
+
+    max-width: 100%;
+
+    max-height: 350px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 12px;
+
+    object-fit: contain;
+
+}
+
+/* RIMOZIONE FOTO */
+
+.band-post-preview button {
+
+    position: absolute;
+
+    top: 10px;
+
+    right: 10px;
+
+    display: grid;
+
+    place-items: center;
+
+    width: 34px;
+
+    height: 34px;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 100, 120, 0.35);
+
+    border-radius: 50%;
+
+    background: rgba(30, 15, 20, 0.85);
+
+    color: #ff6478;
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+
+}
+
+.band-post-preview button:hover:not(:disabled) {
+
+    background: rgba(85, 35, 45, 0.95);
+
+}
+
+.band-post-preview button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+}
+
+/* =========================================
+
+   MESSAGGI DI ERRORE
+
+========================================= */
+
+.band-post-form p[role="alert"] {
+
+    margin: 14px 0 0;
+
+    padding: 12px 14px;
+
+    border: 1px solid rgba(255, 100, 120, 0.25);
+
+    border-radius: 10px;
+
+    background: rgba(255, 100, 120, 0.06);
+
+    color: #ff8494;
+
+    font-size: 0.9rem;
+
+}
+
+/* =========================================
+
+   RESPONSIVE
+
+========================================= */
+
+@media (max-width: 600px) {
+
+    .band-board {
+
+        gap: 16px;
+
+    }
+
+    .band-post-form {
+
+        padding: 14px;
+
+        border-radius: 14px;
+
+    }
+
+    .band-post-form textarea {
+
+        min-height: 100px;
+
+        padding: 13px;
+
+        font-size: 0.95rem;
+
+    }
+
+    .band-post-form-actions {
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+
+    }
+
+    .band-post-image-button {
+
+        padding: 10px 6px;
+
+        font-size: 0.9rem;
+
+    }
+
+    .band-post-form-actions button[type="submit"] {
+
+        padding: 10px 14px;
+
+        font-size: 0.9rem;
+
+    }
+
+    .band-post-preview img {
+
+        max-height: 260px;
+
+    }
+
+}
+
+/* =========================================
+
+   BAND POST CARD - GLASS STYLE
+
+========================================= */
+
+.band-post-card {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    padding: 22px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 16px;
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    transition:
+
+        border-color 0.2s ease,
+
+background 0.2s ease;
+
+}
+
+.band-post-card:hover {
+
+    border-color: rgba(56, 217, 230, 0.16);
+
+}
+
+/* HEADER */
+
+.band-post-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 18px;
+
+}
+
+/* AVATAR */
+
+.band-post-card-avatar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 44px;
+
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background: rgba(56, 217, 230, 0.09);
+
+    border: 1px solid rgba(56, 217, 230, 0.18);
+
+    color: #38d9e6;
+
+}
+
+.band-post-card-avatar img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+/* AUTORE */
+
+.band-post-card-author {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    min-width: 0;
+
+}
+
+.band-post-card-author-name {
+
+    color: #f0f3f5;
+
+    font-weight: 700;
+
+    font-size: 0.95rem;
+
+}
+
+.band-post-card-date {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #89939d;
+
+    font-size: 0.78rem;
+
+}
+
+/* CONTENUTO */
+
+.band-post-card-body {
+
+    min-width: 0;
+
+}
+
+.band-post-card-title {
+
+    margin: 0 0 10px;
+
+    color: #f0f3f5;
+
+    font-size: 1.05rem;
+
+    font-weight: 700;
+
+}
+
+.band-post-card-content {
+
+    margin: 0;
+
+    color: #cbd2d8;
+
+    font-size: 0.95rem;
+
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+
+    overflow-wrap: anywhere;
+
+}
+
+/* FOTOGRAFIA */
+
+.band-post-card-media {
+
+    margin-top: 18px;
+
+    max-width: 100%;
+
+}
+
+.band-post-card-media img {
+
+    display: block;
+
+    width: auto;
+
+    max-width: 100%;
+
+    max-height: 380px;
+
+    border-radius: 12px;
+
+    object-fit: contain;
+
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .band-post-card {
+
+        padding: 16px;
+
+        border-radius: 14px;
+
+    }
+
+    .band-post-card-header {
+
+        gap: 10px;
+
+        margin-bottom: 14px;
+
+    }
+
+    .band-post-card-avatar {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+    .band-post-card-author-name {
+
+        font-size: 0.9rem;
+
+    }
+
+    .band-post-card-date {
+
+        font-size: 0.72rem;
+
+    }
+
+    .band-post-card-media img {
+
+        max-height: 280px;
+
+    }
+
+}
+
+/* =========================================
+
+   POST ACTION MENU
+
+========================================= */
+
+.band-post-card-header {
+
+    position: relative;
+
+}
+
+.band-post-menu-wrapper {
+
+    position: relative;
+
+    margin-left: auto;
+
+    align-self: flex-start;
+
+    flex-shrink: 0;
+
+}
+
+.band-post-menu-trigger {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 36px;
+
+    height: 36px;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #89939d;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+}
+
+.band-post-menu-trigger:hover,
+
+.band-post-menu-trigger[aria-expanded="true"] {
+
+    color: #38d9e6;
+
+    background: rgba(56, 217, 230, 0.08);
+
+    border-color: rgba(56, 217, 230, 0.15);
+
+}
+
+.band-post-menu {
+
+    position: absolute;
+
+    top: calc(100% + 6px);
+
+    right: 0;
+
+    z-index: 20;
+
+    width: 190px;
+
+    padding: 6px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: #20262b;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+
+}
+
+.band-post-menu-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #dce3e8;
+
+    font: inherit;
+
+    font-size: 0.88rem;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+
+}
+
+.band-post-menu-item:hover {
+
+    background: rgba(255, 255, 255, 0.06);
+
+}
+
+.band-post-menu-item.danger {
+
+    color: #ff6478;
+
+}
+
+.band-post-menu-item.danger:hover {
+
+    background: rgba(255, 100, 120, 0.09);
+
+}
+
+/* Il menu deve uscire dai bordi della card */
+.band-post-card {
+    overflow: visible;
+}
+
+.band-post-menu-trigger:focus-visible,
+.band-post-menu-item:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 2px;
+}
+
+
+/* =========================================
+   CONFERMA ELIMINAZIONE POST
+========================================= */
+
+.band-post-delete-confirm {
+    margin: 0 0 20px;
+    padding: 18px;
+    border: 1px solid rgba(255, 100, 120, 0.3);
+    border-radius: 14px;
+    background: #1d181a;
+}
+
+.band-post-delete-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ff6478;
+    font-size: 0.95rem;
+}
+
+.band-post-delete-confirm > p {
+    margin: 12px 0;
+    color: #cbd2d8;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.band-post-delete-confirm .band-post-delete-error {
+    color: #ff8494;
+}
+
+.band-post-delete-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.band-post-delete-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.band-post-delete-cancel {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: #cbd2d8;
+}
+
+.band-post-delete-submit {
+    border: 1px solid rgba(255, 100, 120, 0.35);
+    background: rgba(255, 100, 120, 0.12);
+    color: #ff6478;
+}
+
+.band-post-delete-submit:hover:not(:disabled) {
+    background: rgba(255, 100, 120, 0.2);
+}
+
+.band-post-delete-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   MODIFICA POST INLINE
+========================================= */
+
+.band-post-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.band-post-edit-form input,
+.band-post-edit-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 11px;
+
+    color: #e9edf0;
+    font: inherit;
+    line-height: 1.6;
+    outline: none;
+
+    transition: border-color 0.2s ease;
+}
+
+.band-post-edit-form textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.band-post-edit-form input:focus,
+.band-post-edit-form textarea:focus {
+    border-color: rgba(56, 217, 230, 0.5);
+}
+
+.band-post-edit-form input:disabled,
+.band-post-edit-form textarea:disabled {
+    opacity: 0.6;
+}
+
+.band-post-edit-error {
+    margin: 0;
+    color: #ff8494;
+    font-size: 0.88rem;
+}
+
+.band-post-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.band-post-edit-actions button {
+    padding: 10px 16px;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.band-post-edit-cancel {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: #cbd2d8;
+}
+
+.band-post-edit-save {
+    border: 1px solid rgba(56, 217, 230, 0.35);
+    background: rgba(56, 217, 230, 0.12);
+    color: #38d9e6;
+}
+
+.band-post-edit-save:hover:not(:disabled) {
+    background: rgba(56, 217, 230, 0.22);
+}
+
+.band-post-edit-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .band-post-edit-form input,
+    .band-post-edit-form textarea {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
