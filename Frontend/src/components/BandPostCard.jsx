@@ -116,57 +116,57 @@ const BandPostCard = ({
         }
     };
 
-const handleStartEditing = () => {
-    if (!canEdit) return;
+    const handleStartEditing = () => {
+        if (!canEdit) return;
 
-    setEditTitle(post.title || "");
-    setEditContent(post.content || "");
-    setEditError("");
-    setConfirmDelete(false);
-    setMenuOpen(false);
-    setEditing(true);
-};
+        setEditTitle(post.title || "");
+        setEditContent(post.content || "");
+        setEditError("");
+        setConfirmDelete(false);
+        setMenuOpen(false);
+        setEditing(true);
+    };
 
-const handleCancelEditing = () => {
-    setEditing(false);
-    setEditError("");
-    setEditTitle(post.title || "");
-    setEditContent(post.content || "");
-};
-
-const handleSaveEditing = async (event) => {
-    event.preventDefault();
-
-    if (!canEdit || saving) return;
-
-    const cleanTitle = editTitle.trim();
-    const cleanContent = editContent.trim();
-
-    if (!cleanTitle && !cleanContent && !post.image) {
-        setEditError(
-            "Il post deve contenere testo o un'immagine"
-        );
-        return;
-    }
-
-    setSaving(true);
-    setEditError("");
-
-    try {
-        await onUpdate(post._id, {
-            title: cleanTitle,
-            content: cleanContent
-        });
-
+    const handleCancelEditing = () => {
         setEditing(false);
-    } catch (error) {
-        setEditError(
-            error.message || "Errore durante il salvataggio"
-        );
-    } finally {
-        setSaving(false);
-    }
-};
+        setEditError("");
+        setEditTitle(post.title || "");
+        setEditContent(post.content || "");
+    };
+
+    const handleSaveEditing = async (event) => {
+        event.preventDefault();
+
+        if (!canEdit || saving) return;
+
+        const cleanTitle = editTitle.trim();
+        const cleanContent = editContent.trim();
+
+        if (!cleanTitle && !cleanContent && !post.image) {
+            setEditError(
+                "Il post deve contenere testo o un'immagine"
+            );
+            return;
+        }
+
+        setSaving(true);
+        setEditError("");
+
+        try {
+            await onUpdate(post._id, {
+                title: cleanTitle,
+                content: cleanContent
+            });
+
+            setEditing(false);
+        } catch (error) {
+            setEditError(
+                error.message || "Errore durante il salvataggio"
+            );
+        } finally {
+            setSaving(false);
+        }
+    };
 
 
 
@@ -295,102 +295,102 @@ const handleSaveEditing = async (event) => {
             )}
 
 
-            
-<div className="band-post-card-body">
-    {editing ? (
-        <form
-            className="band-post-edit-form"
-            onSubmit={handleSaveEditing}
-        >
-            {post.title && (
-                <input
-                    type="text"
-                    value={editTitle}
-                    onChange={(event) =>
-                        setEditTitle(event.target.value)
-                    }
-                    maxLength={255}
-                    disabled={saving}
-                    placeholder="Titolo del post"
-                />
-            )}
 
-            <textarea
-                value={editContent}
-                onChange={(event) =>
-                    setEditContent(event.target.value)
-                }
-                maxLength={5000}
-                rows={4}
-                disabled={saving}
-                placeholder="Modifica il contenuto del post..."
-            />
+            <div className="band-post-card-body">
+                {editing ? (
+                    <form
+                        className="band-post-edit-form"
+                        onSubmit={handleSaveEditing}
+                    >
+                        {post.title && (
+                            <input
+                                type="text"
+                                value={editTitle}
+                                onChange={(event) =>
+                                    setEditTitle(event.target.value)
+                                }
+                                maxLength={255}
+                                disabled={saving}
+                                placeholder="Titolo del post"
+                            />
+                        )}
 
-            {post.image && (
-                <div className="band-post-card-media">
-                    <img
-                        src={post.image}
-                        alt="Fotografia allegata al post"
-                    />
-                </div>
-            )}
+                        <textarea
+                            value={editContent}
+                            onChange={(event) =>
+                                setEditContent(event.target.value)
+                            }
+                            maxLength={5000}
+                            rows={4}
+                            disabled={saving}
+                            placeholder="Modifica il contenuto del post..."
+                        />
 
-            {editError && (
-                <p
-                    className="band-post-edit-error"
-                    role="alert"
-                >
-                    {editError}
-                </p>
-            )}
+                        {post.image && (
+                            <div className="band-post-card-media">
+                                <img
+                                    src={post.image}
+                                    alt="Fotografia allegata al post"
+                                />
+                            </div>
+                        )}
 
-            <div className="band-post-edit-actions">
-                <button
-                    type="button"
-                    className="band-post-edit-cancel"
-                    disabled={saving}
-                    onClick={handleCancelEditing}
-                >
-                    Annulla
-                </button>
+                        {editError && (
+                            <p
+                                className="band-post-edit-error"
+                                role="alert"
+                            >
+                                {editError}
+                            </p>
+                        )}
 
-                <button
-                    type="submit"
-                    className="band-post-edit-save"
-                    disabled={saving}
-                >
-                    {saving
-                        ? "Salvataggio..."
-                        : "Salva modifiche"}
-                </button>
+                        <div className="band-post-edit-actions">
+                            <button
+                                type="button"
+                                className="band-post-edit-cancel"
+                                disabled={saving}
+                                onClick={handleCancelEditing}
+                            >
+                                Annulla
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="band-post-edit-save"
+                                disabled={saving}
+                            >
+                                {saving
+                                    ? "Salvataggio..."
+                                    : "Salva modifiche"}
+                            </button>
+                        </div>
+                    </form>
+                ) : (
+                    <>
+                        {post.title && (
+                            <h3 className="band-post-card-title">
+                                {post.title}
+                            </h3>
+                        )}
+
+                        {post.content && (
+                            <p className="band-post-card-content">
+                                {post.content}
+                            </p>
+                        )}
+
+                        {post.image && (
+                            <div className="band-post-card-media">
+                                <img
+                                    src={post.image}
+                                    alt="Fotografia allegata al post"
+                                    loading="lazy"
+                                />
+                            </div>
+                        )}
+                    </>
+                )}
             </div>
-        </form>
-    ) : (
-        <>
-            {post.title && (
-                <h3 className="band-post-card-title">
-                    {post.title}
-                </h3>
-            )}
-
-            {post.content && (
-                <p className="band-post-card-content">
-                    {post.content}
-                </p>
-            )}
-
-            {post.image && (
-                <div className="band-post-card-media">
-                    <img
-                        src={post.image}
-                        alt="Fotografia allegata al post"
-                        loading="lazy"
-                    />
-                </div>
-            )}
-        </>
-    )}
-</div>
 
         </article>
     );

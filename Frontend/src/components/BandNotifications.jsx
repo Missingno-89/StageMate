@@ -153,14 +153,7 @@ const BandNotifications = () => {
             setShowDeleteConfirm(false);
 
             await fetchNotifications();
-
             window.dispatchEvent(new Event("notifications-updated"));
-
-            await fetchNotifications();
-
-            window.dispatchEvent(
-                new Event("notifications-updated")
-            );
 
         } catch (err) {
             setError(err.message);
@@ -195,25 +188,27 @@ const BandNotifications = () => {
                         Attività della band
                     </h2>
 
-                    <button
-                        type="button"
-                        onClick={markAllAsRead}
-                        disabled={updating || unreadCount === 0}
-                        className="band-notifications-read-all"
-                    >
-                        <CheckCheck size={17} />
-                        {updating ? "Aggiornamento..." : "Segna tutte come lette"}
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setShowDeleteConfirm(true)}
+                    <div className="band-notifications-panel-actions">
+                        <button
+                            type="button"
+                            onClick={markAllAsRead}
+                            disabled={updating || unreadCount === 0}
+                            className="band-notifications-read-all"
+                        >
+                            <CheckCheck size={17} />
+                            {updating ? "Aggiornamento..." : "Segna tutte come lette"}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setShowDeleteConfirm(true)}
 
-                        disabled={updating || notifications.length === 0}
-                        className="band-notifications-delete"
-                    >
-                        <Trash2 size={17} />
-                        Svuota storico
-                    </button>
+                            disabled={updating || notifications.length === 0}
+                            className="band-notifications-delete"
+                        >
+                            <Trash2 size={17} />
+                            Svuota storico
+                        </button>
+                    </div>
                 </div>
 
                 {showDeleteConfirm && (
