@@ -172,34 +172,57 @@ export async function updateBand(req, res) {
     }
 };
 
+
 export async function getBandMembers(req, res) {
     try {
-        const id = req.params.id
-        if (!mongoose.Types.ObjectId.isValid(id))
-            return res.status(400).json({ message: "Invalid band id" })
-        const band = await Band.findById(id)
-        if (!band) {
-            return res.status(404).json({ message: "band not found" })
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                message: "Invalid band id"
+            });
         }
+
+        const band = await Band.findById(id);
+
+        if (!band) {
+            return res.status(404).json({
+                message: "Band not found"
+            });
+        }
+
+        const authenticatedUserId = req.userId.toString();
+
+        const isOwner =
+            band.owner.toString() === authenticatedUserId;
 
         const isMember = band.members.some(
-            member => member.toString() === req.userId
+            member =>
+                member.toString() === authenticatedUserId
         );
 
-        if (!isMember) {
-            return res.status(403).json({ message: "forbidden" })
+        if (!isOwner && !isMember) {
+            return res.status(403).json({
+                message: "Forbidden"
+            });
         }
-        const populateBand = await Band.findById(id).populate("members", "name surname email")
-        return res.status(200).json(populateBand.members)
 
+        await band.populate(
+            "members",
+            "name surname email avatar"
+        );
+
+        return res.status(200).json(band.members);
 
     } catch (error) {
+        console.error("Get band members error:", error);
+
         return res.status(500).json({
             message: "Internal server error"
-
-        })
+        });
     }
-};
+}
+
 
 export async function removeBandMember(req, res) {
     try {
@@ -211,21 +234,18 @@ export async function removeBandMember(req, res) {
         if (!band) {
             return res.status(404).json({ message: "band not found" })
         }
-        const userId = req.userId
-        const userOwner = band.owner
-        if (userId !== userOwner.toString()) {
-            return res.status(403).json({ message: "forbidden " })
+        const userId = req.userId;
+        const userOwner = band.owner;
+
+        if (userId.toString() !== userOwner.toString()) {
+            return res.status(403).json({
+                message: "Only the band owner can remove members"
+            });
         }
         if (userToDelete === userOwner.toString()) {
             return res.status(400).json({ message: "a band need a owner " })
         }
-        const isMember = band.members.some(
-            member => member.toString() === userToDelete
-        );
-
-        if (!isMember) {
-            return res.status(404).json({ message: "user not found" })
-        }
+        
 
         await Band.findByIdAndUpdate(bandId,
             {
@@ -237,13 +257,12 @@ export async function removeBandMember(req, res) {
         return res.status(200).json({ message: "member deleted" })
 
     } catch (error) {
+        console.error("Remove band member error:", error);
+
         return res.status(500).json({
             message: "Internal server error"
-
-            , dasdgasdgasid
-        })
-
-    };
+        });
+    }
 }
 
 

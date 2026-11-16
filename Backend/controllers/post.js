@@ -17,10 +17,15 @@ export async function createPost(req, res) {
                 message: "Band not found"
             });
         }
-        const authenticatedMember = req.userId;
+        const authenticatedMember = req.userId.toString();
+
+        const isOwner = band.owner.toString() === authenticatedMember;
+
         const isMember = band.members.some(
-            member => member.toString() === authenticatedMember);
-        if (!isMember) {
+            member => member.toString() === authenticatedMember
+        );
+
+        if (!isOwner && !isMember) {
             return res.status(403).json({
                 message: "Forbidden"
             });
@@ -50,6 +55,20 @@ export async function createPost(req, res) {
             bandId: bandId,
             createdBy: req.userId
         });
+        try {
+            await notifyBandMembers({
+                band,
+                actorId: req.userId,
+                type: "post_created",
+                referenceId: newPost._id,
+                message: `Nuovo post in bacheca: ${newPost.title}`
+            });
+        } catch (notificationError) {
+            console.error(
+                "Create post notification error:",
+                notificationError
+            );
+        }
         return res.status(201).json({
             message: "Post created successfully",
             post: newPost
@@ -84,10 +103,15 @@ export async function getPosts(req, res) {
                 message: "Band not found"
             });
         }
-        const authenticatedMember = req.userId;
+        const authenticatedMember = req.userId.toString();
+
+        const isOwner = band.owner.toString() === authenticatedMember;
+
         const isMember = band.members.some(
-            member => member.toString() === authenticatedMember);
-        if (!isMember) {
+            member => member.toString() === authenticatedMember
+        );
+
+        if (!isOwner && !isMember) {
             return res.status(403).json({
                 message: "Forbidden"
             });
@@ -127,10 +151,15 @@ export async function updatePosts(req, res) {
                 message: "Band not found"
             });
         }
-        const authenticatedMember = req.userId;
+        const authenticatedMember = req.userId.toString();
+
+        const isOwner = band.owner.toString() === authenticatedMember;
+
         const isMember = band.members.some(
-            member => member.toString() === authenticatedMember);
-        if (!isMember) {
+            member => member.toString() === authenticatedMember
+        );
+
+        if (!isOwner && !isMember) {
             return res.status(403).json({
                 message: "Forbidden"
             });
@@ -148,7 +177,7 @@ export async function updatePosts(req, res) {
         if (!post) {
             return res.status(404).json({ message: "post not found" })
         }
-        if (post.createdBy.toString() !== req.userId) {
+        if (post.createdBy.toString() !== req.userId.toString()) {
             return res.status(403).json({ message: "Forbidden" })
         }
         const { title, content } = req.body;
@@ -200,14 +229,21 @@ export async function deletePost(req, res) {
                 message: "Band not found"
             });
         }
-        const authenticatedMember = req.userId;
+
+        const authenticatedMember = req.userId.toString();
+
+        const isOwner = band.owner.toString() === authenticatedMember;
+
         const isMember = band.members.some(
-            member => member.toString() === authenticatedMember);
-        if (!isMember) {
+            member => member.toString() === authenticatedMember
+        );
+
+        if (!isOwner && !isMember) {
             return res.status(403).json({
                 message: "Forbidden"
             });
         }
+
         const postId = req.params.postId;
         if (!mongoose.Types.ObjectId.isValid(postId)) {
             return res.status(400).json({
@@ -221,8 +257,8 @@ export async function deletePost(req, res) {
         if (!post) {
             return res.status(404).json({ message: "post not found" })
         }
-        const isAuthor = post.createdBy.toString() === req.userId;
-        const isOwner = band.owner.toString() === req.userId;
+        const isAuthor = post.createdBy.toString() !== req.userId.toString()
+
         if (!isAuthor && !isOwner) {
             return res.status(403).json({
                 message: "Forbidden"

@@ -433,11 +433,16 @@ export default function BandCashManager() {
     };
     return (
         <main className="cash-manager">
-         
+
+            {/* HEADER */}
             {/* HEADER */}
             <div className="cash-manager-header">
-                <Wallet size={28} />
-                <h1>Fondo cassa</h1>
+                <Wallet size={26} />
+
+                <div className="cash-manager-heading">
+                    <h1>Fondo cassa</h1>
+                    <p>Gestisci il fondo cassa della band</p>
+                </div>
             </div>
             {/* SALDO */}
             <section className="cash-manager-balance">
@@ -558,27 +563,27 @@ export default function BandCashManager() {
                                         </strong>
                                         {!permissionsLoading && canManageTransaction(transaction) && (
                                             <div className="cash-manager-transaction-buttons">
-                                            <button
-                                                type="button"
-                                                className="cash-manager-edit-button"
-                                                title="Modifica movimento"
-                                                aria-label="Modifica movimento"
-                                                onClick={() => handleOpenEdit(transaction)}
-                                                disabled={movementLoading}
-                                            >
-                                                <Pencil size={16} />
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="cash-manager-delete-button"
-                                                title="Elimina movimento"
-                                                aria-label="Elimina movimento"
-                                                onClick={() => handleOpenDelete(transaction._id)}
-                                                disabled={movementLoading}
-                                            >
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </div>
+                                                <button
+                                                    type="button"
+                                                    className="cash-manager-edit-button"
+                                                    title="Modifica movimento"
+                                                    aria-label="Modifica movimento"
+                                                    onClick={() => handleOpenEdit(transaction)}
+                                                    disabled={movementLoading}
+                                                >
+                                                    <Pencil size={16} />
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className="cash-manager-delete-button"
+                                                    title="Elimina movimento"
+                                                    aria-label="Elimina movimento"
+                                                    onClick={() => handleOpenDelete(transaction._id)}
+                                                    disabled={movementLoading}
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            </div>
                                         )}
                                     </div>
                                 </div>

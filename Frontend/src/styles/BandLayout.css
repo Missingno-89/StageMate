@@ -50,36 +50,20 @@
 }
 
 /* ========================================
-   TOPBAR DESKTOP - GLASS
-======================================== */
-
-.band-topbar {
-    padding: 24px 32px;
-
-    background: rgba(255, 255, 255, 0.035);
-
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-
-    border-bottom: 1px solid rgba(210, 225, 235, 0.12);
-
-    box-shadow:
-        0 4px 24px rgba(0, 0, 0, 0.12),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.02);
-}
-
-/* ========================================
    CONTENUTO DASHBOARD
 ======================================== */
 
 .band-main-content {
     flex: 1;
     min-width: 0;
+     width: 100%;
 
     padding: 32px;
     box-sizing: border-box;
 
     background: transparent;
+     position: relative;
+    z-index: 0;
 }
 
 /* ========================================
@@ -134,8 +118,8 @@
 
     /* SIDEBAR E TOPBAR DESKTOP NASCOSTE */
 
-    .band-sidebar,
-    .band-topbar {
+    .band-sidebar {
+    
         display: none;
     }
 
@@ -158,7 +142,7 @@
 
         position: sticky;
         top: 0;
-        z-index: 100;
+        z-index: 1000;
 
         width: 100%;
         min-height: 64px;
@@ -259,9 +243,7 @@
 @media screen and (max-width: 768px) {
 
   
-    .band-layout .band-main > .band-topbar {
-        display: none !important;
-    }
+    
 
     
     .band-layout > .band-sidebar {

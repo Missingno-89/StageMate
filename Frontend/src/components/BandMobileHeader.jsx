@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import {
     Menu,
@@ -10,10 +9,16 @@ import {
     ArrowLeft
 } from "lucide-react";
 
+import { useUnreadNotifications } from "../hooks/useUnreadNotifications";
+
 import "../styles/BandMobileHeader.css";
 
 const BandMobileHeader = () => {
+    const { bandId } = useParams();
+
     const [menuOpen, setMenuOpen] = useState(false);
+
+    const unreadCount = useUnreadNotifications(bandId);
 
     const closeMenu = () => setMenuOpen(false);
 
@@ -45,6 +50,13 @@ const BandMobileHeader = () => {
                     ) : (
                         <Menu size={24} />
                     )}
+
+                    {!menuOpen && unreadCount > 0 && (
+                        <span
+                            className="band-mobile-menu-dot"
+                            aria-hidden="true"
+                        />
+                    )}
                 </button>
 
                 {menuOpen && (
@@ -53,14 +65,21 @@ const BandMobileHeader = () => {
                         className="band-mobile-dropdown"
                     >
 
-                        <button
-                            type="button"
+                        <Link
+                            to={`/bands/${bandId}/notifications`}
                             className="band-mobile-dropdown-item"
                             onClick={closeMenu}
                         >
                             <Bell size={19} />
                             <span>Notifiche</span>
-                        </button>
+
+                            {unreadCount > 0 && (
+                                <span
+                                    className="band-mobile-notification-dot"
+                                    aria-label={`${unreadCount} notifiche non lette`}
+                                />
+                            )}
+                        </Link>
 
                         <button
                             type="button"

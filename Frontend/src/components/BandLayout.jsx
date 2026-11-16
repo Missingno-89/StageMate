@@ -1,11 +1,8 @@
-
 import { Outlet } from "react-router-dom";
 
 import "../styles/BandLayout.css";
 
 import BandSidebar from "./BandSidebar.jsx";
-import BandTopbar from "./BandTopbar.jsx";
-
 import BandMobileHeader from "./BandMobileHeader.jsx";
 import BandMobileNav from "./BandMobileNav.jsx";
 
@@ -16,8 +13,6 @@ const BandLayout = () => {
             <BandSidebar />
 
             <div className="band-main">
-
-                <BandTopbar />
 
                 <BandMobileHeader />
 

@@ -15,6 +15,9 @@ import BandDashboard from "./pages/BandDashboard.jsx";
 import BandCalendar from "./components/BandCalendar.jsx";
 import BandCashManager from "./components/BandCashManager.jsx";
 
+import BandMembers from "./components/BandMembers.jsx";
+import BandNotifications from "./components/BandNotifications.jsx";
+
 function App() {
     return (
         <Routes>
@@ -77,6 +80,14 @@ function App() {
                     <Route
                         path="/bands/:bandId/cash"
                         element={<BandCashManager />}
+                    />
+                    <Route
+                        path="/bands/:bandId/members"
+                        element={<BandMembers />}
+                    />
+                    <Route
+                        path="notifications"
+                        element={<BandNotifications />}
                     />
 
                 </Route>

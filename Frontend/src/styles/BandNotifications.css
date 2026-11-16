@@ -1,0 +1,394 @@
+/* ========================================
+   STAGEMATE - PAGINA NOTIFICHE
+   Coerente con Membri e Fondo Cassa
+======================================== */
+
+/* PAGINA */
+.band-notifications-page {
+    color: #f5f7f9;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* INTESTAZIONE */
+.band-notifications-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.band-notifications-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.band-notifications-heading > svg {
+    color: #38d9e6;
+    flex-shrink: 0;
+}
+
+.band-notifications-heading h1 {
+    margin: 0 0 4px;
+    font-size: 1.65rem;
+}
+
+.band-notifications-heading p {
+    margin: 0;
+    color: #a7b0bc;
+    font-size: .91rem;
+    line-height: 1.6;
+}
+
+.band-notifications-count {
+    flex-shrink: 0;
+    color: #38d9e6;
+    border: 1px solid rgba(56, 217, 230, .22);
+    background: rgba(56, 217, 230, .09);
+    border-radius: 100px;
+    padding: 7px 12px;
+    font-size: .83rem;
+    white-space: nowrap;
+}
+
+/* PANNELLO */
+.band-notifications-panel {
+    background: #141619;
+    border: 1px solid rgba(210, 225, 235, .13);
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.band-notifications-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.band-notifications-panel-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 1.13rem;
+}
+
+.band-notifications-panel-header h2 svg {
+    color: #38d9e6;
+    flex-shrink: 0;
+}
+
+/* PULSANTE SEGNA TUTTE COME LETTE */
+.band-notifications-read-all {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px 17px;
+    background: #38d9e6;
+    color: #101719;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.band-notifications-read-all:hover:not(:disabled) {
+    background: #6ce5ed;
+}
+
+.band-notifications-read-all:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+/* ELENCO */
+.band-notifications-page-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.band-notifications-page-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: #1d2227;
+    color: #f5f7f9;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+.band-notifications-page-item:hover {
+    background: #263039;
+}
+
+.band-notifications-page-item.unread {
+    background: #203138;
+    border-color: rgba(56, 217, 230, .22);
+}
+
+.band-notifications-page-item.unread:hover {
+    background: #294048;
+}
+
+.band-notifications-page-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #263c43;
+    color: #38d9e6;
+}
+
+.band-notifications-page-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.band-notifications-page-message {
+    font-size: .96rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.band-notifications-page-date {
+    color: #a7b0bc;
+    font-size: .78rem;
+}
+
+.band-notifications-page-dot {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #38d9e6;
+}
+
+/* CARICAMENTO, VUOTO ED ERRORI */
+.band-notifications-page-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 30px 12px;
+    color: #a7b0bc;
+    font-size: .91rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.band-notifications-page-empty p {
+    margin: 0;
+}
+
+.band-notifications-page-error {
+    margin: 14px 0;
+    color: #ff6478;
+    font-size: .88rem;
+    line-height: 1.5;
+}
+
+/* ACCESSIBILITA' */
+.band-notifications-read-all:focus-visible,
+.band-notifications-page-item:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 3px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .band-notifications-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .band-notifications-heading h1 {
+        font-size: 1.35rem;
+    }
+
+    .band-notifications-count {
+        font-size: .76rem;
+    }
+
+    .band-notifications-panel {
+        padding: 18px 14px;
+    }
+
+    .band-notifications-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .band-notifications-read-all {
+        width: 100%;
+    }
+
+    .band-notifications-page-item {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .band-notifications-page-icon {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* AZIONI NOTIFICHE */
+
+.band-notifications-panel-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* PULSANTE ELIMINA STORICO */
+
+.band-notifications-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    padding: 12px 17px;
+    border: 1px solid rgba(255, 100, 120, 0.35);
+    border-radius: 10px;
+
+    background: rgba(255, 100, 120, 0.08);
+    color: #ff6478;
+
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.band-notifications-delete:hover:not(:disabled) {
+    background: rgba(255, 100, 120, 0.16);
+}
+
+.band-notifications-delete:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .band-notifications-panel-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .band-notifications-panel-actions button {
+        width: 100%;
+    }
+}
+
+
+/* CONFERMA ELIMINAZIONE STORICO */
+
+.band-notifications-confirm {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 18px 0;
+    padding: 24px;
+
+    background: #1d181a;
+    border: 1px solid rgba(255, 100, 120, 0.35);
+    border-radius: 14px;
+}
+
+.band-notifications-confirm p {
+    margin: 0 0 22px;
+    color: #e4e5e8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.band-notifications-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.band-notifications-confirm-cancel,
+.band-notifications-confirm-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 12px 17px;
+    border-radius: 10px;
+
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.band-notifications-confirm-cancel {
+    background: transparent;
+    border: 1px solid #444047;
+    color: #a7b0bc;
+}
+
+.band-notifications-confirm-delete {
+    background: #43272d;
+    border: 1px solid #a34858;
+    color: #ff6478;
+}
+
+.band-notifications-confirm-delete:hover:not(:disabled) {
+    background: #553038;
+}
+
+.band-notifications-confirm-cancel:disabled,
+.band-notifications-confirm-delete:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .band-notifications-confirm {
+        padding: 18px;
+    }
+
+    .band-notifications-confirm-actions {
+        flex-direction: column;
+    }
+
+    .band-notifications-confirm-actions button {
+        width: 100%;
+    }
+}

@@ -41,3 +41,62 @@ body {
     min-height: 100vh;
     min-height: 100dvh;
 }
+
+/* ========================================
+   STAGEMATE - HEADER PAGINE UNIFICATI
+======================================== */
+
+.band-calendar-header,
+.cash-manager-header,
+.band-members-header {
+    min-height: 48px;
+    margin-bottom: 28px;
+}
+
+.band-calendar-heading,
+.cash-manager-header,
+.band-members-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.band-calendar-heading h1,
+.cash-manager-header h1,
+.band-members-heading h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.band-calendar-heading > svg,
+.cash-manager-header > svg,
+.band-members-heading > svg {
+    width: 28px;
+    height: 28px;
+    color: #38d9e6;
+    flex-shrink: 0;
+}
+
+.band-calendar-heading p,
+.band-members-heading p {
+    margin: 6px 0 0;
+    color: #a7b0bc;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .band-calendar-heading h1,
+    .cash-manager-header h1,
+    .band-members-heading h1 {
+        font-size: 1.4rem;
+    }
+
+    .band-calendar-header,
+    .cash-manager-header,
+    .band-members-header {
+        margin-bottom: 20px;
+    }
+}

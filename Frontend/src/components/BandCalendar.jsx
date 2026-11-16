@@ -37,10 +37,10 @@ const BandCalendar = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    
+
     const [showEventModal, setShowEventModal] = useState(false);
 
-   
+
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [eventToEdit, setEventToEdit] = useState(null);
     const [eventToDelete, setEventToDelete] = useState(null);
@@ -248,26 +248,26 @@ const BandCalendar = () => {
     // MODIFICA EVENTO
     // ========================================
 
-   const handleEditEvent = (event) => {
-    setSelectedEvent(null);
-    setEventToEdit(event);
-};
-const handleEventUpdated = (updatedEvent) => {
-    setEvents((prevEvents) =>
-        prevEvents
-            .map((event) =>
-                event._id === updatedEvent._id
-                    ? updatedEvent
-                    : event
-            )
-            .sort(
-                (a, b) =>
-                    new Date(a.startDate) -
-                    new Date(b.startDate)
-            )
-    );
-    setEventToEdit(null);
-};
+    const handleEditEvent = (event) => {
+        setSelectedEvent(null);
+        setEventToEdit(event);
+    };
+    const handleEventUpdated = (updatedEvent) => {
+        setEvents((prevEvents) =>
+            prevEvents
+                .map((event) =>
+                    event._id === updatedEvent._id
+                        ? updatedEvent
+                        : event
+                )
+                .sort(
+                    (a, b) =>
+                        new Date(a.startDate) -
+                        new Date(b.startDate)
+                )
+        );
+        setEventToEdit(null);
+    };
 
     // ========================================
     // ELIMINAZIONE EVENTO
@@ -429,10 +429,8 @@ const handleEventUpdated = (updatedEvent) => {
                         <div
                             key={index}
                             className={
-                                `band-calendar-day ${
-                                    day === null ? "empty" : ""
-                                } ${
-                                    isToday(day) ? "today" : ""
+                                `band-calendar-day ${day === null ? "empty" : ""
+                                } ${isToday(day) ? "today" : ""
                                 }`
                             }
                         >
@@ -535,6 +533,7 @@ const handleEventUpdated = (updatedEvent) => {
             {selectedEvent && (
                 <EventDetailsModal
                     event={selectedEvent}
+                    bandId={bandId}
                     onClose={handleCloseDetails}
                     onEdit={handleEditEvent}
                     onDelete={handleDeleteEvent}

@@ -1,0 +1,107 @@
+
+.pending-invitations {
+    margin: 28px 0;
+    color: #f5f7f9;
+}
+
+.pending-invitations h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    margin: 0 0 18px;
+}
+
+.pending-invitations h2 svg {
+    color: #38d9e6;
+}
+
+.pending-invitations-count {
+    background: rgba(56, 217, 230, 0.12);
+    color: #38d9e6;
+    border-radius: 20px;
+    padding: 4px 9px;
+    font-size: 0.75rem;
+}
+
+.pending-invitations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pending-invitation-card {
+    background: #141619;
+    border: 1px solid rgba(210, 225, 235, 0.15);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.pending-invitation-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.pending-invitation-info > svg {
+    color: #38d9e6;
+    flex-shrink: 0;
+}
+
+.pending-invitation-info strong {
+    font-size: 1rem;
+}
+
+.pending-invitation-info p {
+    color: #a7b0bc;
+    font-size: 0.85rem;
+    margin: 6px 0 0;
+}
+
+.pending-invitation-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.pending-invitation-actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: none;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pending-invitation-actions .accept {
+    background: #38d9e6;
+    color: #101719;
+}
+
+.pending-invitation-actions .decline {
+    background: #292f35;
+    color: #ff6478;
+}
+
+.pending-invitation-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .pending-invitation-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .pending-invitation-actions button {
+        flex: 1;
+    }
+}

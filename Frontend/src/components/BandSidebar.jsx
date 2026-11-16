@@ -1,3 +1,4 @@
+
 import { NavLink, useParams } from "react-router-dom";
 import {
     LayoutDashboard,
@@ -5,12 +6,18 @@ import {
     Wallet,
     Users,
     FolderOpen,
-    ArrowLeft
+    ArrowLeft,
+    Bell,
+    CircleUserRound,
+    Settings
 } from "lucide-react";
+
 import "../styles/BandSidebar.css";
+import { useUnreadNotifications } from "../hooks/useUnreadNotifications";
 
 const BandSidebar = () => {
     const { bandId } = useParams();
+    const unreadCount = useUnreadNotifications(bandId);
 
     const menuItems = [
         {
@@ -66,10 +73,59 @@ const BandSidebar = () => {
                 ))}
             </nav>
 
-            <NavLink to="/bands" className="band-sidebar-back">
-                <ArrowLeft size={18} />
-                <span>Le mie band</span>
-            </NavLink>
+            <div className="band-sidebar-bottom">
+                <NavLink to="/bands" className="band-sidebar-back">
+                    <ArrowLeft size={18} />
+                    <span>Le mie band</span>
+                </NavLink>
+
+                <div className="band-sidebar-divider" />
+
+                <span className="band-sidebar-section-label">
+                    ACCOUNT
+                </span>
+
+
+                <NavLink
+                    to={`/bands/${bandId}/notifications`}
+                    className={({ isActive }) =>
+                        `band-sidebar-link ${isActive ? "active" : ""}`
+                    }
+                >
+                    <Bell size={20} />
+                    <span>Notifiche</span>
+
+                    {unreadCount > 0 && (
+                        <span
+                            className="notification-unread-dot"
+                            aria-label={`${unreadCount} notifiche non lette`}
+                        />
+                    )}
+                </NavLink>
+
+
+                <button
+                    type="button"
+                    className="band-sidebar-link band-sidebar-action"
+                    onClick={() => {
+                        // Collegheremo qui le impostazioni
+                    }}
+                >
+                    <Settings size={20} />
+                    <span>Impostazioni</span>
+                </button>
+
+                <button
+                    type="button"
+                    className="band-sidebar-link band-sidebar-action band-sidebar-profile"
+                    onClick={() => {
+                        // Collegheremo qui il profilo
+                    }}
+                >
+                    <CircleUserRound size={23} />
+                    <span>Profilo</span>
+                </button>
+            </div>
         </aside>
     );
 };

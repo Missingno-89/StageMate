@@ -14,6 +14,8 @@ const BandDashboard = () => {
     const [band, setBand] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [currentUser, setCurrentUser] = useState(null);
+const [bandOwnerId, setBandOwnerId] = useState(null);
 
     useEffect(() => {
         const controller = new AbortController();

@@ -4,6 +4,7 @@ import "../styles/MyBands.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import PendingInvitations from "../components/PendingInvitations.jsx";
 
 const MyBands = () => {
     const { t } = useTranslation();
@@ -53,6 +54,30 @@ const MyBands = () => {
 
         return () => controller.abort();
     }, []);
+    const refreshBands = async () => {
+        try {
+            const token = sessionStorage.getItem("token");
+
+            const response = await fetch(
+                "http://localhost:9097/bands/my",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Impossibile aggiornare le band");
+            }
+
+            const data = await response.json();
+            setBands(data.bands);
+            setError("");
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
     const handleLogout = () => {
         sessionStorage.removeItem("token");
@@ -60,75 +85,76 @@ const MyBands = () => {
     };
 
 
-return (
-    <>
-        <p className="bands-subtitle">
-            {t("selectBand")}
-        </p>
-
-        {loading && <p>{t("loadingBands")}</p>}
-
-        {error && <p role="alert">{error}</p>}
-
-        {!loading && !error && (
-            <>
-                {bands.length === 0 && (
-                    <p className="bands-empty-message">
-                        {t("noBands")}
-                    </p>
-                )}
-
-                <div className="bands-grid">
-                    {bands.map((band) => (
-                        <button
-                            key={band._id}
-                            type="button"
-                            className="band-card"
-                            onClick={() =>
-                                navigate(`/bands/${band._id}/dashboard`)
-                            }
-                        >
-                            <div className="band-avatar">
-                                {band.avatar ? (
-                                    <img
-                                        src={band.avatar}
-                                        alt={band.name}
-                                    />
-                                ) : (
-                                    <span>♪</span>
-                                )}
-                            </div>
-
-                            <h2>{band.name}</h2>
-                        </button>
-                    ))}
-                </div>
-            </>
-        )}
-
-        <div className="bands-create-section">
-            <p>
-                {t("createBandQuestion")}{" "}
-                <button
-                    type="button"
-                    className="bands-create-link"
-                    onClick={() => navigate("/bands/new")}
-                >
-                    {t("createBand")}
-                </button>
+    return (
+        <>
+        <PendingInvitations onInvitationAccepted={refreshBands} />
+            <p className="bands-subtitle">
+                {t("selectBand")}
             </p>
-        </div>
 
-        <button
-            type="button"
-            className="bands-logout"
-            onClick={handleLogout}
-        >
-            <span className="logout-icon">↪</span>
-            {t("logout")}
-        </button>
-    </>
-);
+            {loading && <p>{t("loadingBands")}</p>}
+
+            {error && <p role="alert">{error}</p>}
+
+            {!loading && !error && (
+                <>
+                    {bands.length === 0 && (
+                        <p className="bands-empty-message">
+                            {t("noBands")}
+                        </p>
+                    )}
+
+                    <div className="bands-grid">
+                        {bands.map((band) => (
+                            <button
+                                key={band._id}
+                                type="button"
+                                className="band-card"
+                                onClick={() =>
+                                    navigate(`/bands/${band._id}/dashboard`)
+                                }
+                            >
+                                <div className="band-avatar">
+                                    {band.avatar ? (
+                                        <img
+                                            src={band.avatar}
+                                            alt={band.name}
+                                        />
+                                    ) : (
+                                        <span>♪</span>
+                                    )}
+                                </div>
+
+                                <h2>{band.name}</h2>
+                            </button>
+                        ))}
+                    </div>
+                </>
+            )}
+
+            <div className="bands-create-section">
+                <p>
+                    {t("createBandQuestion")}{" "}
+                    <button
+                        type="button"
+                        className="bands-create-link"
+                        onClick={() => navigate("/bands/new")}
+                    >
+                        {t("createBand")}
+                    </button>
+                </p>
+            </div>
+
+            <button
+                type="button"
+                className="bands-logout"
+                onClick={handleLogout}
+            >
+                <span className="logout-icon">↪</span>
+                {t("logout")}
+            </button>
+        </>
+    );
 
 };
 

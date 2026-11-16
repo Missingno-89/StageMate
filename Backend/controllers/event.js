@@ -1,6 +1,7 @@
 import Event from "../models/Event.js";
 import Band from "../models/Band.js";
 import mongoose from "mongoose";
+import { notifyBandMembers } from "../utils/notifyBandMembers.js";
 
 export async function createEvent(req, res) {
     try {
@@ -52,12 +53,26 @@ export async function createEvent(req, res) {
                 "createdBy": req.userId
             }
         )
+        try {
+            await notifyBandMembers({
+                band,
+                actorId: req.userId,
+                type: "event_created",
+                referenceId: event._id,
+                message: `Nuovo evento nel calendario: ${event.title}`
+            });
+        } catch (notificationError) {
+            console.error(
+                "Errore durante la creazione delle notifiche:",
+                notificationError
+            );
+        }
         return res.status(201).json({ message: "event created successfully", event })
 
 
 
     } catch (error) {
-         console.error("Create event error:", error);
+        console.error("Create event error:", error);
         return res.status(500).json({
             message: "Internal server error"
         })
@@ -321,6 +336,20 @@ export async function updateEvent(req, res) {
                 runValidators: true
             }
         );
+        try {
+            await notifyBandMembers({
+                band,
+                actorId: req.userId,
+                type: "event_updated",
+                referenceId: updatedEvent._id,
+                message: `Evento modificato: ${updatedEvent.title}`
+            });
+        } catch (notificationError) {
+            console.error(
+                "Errore notifica modifica evento:",
+                notificationError
+            );
+        }
 
 
         return res.status(200).json({
@@ -398,6 +427,20 @@ export async function deleteEvent(req, res) {
             return res.status(404).json({
                 message: "Event not found"
             });
+        }
+        try {
+            await notifyBandMembers({
+                band,
+                actorId: req.userId,
+                type: "event_deleted",
+                referenceId: deletedEvent._id,
+                message: `Evento eliminato: ${deletedEvent.title}`
+            });
+        } catch (notificationError) {
+            console.error(
+                "Errore notifica eliminazione evento:",
+                notificationError
+            );
         }
 
 

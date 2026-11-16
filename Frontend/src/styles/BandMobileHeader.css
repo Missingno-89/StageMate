@@ -9,6 +9,19 @@
 
 @media (max-width: 768px) {
 
+    /* HEADER */
+
+    .band-mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1000;
+        overflow: visible;
+    }
+
+    /* LOGO E NOME */
+
     .band-mobile-brand {
         display: flex;
         align-items: center;
@@ -25,9 +38,14 @@
         object-fit: contain;
     }
 
+    /* CONTENITORE MENU */
+
     .band-mobile-menu-container {
         position: relative;
+        flex-shrink: 0;
     }
+
+    /* PULSANTE HAMBURGER */
 
     .band-mobile-menu-button {
         display: flex;
@@ -51,75 +69,48 @@
         outline-offset: 2px;
     }
 
+    /* MENU A TENDINA */
+
     .band-mobile-dropdown {
         position: absolute;
         top: calc(100% + 12px);
         right: 0;
+        z-index: 1001;
 
-        z-index: 300;
-
-        width: 220px;
+        width: 260px;
         max-width: calc(100vw - 32px);
-        padding: 8px;
+        box-sizing: border-box;
+        padding: 10px;
 
-        background: rgba(20, 20, 20, 0.97);
-
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: #141619;
 
         border: 1px solid rgba(210, 225, 235, 0.16);
-        border-radius: 14px;
+        border-radius: 16px;
 
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
     }
 
-    .band-mobile-dropdown a,
-    .band-mobile-dropdown-placeholder {
-        display: block;
-        padding: 12px;
+    /* ELEMENTI DEL MENU */
 
-        color: #ffffff;
-        font-size: 0.9rem;
-        text-decoration: none;
-
-        border-radius: 8px;
-    }
-
-    .band-mobile-dropdown a:hover {
-        background: rgba(56, 217, 230, 0.1);
-        color: #38d9e6;
-    }
-
-    .band-mobile-dropdown-placeholder {
-        color: #a7b0bc;
-    }
-}
-
-
-/* ========================================
-   MENU HAMBURGER - ELEMENTI
-======================================== */
-
-@media (max-width: 768px) {
-
-    .band-mobile-dropdown-item {
+    .band-mobile-dropdown .band-mobile-dropdown-item {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
 
         width: 100%;
-        padding: 13px 12px;
-
+        min-height: 48px;
         box-sizing: border-box;
+        padding: 12px 14px;
 
         background: transparent;
         border: none;
-        border-radius: 9px;
+        border-radius: 10px;
 
-        color: #ffffff;
+        color: #f5f7f9;
         font-family: inherit;
-        font-size: 0.9rem;
+        font-size: 15px;
         font-weight: 500;
+        line-height: 1.4;
         text-align: left;
         text-decoration: none;
 
@@ -130,41 +121,121 @@
             color 0.2s ease;
     }
 
+    /* ICONE */
+
     .band-mobile-dropdown-item svg {
+        width: 20px;
+        height: 20px;
         flex-shrink: 0;
-        color: #a7b0bc;
-    }
-
-    .band-mobile-dropdown-item:hover {
-        background: rgba(56, 217, 230, 0.1);
         color: #38d9e6;
     }
 
-    .band-mobile-dropdown-item:hover svg {
+    /* TESTO */
+
+    .band-mobile-dropdown-item span {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* HOVER */
+
+    .band-mobile-dropdown .band-mobile-dropdown-item:hover {
+        background: #242b30;
         color: #38d9e6;
     }
+
+    /* FOCUS */
 
     .band-mobile-dropdown-item:focus-visible {
         outline: 2px solid #38d9e6;
-        outline-offset: 2px;
+        outline-offset: -2px;
     }
+
+    /* SEPARATORE */
 
     .band-mobile-dropdown-divider {
         height: 1px;
-        margin: 6px 8px;
-
-        background: rgba(210, 225, 235, 0.12);
+        margin: 8px 4px;
+        background: rgba(210, 225, 235, 0.14);
     }
-      .band-mobile-dropdown .band-mobile-back {
+
+    /* TORNA ALLE BAND */
+
+    .band-mobile-dropdown .band-mobile-back {
         display: flex;
         align-items: center;
     }
 
     .band-mobile-dropdown .band-mobile-back svg {
-        flex-shrink: 0;
-        margin-right: 0,5px;
+        color: #a7b0bc;
+        margin-right: 0;
     }
 
+    /* ACCESSIBILITÀ TOUCH */
 
+    .band-mobile-dropdown-item:active {
+        background: #263039;
+    }
+}
+
+.notification-unread-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+    flex: 0 0 9px;
+
+    border-radius: 50%;
+    background: #38d9e6;
+
+    box-shadow: 0 0 8px rgba(56, 217, 230, 0.35);
+}
+
+/* ========================================
+   NOTIFICHE - INDICATORI MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+
+    /* Pallino sull'hamburger */
+
+    .band-mobile-menu-button {
+        position: relative;
+    }
+
+    .band-mobile-menu-dot {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+        width: 9px;
+        height: 9px;
+
+        border-radius: 50%;
+        background: #38d9e6;
+
+        box-shadow:
+            0 0 0 2px #141619,
+            0 0 8px rgba(56, 217, 230, 0.45);
+
+        pointer-events: none;
+    }
+
+    /* Pallino accanto alla voce Notifiche */
+
+    .band-mobile-dropdown-item .band-mobile-notification-dot {
+        display: block;
+        flex: 0 0 9px;
+
+        width: 9px;
+        height: 9px;
+
+        margin-left: auto;
+
+        border-radius: 50%;
+        background: #38d9e6;
+
+        box-shadow: 0 0 8px rgba(56, 217, 230, 0.35);
+    }
 }
 

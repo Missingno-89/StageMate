@@ -3,20 +3,24 @@
    SIDEBAR STAGEMATE
 ======================================== */
 
-
 .band-sidebar {
     width: 250px;
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    flex-shrink: 0;
+
+    position: sticky;
+    top: 0;
+
     box-sizing: border-box;
     padding: 28px 18px;
 
-    
     background: #080808;
 
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 
-    /* Bordo sottile grigio acciaio */
     border-right: 1px solid rgba(210, 225, 235, 0.15);
 
     box-shadow:
@@ -25,8 +29,13 @@
 
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 28px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    
 }
+
 
 /* ========================================
    LOGO STAGEMATE
@@ -103,13 +112,6 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* ========================================
-   TORNA ALLE BAND
-======================================== */
-
-.band-sidebar-back {
-    margin-top: auto;
-}
 
 /* ========================================
    ACCESSIBILITÀ
@@ -129,4 +131,83 @@
     .band-sidebar {
         display: none;
     }
+}
+
+
+/* ========================================
+   SEZIONE INFERIORE SIDEBAR
+======================================== */
+
+.band-sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.band-sidebar-divider {
+    height: 1px;
+    background: rgba(210, 225, 235, 0.15);
+    margin: 12px 0;
+}
+
+.band-sidebar-section-label {
+    color: #788692;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 4px 15px;
+}
+
+/* Pulsanti notifiche, impostazioni e profilo */
+
+.band-sidebar-action {
+    width: 100%;
+    background: transparent;
+    font: inherit;
+    font-size: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.band-sidebar-profile {
+    margin-top: 8px;
+    padding-top: 17px;
+    border-top: 1px solid rgba(210, 225, 235, 0.15);
+}
+
+.band-sidebar-action:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 3px;
+}
+
+
+
+.notification-unread-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+    flex: 0 0 9px;
+
+    border-radius: 50%;
+    background: #38d9e6;
+
+    box-shadow: 0 0 8px rgba(56, 217, 230, 0.35);
+}
+
+/* INDICATORE NOTIFICHE NON LETTE */
+
+.band-sidebar-link .notification-unread-dot {
+    display: block;
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+    flex: 0 0 9px;
+
+    margin-left: auto;
+    border-radius: 50%;
+
+    background: #38d9e6;
+    box-shadow: 0 0 8px rgba(56, 217, 230, 0.35);
 }

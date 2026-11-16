@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Transaction from "../models/Transaction.js";
 import Band from "../models/Band.js"
-
+import { notifyBandMembers } from "../utils/notifyBandMembers.js";
 
 
 export async function createTransaction(req, res) {
@@ -62,6 +62,18 @@ export async function createTransaction(req, res) {
 
 
         });
+        try {
+            await notifyBandMembers({
+                band,
+                actorId: userId,
+                type: "cash_updated",
+                referenceId: newTransaction._id,
+                message: `Nuovo movimento in cassa: ${type === "income" ? "Entrata" : "Uscita"
+                    } di ${amount} €`
+            });
+        } catch (notificationError) {
+            console.error("Create cash notification error:", notificationError);
+        }
         return res.status(201).json({
             message: "Transaction created successfully",
             transaction: newTransaction
@@ -182,7 +194,7 @@ export async function updateTransaction(req, res) {
         const { amount, description } = req.body;
         const userId = req.userId;
 
-        
+
         if (
             !mongoose.isValidObjectId(id) ||
             !mongoose.isValidObjectId(transactionId)
@@ -192,7 +204,7 @@ export async function updateTransaction(req, res) {
             });
         }
 
-     
+
         const band = await Band.findById(id);
 
         if (!band) {
@@ -201,7 +213,7 @@ export async function updateTransaction(req, res) {
             });
         }
 
-        
+
         const isOwner =
             band.owner.toString() === userId.toString();
 
@@ -215,7 +227,7 @@ export async function updateTransaction(req, res) {
             });
         }
 
-        
+
         const transaction = await Transaction.findOne({
             _id: transactionId,
             band: id
@@ -227,7 +239,7 @@ export async function updateTransaction(req, res) {
             });
         }
 
-        
+
         const isCreator =
             transaction.createdBy.toString() === userId.toString();
 
@@ -237,7 +249,7 @@ export async function updateTransaction(req, res) {
             });
         }
 
-        
+
         if (
             !Number.isSafeInteger(amount) ||
             amount <= 0
@@ -247,7 +259,7 @@ export async function updateTransaction(req, res) {
             });
         }
 
-      
+
         if (
             typeof description !== "string" ||
             description.trim().length === 0 ||
@@ -258,11 +270,22 @@ export async function updateTransaction(req, res) {
             });
         }
 
-        
+
         transaction.amount = amount;
         transaction.description = description.trim();
 
         await transaction.save();
+        try {
+            await notifyBandMembers({
+                band,
+                actorId: userId,
+                type: "cash_updated",
+                referenceId: transaction._id,
+                message: `Movimento di cassa modificato: ${transaction.description}`
+            });
+        } catch (notificationError) {
+            console.error("Update cash notification error:", notificationError);
+        }
 
         return res.status(200).json({
             message: "Transaction updated successfully",
@@ -284,7 +307,7 @@ export async function deleteTransaction(req, res) {
         const { id, transactionId } = req.params;
         const userId = req.userId;
 
-      
+
         if (
             !mongoose.isValidObjectId(id) ||
             !mongoose.isValidObjectId(transactionId)
@@ -294,7 +317,7 @@ export async function deleteTransaction(req, res) {
             });
         }
 
-        
+
         const band = await Band.findById(id);
 
         if (!band) {
@@ -303,7 +326,7 @@ export async function deleteTransaction(req, res) {
             });
         }
 
-        
+
         const isOwner =
             band.owner.toString() === userId.toString();
 
@@ -317,7 +340,7 @@ export async function deleteTransaction(req, res) {
             });
         }
 
-        
+
         const transaction = await Transaction.findOne({
             _id: transactionId,
             band: id
@@ -329,7 +352,7 @@ export async function deleteTransaction(req, res) {
             });
         }
 
-        
+
         const isCreator =
             transaction.createdBy.toString() === userId.toString();
 
@@ -339,8 +362,19 @@ export async function deleteTransaction(req, res) {
             });
         }
 
-       
+
         await transaction.deleteOne();
+        try {
+            await notifyBandMembers({
+                band,
+                actorId: userId,
+                type: "cash_updated",
+                referenceId: transaction._id,
+                message: `Movimento di cassa eliminato: ${transaction.description}`
+            });
+        } catch (notificationError) {
+            console.error("Delete cash notification error:", notificationError);
+        }
 
         return res.status(200).json({
             message: "Transaction deleted successfully"
