@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Wallet, ArrowDownLeft, ArrowUpRight, Plus, Minus, ChevronUp, UserRound, Pencil, Trash2, } from "lucide-react";
 import "../styles/BandCashManager.css";
-const API_URL = "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 export default function BandCashManager() {
     const { bandId } = useParams();
     const navigate = useNavigate();

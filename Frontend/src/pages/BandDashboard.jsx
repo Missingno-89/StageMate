@@ -29,7 +29,7 @@ const BandDashboard = () => {
                     navigate("/", { replace: true });
                     return;
                 }
-                const response = await fetch(`http://localhost:9097/bands/${bandId}`, {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/bands/${bandId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                     signal: controller.signal
                 });
@@ -56,7 +56,7 @@ const BandDashboard = () => {
                 if (!token) return;
 
                 const response = await fetch(
-                    "http://localhost:9097/auth/me",
+                    `${import.meta.env.VITE_API_URL}/auth/me`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`

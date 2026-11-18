@@ -15,7 +15,7 @@ import {
 import "../styles/BandSidebar.css";
 import { useUnreadNotifications } from "../hooks/useUnreadNotifications";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const BandSidebar = () => {
     const { bandId } = useParams();

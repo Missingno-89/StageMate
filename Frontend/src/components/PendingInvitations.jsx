@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Users, Check, X } from "lucide-react";
 import "../styles/PendingInvitations.css";
 
-const API_URL = "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const PendingInvitations = ({ onInvitationAccepted }) => {
     const [invitations, setInvitations] = useState([]);

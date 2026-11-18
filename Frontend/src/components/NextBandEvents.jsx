@@ -26,7 +26,7 @@ const NextBandEvents = ({ bandId }) => {
             try {
                 const token = sessionStorage.getItem("token");
                 if (!token) throw new Error("Sessione non valida");
-                const response = await fetch(`http://localhost:9097/bands/${bandId}/events`, {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/bands/${bandId}/events`, {
                     headers: { Authorization: `Bearer ${token}` },
                     signal: controller.signal
                 });

@@ -28,7 +28,7 @@ const MyBands = () => {
                 const token = sessionStorage.getItem("token");
 
                 const response = await fetch(
-                    "http://localhost:9097/bands/my",
+                    `${import.meta.env.VITE_API_URL}/bands/my`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -43,7 +43,7 @@ const MyBands = () => {
 
                 const data = await response.json();
                 setBands(data.bands);
-                const meResponse = await fetch("http://localhost:9097/auth/me", {
+                const meResponse = await fetch(`${import.meta.env.VITE_API_URL}/auth/me`, {
                     headers: { Authorization: `Bearer ${token}` },
                     signal: controller.signal
                 });
@@ -73,7 +73,7 @@ const MyBands = () => {
             const token = sessionStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:9097/bands/my",
+                `${import.meta.env.VITE_API_URL}/bands/my`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -101,7 +101,7 @@ const MyBands = () => {
         try {
             const formData = new FormData();
             formData.append("avatar", selectedImage);
-            const response = await fetch(`http://localhost:9097/bands/${editingBandId}/avatar`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/bands/${editingBandId}/avatar`, {
                 method: "PATCH",
                 headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
                 body: formData

@@ -59,7 +59,7 @@ const BandCalendar = () => {
                 setError("");
                 const token = sessionStorage.getItem("token");
                 const response = await fetch(
-                    `http://localhost:9097/bands/${bandId}/events`,
+                    `${import.meta.env.VITE_API_URL}/bands/${bandId}/events`,
                     {
                         method: "GET",
                         headers: {
@@ -295,7 +295,7 @@ const BandCalendar = () => {
         try {
             const token = sessionStorage.getItem("token");
             const response = await fetch(
-                `http://localhost:9097/bands/${bandId}/events/${eventId}`,
+                `${import.meta.env.VITE_API_URL}/bands/${bandId}/events/${eventId}`,
                 {
                     method: "DELETE",
                     headers: {

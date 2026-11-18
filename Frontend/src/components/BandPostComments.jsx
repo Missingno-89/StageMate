@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { MessageCircle, Send, Trash2, UserRound } from "lucide-react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function BandPostComments({ bandId, postId, currentUserId, ownerId }) {
     const [comments, setComments] = useState([]);

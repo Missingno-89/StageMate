@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowDownLeft, ArrowUpRight, ArrowUpRight as OpenPage } from "lucide-react";
 import "../styles/BandCash.css"
 
-const API_URL = "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function BandCash({ bandId }) {
     const [balance, setBalance] = useState(null);

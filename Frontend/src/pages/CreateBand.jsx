@@ -29,7 +29,7 @@ const CreateBand = () => {
                 return;
             }
 
-            const response = await fetch("http://localhost:9097/bands", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/bands`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,7 +56,7 @@ const CreateBand = () => {
                 formData.append("avatar", avatarFile);
 
                 const avatarResponse = await fetch(
-                    `http://localhost:9097/bands/${bandId}/avatar`,
+                    `${import.meta.env.VITE_API_URL}/bands/${bandId}/avatar`,
                     {
                         method: "PATCH",
                         headers: {

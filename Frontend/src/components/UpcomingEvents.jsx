@@ -52,7 +52,7 @@ const UpcomingEvents = ({ bandId }) => {
                 }
 
                 const response = await fetch(
-                    `http://localhost:9097/bands/${bandId}/events`,
+                    `${import.meta.env.VITE_API_URL}/bands/${bandId}/events`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`

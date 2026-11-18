@@ -21,7 +21,7 @@ const GoogleCallback = () => {
         const exchangeCode = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:9097/auth/google/exchange",
+                    `${import.meta.env.VITE_API_URL}/auth/google/exchange`,
                     {
                         method: "POST",
                         headers: {

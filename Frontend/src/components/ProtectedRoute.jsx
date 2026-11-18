@@ -20,7 +20,7 @@ const ProtectedRoute = () => {
         const checkAuth = async () => {
             try {
                 const response = await fetch(
-                    "http://localhost:9097/auth/me",
+                    `${import.meta.env.VITE_API_URL}/auth/me`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`

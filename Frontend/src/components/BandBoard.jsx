@@ -3,7 +3,7 @@ import BandPostForm from "./BandPostForm.jsx";
 import BandPostCard from "./BandPostCard.jsx";
 import "../styles/BandBoard.css";
 
-const API_URL = "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const BandBoard = ({ bandId, currentUserId, ownerId }) => {
     const [posts, setPosts] = useState([]);

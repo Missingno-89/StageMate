@@ -14,7 +14,7 @@ import { useUnreadNotifications } from "../hooks/useUnreadNotifications";
 
 import "../styles/BandMobileHeader.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const BandMobileHeader = () => {
     const { bandId } = useParams();

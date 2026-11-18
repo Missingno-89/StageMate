@@ -1,7 +1,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-const API_URL = "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const useUnreadNotifications = (bandId) => {
     const [unreadCount, setUnreadCount] = useState(0);

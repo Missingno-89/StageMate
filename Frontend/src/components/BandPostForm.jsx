@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { ImagePlus, Send, X } from "lucide-react";
 
-const API_URL = "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const BandPostForm = ({ bandId, onPostCreated }) => {
     const [content, setContent] = useState("");

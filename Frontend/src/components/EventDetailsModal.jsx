@@ -34,7 +34,7 @@ const EventDetailsModal = ({ event, bandId, onClose, onEdit, onDelete }) => {
             try {
                 const token = sessionStorage.getItem("token");
                 const response = await fetch(
-                    `http://localhost:9097/bands/${bandId}/events/${event._id}/attendance`,
+                    `${import.meta.env.VITE_API_URL}/bands/${bandId}/events/${event._id}/attendance`,
                     { headers: { Authorization: `Bearer ${token}` }, signal: controller.signal }
                 );
                 const data = await response.json().catch(() => ({}));
@@ -59,7 +59,7 @@ const EventDetailsModal = ({ event, bandId, onClose, onEdit, onDelete }) => {
         try {
             const token = sessionStorage.getItem("token");
             const response = await fetch(
-                `http://localhost:9097/bands/${bandId}/events/${event._id}/attendance`,
+                `${import.meta.env.VITE_API_URL}/bands/${bandId}/events/${event._id}/attendance`,
                 {
                     method: "PUT",
                     headers: {
@@ -73,7 +73,7 @@ const EventDetailsModal = ({ event, bandId, onClose, onEdit, onDelete }) => {
             if (!response.ok) throw new Error(data.message || "Impossibile salvare la risposta");
 
             const refreshed = await fetch(
-                `http://localhost:9097/bands/${bandId}/events/${event._id}/attendance`,
+                `${import.meta.env.VITE_API_URL}/bands/${bandId}/events/${event._id}/attendance`,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             const refreshedData = await refreshed.json().catch(() => ({}));

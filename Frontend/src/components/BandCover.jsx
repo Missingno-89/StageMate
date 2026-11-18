@@ -42,7 +42,7 @@ const BandCover = ({ band, onCoverUpdated }) => {
             const token = sessionStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:9097/bands/${band._id}/cover`,
+                `${import.meta.env.VITE_API_URL}/bands/${band._id}/cover`,
                 {
                     method: "PATCH",
                     headers: {

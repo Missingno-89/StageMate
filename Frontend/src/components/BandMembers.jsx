@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Crown, Mail, Send, Trash2, Users, UserRound, X } from "lucide-react";
 import "../styles/BandMembers.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9097";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const getId = (value) => typeof value === "object" && value !== null ? String(value._id ?? "") : String(value ?? "");
 

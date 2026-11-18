@@ -179,8 +179,8 @@ const EventModal = ({
             const token = sessionStorage.getItem("token");
 
             const url = isEditing
-                ? `http://localhost:9097/bands/${bandId}/events/${eventToEdit._id}`
-                : `http://localhost:9097/bands/${bandId}/events`;
+                ? `${import.meta.env.VITE_API_URL}/bands/${bandId}/events/${eventToEdit._id}`
+                : `${import.meta.env.VITE_API_URL}/bands/${bandId}/events`;
 
             const response = await fetch(url, {
                 method: isEditing ? "PATCH" : "POST",
