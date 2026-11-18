@@ -140,6 +140,7 @@ const handleUpdatePost = async (postId, updatedFields) => {
                     <BandPostCard
                         key={post._id}
                         post={post}
+                        bandId={bandId}
                         currentUserId={currentUserId}
                         ownerId={ownerId}
                         onDelete={handleDeletePost}

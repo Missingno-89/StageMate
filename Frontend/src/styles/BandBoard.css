@@ -842,171 +842,227 @@ background 0.2s ease;
     outline-offset: 2px;
 }
 
+/* COMMENTI BACHECA */
+.band-post-comments { border-top: 1px solid rgba(210,225,235,.12); margin-top: 16px; padding-top: 16px; }
+.band-post-comments-title { display:flex; align-items:center; gap:8px; color:#e9f4f6; font-size:.96rem; margin:0 0 14px; }
+.band-post-comments-title svg { color:#38d9e6; }
+.band-post-comments-list { display:flex; flex-direction:column; gap:14px; margin-bottom:14px; }
+.band-post-comments-muted { color:#a7b0bc; font-size:.86rem; margin:0 0 10px; }
+.band-post-comment { display:flex; gap:10px; min-width:0; }
+.band-post-comment-avatar { width:34px; height:34px; border-radius:50%; background:#263c43; color:#38d9e6; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
+.band-post-comment-avatar img { width:100%; height:100%; object-fit:cover; }
+.band-post-comment-main { min-width:0; flex:1; background:#1d2227; border-radius:12px; padding:10px 12px; }
+.band-post-comment-top { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.band-post-comment-top strong { font-size:.86rem; }
+.band-post-comment-top time { font-size:.74rem; color:#a7b0bc; }
+.band-post-comment-main p { margin:7px 0 0; font-size:.9rem; line-height:1.5; white-space:pre-wrap; overflow-wrap:anywhere; }
+.band-post-comment-remove { margin-left:auto; background:transparent; border:0; color:#ff6478; cursor:pointer; padding:4px; }
+.band-post-comments-form { display:flex; gap:9px; }
+.band-post-comments-form input { flex:1; min-width:0; border-radius:10px; border:1px solid rgba(210,225,235,.2); background:#1d2227; color:#f5f7f9; padding:11px 12px; font:inherit; }
+.band-post-comments-form button { display:inline-flex; align-items:center; gap:7px; background:#38d9e6; color:#101719; border:0; border-radius:10px; padding:10px 14px; font-weight:700; cursor:pointer; }
+.band-post-comments-form button:disabled { opacity:.5; cursor:not-allowed; }
+.band-post-comments-error { color:#ff6478; font-size:.85rem; }
+.band-post-comment-confirm { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; font-size:.83rem; }
+.band-post-comment-confirm button { background:transparent; border:1px solid #4d535b; border-radius:8px; color:#f5f7f9; padding:6px 10px; cursor:pointer; }
+.band-post-comment-confirm button.danger { color:#ff6478; border-color:rgba(255,100,120,.4); }
+@media (max-width:600px) { .band-post-comments-form { flex-wrap:wrap; } .band-post-comments-form button { justify-content:center; } }
 
-/* =========================================
-   CONFERMA ELIMINAZIONE POST
-========================================= */
+/* CONFERMA ELIMINAZIONE POST */
 
 .band-post-delete-confirm {
-    margin: 0 0 20px;
-    padding: 18px;
-    border: 1px solid rgba(255, 100, 120, 0.3);
-    border-radius: 14px;
+    margin: 16px 0;
+    padding: 20px;
     background: #1d181a;
+    border: 1px solid rgba(255, 100, 120, 0.35);
+    border-radius: 14px;
 }
 
 .band-post-delete-heading {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 9px;
     color: #ff6478;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
-.band-post-delete-confirm > p {
-    margin: 12px 0;
-    color: #cbd2d8;
-    font-size: 0.88rem;
-    line-height: 1.6;
-}
-
-.band-post-delete-confirm .band-post-delete-error {
-    color: #ff8494;
+.band-post-delete-confirm p {
+    margin: 12px 0 18px;
+    color: #c5c9cf;
+    line-height: 1.5;
 }
 
 .band-post-delete-actions {
     display: flex;
     justify-content: flex-end;
+    gap: 12px;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 18px;
 }
 
-.band-post-delete-actions button {
+.band-post-delete-cancel,
+.band-post-delete-submit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 14px;
-    border-radius: 9px;
+    padding: 11px 16px;
+    border-radius: 10px;
     font: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .band-post-delete-cancel {
-    border: 1px solid rgba(255, 255, 255, 0.12);
     background: transparent;
-    color: #cbd2d8;
+    border: 1px solid #444047;
+    color: #c5c9cf;
+}
+
+.band-post-delete-cancel:hover {
+    background: #292c30;
 }
 
 .band-post-delete-submit {
-    border: 1px solid rgba(255, 100, 120, 0.35);
-    background: rgba(255, 100, 120, 0.12);
+    background: #43272d;
+    border: 1px solid #a34858;
     color: #ff6478;
 }
 
 .band-post-delete-submit:hover:not(:disabled) {
-    background: rgba(255, 100, 120, 0.2);
+    background: #553038;
 }
 
-.band-post-delete-actions button:disabled {
+.band-post-delete-cancel:disabled,
+.band-post-delete-submit:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
+@media (max-width: 600px) {
+    .band-post-delete-actions {
+        flex-direction: column;
+    }
 
-/* =========================================
-   MODIFICA POST INLINE
-========================================= */
+    .band-post-delete-actions button {
+        width: 100%;
+    }
+}
+/* ========================================
+   MODIFICA POST - STAGEMATE
+======================================== */
 
 .band-post-edit-form {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    width: 100%;
+    margin-top: 8px;
 }
 
 .band-post-edit-form input,
 .band-post-edit-form textarea {
     width: 100%;
     box-sizing: border-box;
-    padding: 14px 16px;
-
-    background: rgba(0, 0, 0, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 11px;
-
-    color: #e9edf0;
+    padding: 13px 15px;
+    border: 1px solid rgba(210, 225, 235, 0.18);
+    border-radius: 10px;
+    background: #1d2227;
+    color: #f5f7f9;
     font: inherit;
-    line-height: 1.6;
+    font-size: 0.94rem;
     outline: none;
-
     transition: border-color 0.2s ease;
 }
 
 .band-post-edit-form textarea {
     min-height: 110px;
     resize: vertical;
+    line-height: 1.6;
 }
 
 .band-post-edit-form input:focus,
 .band-post-edit-form textarea:focus {
-    border-color: rgba(56, 217, 230, 0.5);
+    border-color: #38d9e6;
 }
 
 .band-post-edit-form input:disabled,
 .band-post-edit-form textarea:disabled {
     opacity: 0.6;
+    cursor: not-allowed;
 }
+
+.band-post-edit-form input::placeholder,
+.band-post-edit-form textarea::placeholder {
+    color: #87929e;
+}
+
+/* MESSAGGIO DI ERRORE */
 
 .band-post-edit-error {
     margin: 0;
-    color: #ff8494;
+    color: #ff6478;
     font-size: 0.88rem;
 }
+
+/* PULSANTI MODIFICA */
 
 .band-post-edit-actions {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
 }
 
-.band-post-edit-actions button {
-    padding: 10px 16px;
+.band-post-edit-cancel,
+.band-post-edit-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 17px;
     border-radius: 10px;
     font: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .band-post-edit-cancel {
-    border: 1px solid rgba(255, 255, 255, 0.12);
     background: transparent;
-    color: #cbd2d8;
+    border: 1px solid #444047;
+    color: #c5c9cf;
+}
+
+.band-post-edit-cancel:hover:not(:disabled) {
+    background: #292c30;
 }
 
 .band-post-edit-save {
-    border: 1px solid rgba(56, 217, 230, 0.35);
-    background: rgba(56, 217, 230, 0.12);
-    color: #38d9e6;
+    background: #38d9e6;
+    border: 1px solid #38d9e6;
+    color: #101719;
 }
 
 .band-post-edit-save:hover:not(:disabled) {
-    background: rgba(56, 217, 230, 0.22);
+    background: #6ce5ed;
 }
 
-.band-post-edit-actions button:disabled {
+.band-post-edit-cancel:disabled,
+.band-post-edit-save:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
+/* RESPONSIVE */
+
 @media (max-width: 600px) {
-    .band-post-edit-form input,
-    .band-post-edit-form textarea {
-        padding: 12px;
-        font-size: 0.9rem;
+    .band-post-edit-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .band-post-edit-actions button {
+        width: 100%;
     }
 }

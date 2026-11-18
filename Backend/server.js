@@ -11,6 +11,9 @@ import postRouter from "./routes/post.js";
 import attendanceRouter from "./routes/attendance.js";
 import notificationsRouter from "./routes/notifications.js";
 import cookieParser from "cookie-parser";
+import commentRouter from "./routes/comment.js";
+import bandFilesRouter from "./routes/bandFiles.js";
+import { authenticate } from "./middlewares/authenticate.js";
 
 const app = express();
 
@@ -24,6 +27,8 @@ app.use("/", eventRouter)
 app.use("/", postRouter)
 app.use("/", attendanceRouter)
 app.use("/notifications", notificationsRouter)
+app.use(commentRouter);
+app.use("/", authenticate, bandFilesRouter);
 app.get("/", (req, res) => {
   res.json({
     message: "Benvenuto nelle API di StageMate!"

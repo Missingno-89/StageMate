@@ -1,0 +1,253 @@
+.band-archive {
+    color: #f5f7f9;
+    width: 100%;
+    min-width: 0
+}
+
+.band-archive-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px
+}
+
+.band-archive-heading>svg,
+.band-archive-icon {
+    color: #38d9e6;
+    flex-shrink: 0
+}
+
+.band-archive-heading h1 {
+    margin: 0 0 4px;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.band-archive-heading p,
+.band-archive-muted {
+    margin: 0;
+    color: #a7b0bc
+}
+
+.band-archive-panel {
+    background: #141619;
+    border: 1px solid rgba(210, 225, 235, .13);
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 20px
+}
+
+.band-archive-panel h2 {
+    font-size: 1.13rem;
+    margin: 0 0 20px
+}
+
+.band-archive-upload {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap
+}
+
+.band-archive-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 17px;
+    border: 1px solid rgba(56, 217, 230, .45);
+    border-radius: 10px;
+    background: rgba(56, 217, 230, .08);
+    color: #a5f3fc;
+    cursor: pointer;
+    font-weight: 700
+}
+
+.band-archive-picker:hover {
+    background: rgba(56, 217, 230, .18)
+}
+
+.band-archive-picker input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    clip-path: inset(50%)
+}
+
+.band-archive-picker:focus-within {
+    outline: 2px solid #38d9e6;
+    outline-offset: 3px
+}
+
+.band-archive-filename {
+    color: #a7b0bc;
+    font-size: .85rem;
+    overflow-wrap: anywhere;
+    flex: 1
+}
+
+.band-archive-primary {
+    border: 0;
+    background: #38d9e6;
+    color: #101719;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer
+}
+
+.band-archive-primary:disabled {
+    opacity: .5;
+    cursor: not-allowed
+}
+
+.band-archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.band-archive-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex-wrap: wrap;
+    background: #1d2227;
+    border: 1px solid rgba(210, 225, 235, .08);
+    padding: 14px;
+    border-radius: 12px
+}
+
+.band-archive-info {
+    display: flex;
+    flex: 1;
+    min-width: 140px;
+    flex-direction: column;
+    gap: 5px;
+    overflow-wrap: anywhere
+}
+
+.band-archive-info small {
+    color: #a7b0bc
+}
+
+.band-archive-action,
+.band-archive-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 11px;
+    border-radius: 9px;
+    text-decoration: none;
+    font: inherit;
+    cursor: pointer
+}
+
+.band-archive-action {
+    color: #38d9e6;
+    border: 1px solid rgba(56, 217, 230, .3);
+    background: transparent
+}
+
+.band-archive-danger {
+    color: #ff6478;
+    border: 1px solid rgba(255, 100, 120, .3);
+    background: rgba(255, 100, 120, .08)
+}
+
+.band-archive-confirm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: #ff6478
+}
+
+.band-archive-confirm button {
+    padding: 9px 12px;
+    border-radius: 9px;
+    cursor: pointer
+}
+
+.band-archive-error {
+    color: #ff6478
+}
+
+@media(max-width:600px) {
+    .band-archive-panel {
+        padding: 18px 14px
+    }
+
+    .band-archive-upload {
+        align-items: stretch;
+        flex-direction: column
+    }
+
+    .band-archive-picker,
+    .band-archive-primary {
+        justify-content: center
+    }
+
+    .band-archive-confirm {
+        justify-content: flex-start
+    }
+}
+
+
+/* ========================================
+   CONFERMA ELIMINAZIONE FILE
+======================================== */
+
+.band-archive-confirm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+}
+
+/* Pulsante Annulla */
+.band-archive-confirm button:not(.band-archive-danger) {
+    background: #292f36;
+    color: #f5f7f9;
+    border: 1px solid rgba(210, 225, 235, 0.2);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.band-archive-confirm button:not(.band-archive-danger):hover {
+    background: #39424b;
+}
+
+/* Pulsante Elimina */
+.band-archive-confirm .band-archive-danger {
+    background: rgba(255, 100, 120, 0.1);
+    color: #ff6478;
+    border: 1px solid rgba(255, 100, 120, 0.35);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.band-archive-confirm .band-archive-danger:hover {
+    background: rgba(255, 100, 120, 0.2);
+}
+
+.band-archive-confirm button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+

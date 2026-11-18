@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import {
     Menu,
     X,
     Bell,
     CircleUserRound,
+    LogOut,
     ArrowLeft
 } from "lucide-react";
 
@@ -13,14 +14,53 @@ import { useUnreadNotifications } from "../hooks/useUnreadNotifications";
 
 import "../styles/BandMobileHeader.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9097";
+
 const BandMobileHeader = () => {
     const { bandId } = useParams();
+    const navigate = useNavigate();
+    const [currentUser, setCurrentUser] = useState(null);
 
     const [menuOpen, setMenuOpen] = useState(false);
 
     const unreadCount = useUnreadNotifications(bandId);
 
     const closeMenu = () => setMenuOpen(false);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        const token = sessionStorage.getItem("token");
+        if (!token) return () => controller.abort();
+
+        const loadUser = async () => {
+            try {
+                const response = await fetch(`${API_URL}/auth/me`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error("Impossibile caricare l'utente");
+                const data = await response.json();
+                setCurrentUser(data.user ?? data);
+            } catch (error) {
+                if (error.name !== "AbortError") {
+                    console.error("Errore nel caricamento del profilo:", error);
+                }
+            }
+        };
+
+        loadUser();
+        return () => controller.abort();
+    }, []);
+
+    const fullName = [currentUser?.name, currentUser?.surname]
+        .filter(Boolean)
+        .join(" ") || "Utente connesso";
+
+    const handleLogout = () => {
+        closeMenu();
+        sessionStorage.removeItem("token");
+        navigate("/", { replace: true });
+    };
 
     return (
         <header className="band-mobile-header">
@@ -81,13 +121,27 @@ const BandMobileHeader = () => {
                             )}
                         </Link>
 
+                        <div className="band-mobile-account" aria-label={`Account: ${fullName}`}>
+                            {currentUser?.avatar ? (
+                                <img src={currentUser.avatar} alt="" className="band-mobile-account-avatar" />
+                            ) : (
+                                <span className="band-mobile-account-avatar band-mobile-account-fallback">
+                                    <CircleUserRound size={23} />
+                                </span>
+                            )}
+                            <span className="band-mobile-account-info">
+                                <span className="band-mobile-account-name" title={fullName}>{fullName}</span>
+                                <span className="band-mobile-account-caption">Account connesso</span>
+                            </span>
+                        </div>
+
                         <button
                             type="button"
-                            className="band-mobile-dropdown-item"
-                            onClick={closeMenu}
+                            className="band-mobile-dropdown-item band-mobile-logout"
+                            onClick={handleLogout}
                         >
-                            <CircleUserRound size={20} />
-                            <span>Profilo</span>
+                            <LogOut size={19} />
+                            <span>Logout</span>
                         </button>
 
                         <div className="band-mobile-dropdown-divider" />

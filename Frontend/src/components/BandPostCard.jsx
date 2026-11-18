@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import BandPostComments from "./BandPostComments.jsx";
 import {
     UserRound,
     CalendarDays,
@@ -9,6 +10,7 @@ import {
 
 const BandPostCard = ({
     post,
+    bandId,
     currentUserId,
     ownerId,
     onDelete,
@@ -392,6 +394,7 @@ const BandPostCard = ({
                 )}
             </div>
 
+            <BandPostComments bandId={bandId} postId={post._id} currentUserId={currentUserId} ownerId={ownerId} />
         </article>
     );
 };

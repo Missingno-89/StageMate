@@ -1,5 +1,5 @@
-
-import { NavLink, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import {
     LayoutDashboard,
     CalendarDays,
@@ -9,52 +9,69 @@ import {
     ArrowLeft,
     Bell,
     CircleUserRound,
-    Settings
+    LogOut
 } from "lucide-react";
 
 import "../styles/BandSidebar.css";
 import { useUnreadNotifications } from "../hooks/useUnreadNotifications";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:9097";
+
 const BandSidebar = () => {
     const { bandId } = useParams();
+    const navigate = useNavigate();
     const unreadCount = useUnreadNotifications(bandId);
+    const [currentUser, setCurrentUser] = useState(null);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        const token = sessionStorage.getItem("token");
+
+        if (!token) return () => controller.abort();
+
+        const loadUser = async () => {
+            try {
+                const response = await fetch(`${API_URL}/auth/me`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                    signal: controller.signal
+                });
+
+                if (!response.ok) throw new Error("Impossibile caricare l'utente");
+
+                const data = await response.json();
+                setCurrentUser(data.user ?? data);
+            } catch (error) {
+                if (error.name !== "AbortError") {
+                    console.error("Errore nel caricamento del profilo:", error);
+                }
+            }
+        };
+
+        loadUser();
+        return () => controller.abort();
+    }, []);
+
+    const handleLogout = () => {
+        sessionStorage.removeItem("token");
+        navigate("/", { replace: true });
+    };
+
+    const fullName = [currentUser?.name, currentUser?.surname]
+        .filter(Boolean)
+        .join(" ") || "Utente connesso";
 
     const menuItems = [
-        {
-            label: "Dashboard",
-            icon: LayoutDashboard,
-            path: `/bands/${bandId}/dashboard`
-        },
-        {
-            label: "Calendario",
-            icon: CalendarDays,
-            path: `/bands/${bandId}/calendar`
-        },
-        {
-            label: "Cassa",
-            icon: Wallet,
-            path: `/bands/${bandId}/cash`
-        },
-        {
-            label: "Membri",
-            icon: Users,
-            path: `/bands/${bandId}/members`
-        },
-        {
-            label: "File",
-            icon: FolderOpen,
-            path: `/bands/${bandId}/files`
-        }
+        { label: "Dashboard", icon: LayoutDashboard, path: `/bands/${bandId}/dashboard` },
+        { label: "Calendario", icon: CalendarDays, path: `/bands/${bandId}/calendar` },
+        { label: "Cassa", icon: Wallet, path: `/bands/${bandId}/cash` },
+        { label: "Membri", icon: Users, path: `/bands/${bandId}/members` },
+        { label: "File", icon: FolderOpen, path: `/bands/${bandId}/files` }
     ];
 
     return (
         <aside className="band-sidebar">
             <h2 className="band-sidebar-logo">
-                <img
-                    src="/images/logo-stage.png"
-                    alt=""
-                    className="band-sidebar-logo-icon"
-                />
+                <img src="/images/logo-stage.png" alt="" className="band-sidebar-logo-icon" />
                 <span>StageMate</span>
             </h2>
 
@@ -80,11 +97,7 @@ const BandSidebar = () => {
                 </NavLink>
 
                 <div className="band-sidebar-divider" />
-
-                <span className="band-sidebar-section-label">
-                    ACCOUNT
-                </span>
-
+                <span className="band-sidebar-section-label">ACCOUNT</span>
 
                 <NavLink
                     to={`/bands/${bandId}/notifications`}
@@ -94,7 +107,6 @@ const BandSidebar = () => {
                 >
                     <Bell size={20} />
                     <span>Notifiche</span>
-
                     {unreadCount > 0 && (
                         <span
                             className="notification-unread-dot"
@@ -103,27 +115,31 @@ const BandSidebar = () => {
                     )}
                 </NavLink>
 
+                <div className="band-sidebar-user" aria-label={`Account: ${fullName}`}>
+                    {currentUser?.avatar ? (
+                        <img
+                            className="band-sidebar-user-avatar"
+                            src={currentUser.avatar}
+                            alt=""
+                        />
+                    ) : (
+                        <span className="band-sidebar-user-avatar band-sidebar-user-fallback">
+                            <CircleUserRound size={24} />
+                        </span>
+                    )}
+                    <span className="band-sidebar-user-info">
+                        <span className="band-sidebar-user-name" title={fullName}>{fullName}</span>
+                        <span className="band-sidebar-user-caption">Account connesso</span>
+                    </span>
+                </div>
 
                 <button
                     type="button"
-                    className="band-sidebar-link band-sidebar-action"
-                    onClick={() => {
-                        // Collegheremo qui le impostazioni
-                    }}
+                    className="band-sidebar-link band-sidebar-action band-sidebar-logout"
+                    onClick={handleLogout}
                 >
-                    <Settings size={20} />
-                    <span>Impostazioni</span>
-                </button>
-
-                <button
-                    type="button"
-                    className="band-sidebar-link band-sidebar-action band-sidebar-profile"
-                    onClick={() => {
-                        // Collegheremo qui il profilo
-                    }}
-                >
-                    <CircleUserRound size={23} />
-                    <span>Profilo</span>
+                    <LogOut size={20} />
+                    <span>Logout</span>
                 </button>
             </div>
         </aside>

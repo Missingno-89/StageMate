@@ -239,3 +239,65 @@
     }
 }
 
+
+/* ========================================
+   ACCOUNT E LOGOUT NEL MENU MOBILE
+======================================== */
+@media (max-width: 768px) {
+    .band-mobile-account {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        margin: 8px 4px 4px;
+        padding: 13px 10px 8px;
+        border-top: 1px solid rgba(210, 225, 235, 0.14);
+    }
+
+    .band-mobile-account-avatar {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .band-mobile-account-fallback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a5f3fc;
+        background: rgba(56, 217, 230, 0.1);
+    }
+
+    .band-mobile-account-info {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+    }
+
+    .band-mobile-account-name {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 650;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .band-mobile-account-caption {
+        color: #788692;
+        font-size: 12px;
+    }
+
+    .band-mobile-dropdown .band-mobile-logout,
+    .band-mobile-dropdown .band-mobile-logout svg {
+        color: #f0a5a5;
+    }
+
+    .band-mobile-dropdown .band-mobile-logout:hover {
+        color: #ffd2d2;
+        background: rgba(235, 90, 90, 0.09);
+    }
+}

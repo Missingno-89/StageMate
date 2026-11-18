@@ -17,6 +17,7 @@ import BandCashManager from "./components/BandCashManager.jsx";
 
 import BandMembers from "./components/BandMembers.jsx";
 import BandNotifications from "./components/BandNotifications.jsx";
+import BandArchive from "./components/BandArchive.jsx";
 
 function App() {
     return (
@@ -84,6 +85,10 @@ function App() {
                     <Route
                         path="/bands/:bandId/members"
                         element={<BandMembers />}
+                    />
+                    <Route
+                        path="files"
+                        element={<BandArchive />}
                     />
                     <Route
                         path="notifications"

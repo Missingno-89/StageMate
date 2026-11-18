@@ -159,7 +159,7 @@
     padding: 4px 15px;
 }
 
-/* Pulsanti notifiche, impostazioni e profilo */
+/* Pulsante logout */
 
 .band-sidebar-action {
     width: 100%;
@@ -170,10 +170,61 @@
     cursor: pointer;
 }
 
-.band-sidebar-profile {
+/* Identità dell'utente: elemento non interattivo */
+.band-sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
     margin-top: 8px;
-    padding-top: 17px;
+    padding: 16px 12px 8px;
     border-top: 1px solid rgba(210, 225, 235, 0.15);
+}
+
+.band-sidebar-user-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.band-sidebar-user-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a5f3fc;
+    background: rgba(56, 217, 230, 0.1);
+}
+
+.band-sidebar-user-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 3px;
+}
+
+.band-sidebar-user-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.band-sidebar-user-caption {
+    color: #788692;
+    font-size: 0.74rem;
+}
+
+.band-sidebar-logout {
+    color: #f0a5a5;
+}
+
+.band-sidebar-logout:hover {
+    color: #ffd2d2;
+    background: rgba(235, 90, 90, 0.09);
 }
 
 .band-sidebar-action:focus-visible {
