@@ -342,3 +342,14 @@
     min-width: 0;
     flex: 1;
 }
+
+
+/* Eliminazione band */
+.band-card-menu .band-menu-delete { color: #ff7d8c; }
+.band-card-menu .band-menu-delete:hover { color: #ff9baa; background: rgba(255, 100, 120, .12); }
+.band-delete-modal p { color: #c8d2d9; line-height: 1.5; }
+.band-delete-modal label { margin-top: 18px; line-height: 1.5; }
+.band-delete-modal input[type="text"] { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #59616b; border-radius: 10px; background: #10151a; color: #fff; font: inherit; }
+.band-delete-modal input[type="text"]:focus-visible { outline: 2px solid #38d9e6; outline-offset: 2px; }
+.band-delete-modal .band-avatar-modal-actions .band-delete-confirm-button { border-color: #e54860; background: #e54860; color: #fff; }
+.band-delete-modal .band-avatar-modal-actions .band-delete-confirm-button:disabled { opacity: .5; }

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PendingInvitations from "../components/PendingInvitations.jsx";
-import { Ellipsis, ImagePlus, Upload, X } from "lucide-react";
+import { Ellipsis, ImagePlus, Trash2, Upload, X } from "lucide-react";
 
 const MyBands = () => {
     const { t } = useTranslation();
@@ -19,6 +19,10 @@ const MyBands = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [savingAvatar, setSavingAvatar] = useState(false);
     const [avatarError, setAvatarError] = useState("");
+    const [bandToDelete, setBandToDelete] = useState(null);
+    const [deleteConfirmation, setDeleteConfirmation] = useState("");
+    const [deletingBand, setDeletingBand] = useState(false);
+    const [deleteError, setDeleteError] = useState("");
 
     useEffect(() => {
         const controller = new AbortController();
@@ -120,6 +124,30 @@ const MyBands = () => {
         }
     };
 
+    const deleteBand = async (event) => {
+        event.preventDefault();
+        if (!bandToDelete || deleteConfirmation !== bandToDelete.name || deletingBand) return;
+
+        setDeletingBand(true);
+        setDeleteError("");
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/bands/${bandToDelete._id}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` }
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(data.message || "Impossibile eliminare la band");
+
+            setBands(previous => previous.filter(band => band._id !== bandToDelete._id));
+            setBandToDelete(null);
+            setDeleteConfirmation("");
+        } catch (err) {
+            setDeleteError(err.message);
+        } finally {
+            setDeletingBand(false);
+        }
+    };
+
     const handleLogout = () => {
         sessionStorage.removeItem("token");
         navigate("/", { replace: true });
@@ -166,6 +194,14 @@ const MyBands = () => {
                                                         setMenuBandId(null);
                                                     }}>
                                                         <ImagePlus size={16} /> Modifica avatar
+                                                    </button>
+                                                    <button type="button" className="band-menu-delete" onClick={() => {
+                                                        setBandToDelete(band);
+                                                        setDeleteConfirmation("");
+                                                        setDeleteError("");
+                                                        setMenuBandId(null);
+                                                    }}>
+                                                        <Trash2 size={16} /> Elimina band
                                                     </button>
                                                 </div>
                                             )}
@@ -214,6 +250,33 @@ const MyBands = () => {
                             <button type="button" disabled={savingAvatar} onClick={() => setEditingBandId(null)}>Annulla</button>
                             <button type="submit" disabled={!selectedImage || savingAvatar}>
                                 {savingAvatar ? "Salvataggio..." : "Salva avatar"}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            )}
+
+            {bandToDelete && (
+                <div className="band-avatar-modal-backdrop" onClick={() => !deletingBand && setBandToDelete(null)}>
+                    <form className="band-avatar-modal band-delete-modal" onClick={event => event.stopPropagation()} onSubmit={deleteBand}>
+                        <div className="band-avatar-modal-heading">
+                            <h2>Elimina band</h2>
+                            <button type="button" aria-label="Chiudi" disabled={deletingBand}
+                                onClick={() => setBandToDelete(null)}><X size={20} /></button>
+                        </div>
+                        <p>Vuoi davvero eliminare <strong>{bandToDelete.name}</strong>? Questa operazione non può essere annullata.</p>
+                        <label htmlFor="band-delete-confirmation">
+                            Per confermare, digita il nome della band: <strong>{bandToDelete.name}</strong>
+                        </label>
+                        <input id="band-delete-confirmation" type="text" autoComplete="off"
+                            value={deleteConfirmation} disabled={deletingBand}
+                            onChange={event => setDeleteConfirmation(event.target.value)} />
+                        {deleteError && <p className="band-avatar-error" role="alert">{deleteError}</p>}
+                        <div className="band-avatar-modal-actions">
+                            <button type="button" disabled={deletingBand} onClick={() => setBandToDelete(null)}>Annulla</button>
+                            <button type="submit" className="band-delete-confirm-button"
+                                disabled={deletingBand || deleteConfirmation !== bandToDelete.name}>
+                                {deletingBand ? "Eliminazione..." : "Elimina definitivamente"}
                             </button>
                         </div>
                     </form>
