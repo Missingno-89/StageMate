@@ -339,3 +339,48 @@ export async function updateBandCover(req, res) {
         });
     }
 }
+
+
+
+export async function deleteBand(req, res) {
+    try {
+        const { id } = req.params;
+
+        
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({
+                message: "Invalid band ID"
+            });
+        }
+
+        
+        const band = await Band.findById(id);
+
+        if (!band) {
+            return res.status(404).json({
+                message: "Band not found"
+            });
+        }
+
+     
+        if (band.owner.toString() !== req.userId.toString()) {
+            return res.status(403).json({
+                message: "Only the owner can delete this band"
+            });
+        }
+
+     
+        await Band.findByIdAndDelete(id);
+
+        return res.status(200).json({
+            message: "Band deleted successfully"
+        });
+
+    } catch (error) {
+        console.error("Error deleting band:", error);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+}

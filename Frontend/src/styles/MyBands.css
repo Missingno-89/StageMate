@@ -1,4 +1,3 @@
-
 /* ========================================
    CONTENUTO PAGINA BAND
 ======================================== */
@@ -259,42 +258,212 @@
 }
 
 /* MY BANDS - MENU AVATAR E MODALE */
-.band-card { position: relative; }
-.band-card-open { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; width:100%; flex:1; border:0; background:transparent; color:inherit; font:inherit; cursor:pointer; }
-.band-card-open:focus-visible, .band-card-menu-trigger:focus-visible { outline:2px solid #38d9e6; outline-offset:3px; }
-.band-card-options { position:absolute; top:12px; right:12px; z-index:2; }
-.band-card-menu-trigger { display:flex; align-items:center; justify-content:center; width:36px; height:36px; border:0; border-radius:10px; background:rgba(24,31,37,.85); color:#c8d2d9; cursor:pointer; }
-.band-card-menu-trigger:hover { color:#38d9e6; background:#26343a; }
-.band-card-menu { position:absolute; right:0; top:42px; min-width:170px; padding:5px; border:1px solid rgba(210,225,235,.2); border-radius:12px; background:#1b2025; box-shadow:0 12px 35px rgba(0,0,0,.5); }
-.band-card-menu button { display:flex; align-items:center; gap:9px; width:100%; padding:10px; border:0; border-radius:8px; background:transparent; color:#f5f7f9; font:inherit; font-size:.86rem; white-space:nowrap; cursor:pointer; }
-.band-card-menu button:hover { background:rgba(56,217,230,.12); color:#38d9e6; }
-.band-avatar-modal-backdrop { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:18px; background:rgba(0,0,0,.75); }
-.band-avatar-modal { width:min(100%,440px); box-sizing:border-box; padding:24px; border:1px solid rgba(210,225,235,.2); border-radius:18px; background:#171b20; color:#f5f7f9; box-shadow:0 20px 65px rgba(0,0,0,.5); }
-.band-avatar-modal-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:22px; }
-.band-avatar-modal-heading h2 { margin:0; font-size:1.2rem; }
-.band-avatar-modal-heading button { display:flex; padding:7px; border:0; border-radius:8px; background:transparent; color:#c8d2d9; cursor:pointer; }
-.band-avatar-modal label { display:block; margin-bottom:10px; color:#c8d2d9; }
-.band-avatar-modal input[type=file] { width:100%; box-sizing:border-box; color:#c8d2d9; }
-.band-avatar-file-name { color:#a7b0bc; overflow-wrap:anywhere; font-size:.85rem; }
-.band-avatar-error { color:#ff6478; font-size:.9rem; }
-.band-avatar-modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:24px; }
-.band-avatar-modal-actions button { padding:11px 15px; border-radius:10px; font:inherit; font-weight:700; cursor:pointer; }
-.band-avatar-modal-actions button:first-child { border:1px solid #444047; background:transparent; color:#c8d2d9; }
-.band-avatar-modal-actions button:last-child { border:1px solid #38d9e6; background:#38d9e6; color:#101719; }
-.band-avatar-modal-actions button:disabled { opacity:.5; cursor:not-allowed; }
-@media(max-width:520px) { .band-avatar-modal-actions { flex-direction:column; } .band-avatar-modal-actions button { width:100%; } }
+.band-card {
+    position: relative;
+}
+
+.band-card-open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    flex: 1;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.band-card-open:focus-visible,
+.band-card-menu-trigger:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 3px;
+}
+
+.band-card-options {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+}
+
+.band-card-menu-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    background: rgba(24, 31, 37, .85);
+    color: #c8d2d9;
+    cursor: pointer;
+}
+
+.band-card-menu-trigger:hover {
+    color: #38d9e6;
+    background: #26343a;
+}
+
+.band-card-menu {
+    position: absolute;
+    right: 0;
+    top: 42px;
+    min-width: 170px;
+    padding: 5px;
+    border: 1px solid rgba(210, 225, 235, .2);
+    border-radius: 12px;
+    background: #1b2025;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .5);
+}
+
+.band-card-menu button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #f5f7f9;
+    font: inherit;
+    font-size: .86rem;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.band-card-menu button:hover {
+    background: rgba(56, 217, 230, .12);
+    color: #38d9e6;
+}
+
+.band-avatar-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(0, 0, 0, .75);
+}
+
+.band-avatar-modal {
+    width: min(100%, 440px);
+    box-sizing: border-box;
+    padding: 24px;
+    border: 1px solid rgba(210, 225, 235, .2);
+    border-radius: 18px;
+    background: #171b20;
+    color: #f5f7f9;
+    box-shadow: 0 20px 65px rgba(0, 0, 0, .5);
+}
+
+.band-avatar-modal-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.band-avatar-modal-heading h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.band-avatar-modal-heading button {
+    display: flex;
+    padding: 7px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #c8d2d9;
+    cursor: pointer;
+}
+
+.band-avatar-modal label {
+    display: block;
+    margin-bottom: 10px;
+    color: #c8d2d9;
+}
+
+.band-avatar-modal input[type=file] {
+    width: 100%;
+    box-sizing: border-box;
+    color: #c8d2d9;
+}
+
+.band-avatar-file-name {
+    color: #a7b0bc;
+    overflow-wrap: anywhere;
+    font-size: .85rem;
+}
+
+.band-avatar-error {
+    color: #ff6478;
+    font-size: .9rem;
+}
+
+.band-avatar-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.band-avatar-modal-actions button {
+    padding: 11px 15px;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.band-avatar-modal-actions button:first-child {
+    border: 1px solid #444047;
+    background: transparent;
+    color: #c8d2d9;
+}
+
+.band-avatar-modal-actions button:last-child {
+    border: 1px solid #38d9e6;
+    background: #38d9e6;
+    color: #101719;
+}
+
+.band-avatar-modal-actions button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+@media(max-width:520px) {
+    .band-avatar-modal-actions {
+        flex-direction: column;
+    }
+
+    .band-avatar-modal-actions button {
+        width: 100%;
+    }
+}
 
 /* Selettore avatar personalizzato: mantiene accessibile l'input nativo */
 .band-avatar-modal .band-avatar-upload-label {
     margin: 0 0 12px;
     color: #c8d2d9;
 }
+
 .band-avatar-upload-row {
     display: flex;
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
 }
+
 .band-avatar-modal .band-avatar-file-input {
     position: absolute;
     width: 1px;
@@ -304,6 +473,7 @@
     overflow: hidden;
     clip-path: inset(50%);
 }
+
 .band-avatar-modal .band-avatar-upload-button {
     display: inline-flex;
     align-items: center;
@@ -311,29 +481,33 @@
     gap: 10px;
     margin: 0;
     padding: 12px 18px;
-    border: 1px solid rgba(56,217,230,.45);
+    border: 1px solid rgba(56, 217, 230, .45);
     border-radius: 12px;
-    background: rgba(56,217,230,.08);
+    background: rgba(56, 217, 230, .08);
     color: #a5f3fc;
     font: inherit;
     font-weight: 600;
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease, color .2s ease;
 }
+
 .band-avatar-modal .band-avatar-upload-button:hover {
-    background: rgba(56,217,230,.18);
+    background: rgba(56, 217, 230, .18);
     border-color: #38d9e6;
     color: #fff;
 }
+
 .band-avatar-modal .band-avatar-upload-button.is-disabled {
     opacity: .5;
     cursor: not-allowed;
 }
+
 .band-avatar-modal .band-avatar-upload-button:has(~ .band-avatar-file-input:focus-visible),
 .band-avatar-modal .band-avatar-upload-row:has(+ .band-avatar-file-input:focus-visible) .band-avatar-upload-button {
     outline: 2px solid #38d9e6;
     outline-offset: 3px;
 }
+
 .band-avatar-modal .band-avatar-file-name {
     margin: 0;
     color: #a7b0bc;
@@ -345,11 +519,47 @@
 
 
 /* Eliminazione band */
-.band-card-menu .band-menu-delete { color: #ff7d8c; }
-.band-card-menu .band-menu-delete:hover { color: #ff9baa; background: rgba(255, 100, 120, .12); }
-.band-delete-modal p { color: #c8d2d9; line-height: 1.5; }
-.band-delete-modal label { margin-top: 18px; line-height: 1.5; }
-.band-delete-modal input[type="text"] { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #59616b; border-radius: 10px; background: #10151a; color: #fff; font: inherit; }
-.band-delete-modal input[type="text"]:focus-visible { outline: 2px solid #38d9e6; outline-offset: 2px; }
-.band-delete-modal .band-avatar-modal-actions .band-delete-confirm-button { border-color: #e54860; background: #e54860; color: #fff; }
-.band-delete-modal .band-avatar-modal-actions .band-delete-confirm-button:disabled { opacity: .5; }
+.band-card-menu .band-menu-delete {
+    color: #ff7d8c;
+}
+
+.band-card-menu .band-menu-delete:hover {
+    color: #ff9baa;
+    background: rgba(255, 100, 120, .12);
+}
+
+.band-delete-modal p {
+    color: #c8d2d9;
+    line-height: 1.5;
+}
+
+.band-delete-modal label {
+    margin-top: 18px;
+    line-height: 1.5;
+}
+
+.band-delete-modal input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #59616b;
+    border-radius: 10px;
+    background: #10151a;
+    color: #fff;
+    font: inherit;
+}
+
+.band-delete-modal input[type="text"]:focus-visible {
+    outline: 2px solid #38d9e6;
+    outline-offset: 2px;
+}
+
+.band-delete-modal .band-avatar-modal-actions .band-delete-confirm-button {
+    border-color: #e54860;
+    background: #e54860;
+    color: #fff;
+}
+
+.band-delete-modal .band-avatar-modal-actions .band-delete-confirm-button:disabled {
+    opacity: .5;
+}

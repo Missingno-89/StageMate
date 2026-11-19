@@ -908,3 +908,13 @@ background 0.2s ease,
 
 }
 
+
+
+@media (max-width: 768px) {
+  .cash-manager-heading h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .cash-manager-header > svg { width: 28px; height: 28px; }
+}

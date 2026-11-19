@@ -251,3 +251,12 @@
     cursor: not-allowed;
 }
 
+
+@media (max-width: 768px) {
+  .band-archive-heading h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .band-archive-heading > svg { width: 28px; height: 28px; }
+}

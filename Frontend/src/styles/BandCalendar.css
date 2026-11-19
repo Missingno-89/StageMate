@@ -431,3 +431,12 @@ button.band-calendar-event:focus-visible {
 .band-calendar-header {
     margin-bottom: 0;
 }
+
+@media (max-width: 768px) {
+  .band-calendar-heading h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .band-calendar-heading > svg { width: 28px; height: 28px; }
+}
