@@ -192,7 +192,7 @@ return (
 
         {!loading && !error && (
             <div className="upcoming-events-body">
-                {/* CALENDARIO A SINISTRA */}
+                
 
                 <div className="upcoming-events-calendar">
                     <div className="upcoming-events-month">

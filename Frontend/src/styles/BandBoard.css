@@ -45,7 +45,7 @@
 
         border-color 0.25s ease,
 
-background 0.25s ease;
+        background 0.25s ease;
 
 }
 
@@ -91,7 +91,7 @@ background 0.25s ease;
 
     transition:
 
-background 0.25s ease,
+        background 0.25s ease,
 
         border-color 0.25s ease,
 
@@ -179,7 +179,7 @@ background 0.25s ease,
 
     transition:
 
-background 0.2s ease,
+        background 0.2s ease,
 
         border-color 0.2s ease,
 
@@ -243,7 +243,7 @@ background 0.2s ease,
 
     transition:
 
-background 0.2s ease,
+        background 0.2s ease,
 
         border-color 0.2s ease,
 
@@ -483,7 +483,7 @@ background 0.2s ease,
 
         border-color 0.2s ease,
 
-background 0.2s ease;
+        background 0.2s ease;
 
 }
 
@@ -843,29 +843,175 @@ background 0.2s ease;
 }
 
 /* COMMENTI BACHECA */
-.band-post-comments { border-top: 1px solid rgba(210,225,235,.12); margin-top: 16px; padding-top: 16px; }
-.band-post-comments-title { display:flex; align-items:center; gap:8px; color:#e9f4f6; font-size:.96rem; margin:0 0 14px; }
-.band-post-comments-title svg { color:#38d9e6; }
-.band-post-comments-list { display:flex; flex-direction:column; gap:14px; margin-bottom:14px; }
-.band-post-comments-muted { color:#a7b0bc; font-size:.86rem; margin:0 0 10px; }
-.band-post-comment { display:flex; gap:10px; min-width:0; }
-.band-post-comment-avatar { width:34px; height:34px; border-radius:50%; background:#263c43; color:#38d9e6; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
-.band-post-comment-avatar img { width:100%; height:100%; object-fit:cover; }
-.band-post-comment-main { min-width:0; flex:1; background:#1d2227; border-radius:12px; padding:10px 12px; }
-.band-post-comment-top { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-.band-post-comment-top strong { font-size:.86rem; }
-.band-post-comment-top time { font-size:.74rem; color:#a7b0bc; }
-.band-post-comment-main p { margin:7px 0 0; font-size:.9rem; line-height:1.5; white-space:pre-wrap; overflow-wrap:anywhere; }
-.band-post-comment-remove { margin-left:auto; background:transparent; border:0; color:#ff6478; cursor:pointer; padding:4px; }
-.band-post-comments-form { display:flex; gap:9px; }
-.band-post-comments-form input { flex:1; min-width:0; border-radius:10px; border:1px solid rgba(210,225,235,.2); background:#1d2227; color:#f5f7f9; padding:11px 12px; font:inherit; }
-.band-post-comments-form button { display:inline-flex; align-items:center; gap:7px; background:#38d9e6; color:#101719; border:0; border-radius:10px; padding:10px 14px; font-weight:700; cursor:pointer; }
-.band-post-comments-form button:disabled { opacity:.5; cursor:not-allowed; }
-.band-post-comments-error { color:#ff6478; font-size:.85rem; }
-.band-post-comment-confirm { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; font-size:.83rem; }
-.band-post-comment-confirm button { background:transparent; border:1px solid #4d535b; border-radius:8px; color:#f5f7f9; padding:6px 10px; cursor:pointer; }
-.band-post-comment-confirm button.danger { color:#ff6478; border-color:rgba(255,100,120,.4); }
-@media (max-width:600px) { .band-post-comments-form { flex-wrap:wrap; } .band-post-comments-form button { justify-content:center; } }
+.band-post-comments {
+    border-top: 1px solid rgba(210, 225, 235, .12);
+    margin-top: 16px;
+    padding-top: 16px;
+}
+
+.band-post-comments-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e9f4f6;
+    font-size: .96rem;
+    margin: 0 0 14px;
+}
+
+.band-post-comments-title svg {
+    color: #38d9e6;
+}
+
+.band-post-comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.band-post-comments-muted {
+    color: #a7b0bc;
+    font-size: .86rem;
+    margin: 0 0 10px;
+}
+
+.band-post-comment {
+    display: flex;
+    gap: 10px;
+    min-width: 0;
+}
+
+.band-post-comment-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #263c43;
+    color: #38d9e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.band-post-comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.band-post-comment-main {
+    min-width: 0;
+    flex: 1;
+    background: #1d2227;
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+
+.band-post-comment-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.band-post-comment-top strong {
+    font-size: .86rem;
+}
+
+.band-post-comment-top time {
+    font-size: .74rem;
+    color: #a7b0bc;
+}
+
+.band-post-comment-main p {
+    margin: 7px 0 0;
+    font-size: .9rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.band-post-comment-remove {
+    margin-left: auto;
+    background: transparent;
+    border: 0;
+    color: #ff6478;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.band-post-comments-form {
+    display: flex;
+    gap: 9px;
+}
+
+.band-post-comments-form input {
+    flex: 1;
+    min-width: 0;
+    border-radius: 10px;
+    border: 1px solid rgba(210, 225, 235, .2);
+    background: #1d2227;
+    color: #f5f7f9;
+    padding: 11px 12px;
+    font: inherit;
+}
+
+.band-post-comments-form button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #38d9e6;
+    color: #101719;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.band-post-comments-form button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.band-post-comments-error {
+    color: #ff6478;
+    font-size: .85rem;
+}
+
+.band-post-comment-confirm {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: .83rem;
+}
+
+.band-post-comment-confirm button {
+    background: transparent;
+    border: 1px solid #4d535b;
+    border-radius: 8px;
+    color: #f5f7f9;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.band-post-comment-confirm button.danger {
+    color: #ff6478;
+    border-color: rgba(255, 100, 120, .4);
+}
+
+@media (max-width:600px) {
+    .band-post-comments-form {
+        flex-wrap: wrap;
+    }
+
+    .band-post-comments-form button {
+        justify-content: center;
+    }
+}
 
 /* CONFERMA ELIMINAZIONE POST */
 
@@ -947,6 +1093,7 @@ background 0.2s ease;
         width: 100%;
     }
 }
+
 /* ========================================
    MODIFICA POST - STAGEMATE
 ======================================== */

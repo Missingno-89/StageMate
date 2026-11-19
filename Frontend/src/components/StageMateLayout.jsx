@@ -15,14 +15,14 @@ const StageMateLayout = () => {
         <div className="login-page">
             <StageBackground />
 
-            {/* Selettore lingua come nel login */}
+           
             <div className="login-language">
                 <LanguageSwitcher />
             </div>
 
             <div className="login-content bands-content">
 
-                {/* Titolo StageMate bianco */}
+              
                 <div className="login-header">
                     <img
                         src="/images/logo-stage.png"
